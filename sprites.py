@@ -54,19 +54,18 @@ class Player(pygame.sprite.Sprite):
 
         #prevents player from walking through walls
         for tile in self.game.world.wall_tiles:
-            rect=pygame.Rect(tile[1].x,tile[1].bottom-World.TILE_SIZE,World.TILE_SIZE,World.TILE_SIZE)
             #rect is bottom tile_size x tile_size square of sprite, so collisions only happen with tile-sized object on the tile
             #if tile image extends above tile square, player can pass through it
-            if rect.colliderect(self.rect.x+self.dx,self.rect.y,self.rect.width,self.rect.height):
+            if tile.hitbox.colliderect(self.rect.x+self.dx,self.rect.y,self.rect.width,self.rect.height):
                 if self.dx<0:
-                    self.dx=tile[1].right-self.rect.left
+                    self.dx=tile.hitbox.right-self.rect.left
                 if self.dx>0:
-                    self.dx=tile[1].left-self.rect.right
-            if rect.colliderect(self.rect.x,self.rect.y+self.dy,self.rect.width,self.rect.height):
+                    self.dx=tile.hitbox.left-self.rect.right
+            if tile.hitbox.colliderect(self.rect.x,self.rect.y+self.dy,self.rect.width,self.rect.height):
                if self.dy<0:
-                    self.dy=tile[1].bottom-self.rect.top
+                    self.dy=tile.hitbox.bottom-self.rect.top
                if self.dy>0:
-                    self.dy=tile[1].top-self.rect.bottom
+                    self.dy=tile.hitbox.top-self.rect.bottom
 
         #prevents player from moving off screen
         if self.rect.x+self.dx<0:
