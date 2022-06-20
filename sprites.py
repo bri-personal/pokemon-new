@@ -51,11 +51,27 @@ class Player(pygame.sprite.Sprite):
             self.dy+=Player.SPEED
         if keys[pygame.K_UP]:
             self.dy-=Player.SPEED
-            
+
+        #prevents player from walking through walls
+        for tile in self.game.world.wall_tiles:
+            rect=pygame.Rect(tile[1].x,tile[1].bottom-World.TILE_SIZE,World.TILE_SIZE,World.TILE_SIZE)
+            #rect is bottom tile_size x tile_size square of sprite, so collisions only happen with tile-sized object on the tile
+            #if tile image extends above tile square, player can pass through it
+            if rect.colliderect(self.rect.x+self.dx,self.rect.y,self.rect.width,self.rect.height):
+                if self.dx<0:
+                    self.dx=tile[1].right-self.rect.left
+                if self.dx>0:
+                    self.dx=tile[1].left-self.rect.right
+            if rect.colliderect(self.rect.x,self.rect.y+self.dy,self.rect.width,self.rect.height):
+               if self.dy<0:
+                    self.dy=tile[1].bottom-self.rect.top
+               if self.dy>0:
+                    self.dy=tile[1].top-self.rect.bottom
+
         self.rect.x+=self.dx
         self.rect.y+=self.dy
         
-        #stop player from moving off screen
+        #prevents player from moving off screen
         if self.rect.x<0:
             self.rect.x=0 #player can go to left edge
         elif self.rect.right>WIDTH:

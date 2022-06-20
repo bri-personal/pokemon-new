@@ -8,6 +8,8 @@ class World:
     def __init__(self,game,data): #data is matrix (list of lists) of tiles
         self.game=game
         self.all_tiles=[]
+        self.floor_tiles=[]
+        self.wall_tiles=[]
         row_count=0
         for row in data:
             col_count=0
@@ -20,6 +22,7 @@ class World:
                     img_rect.bottom=World.TILE_SIZE*(row_count+1)
                     tile=(img,img_rect)
                     self.all_tiles.append(tile)
+                    self.floor_tiles.append(tile)
                 elif tile==1:
                     img=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
                     img.fill(YELLOW)
@@ -28,6 +31,8 @@ class World:
                     img_rect.bottom=World.TILE_SIZE*(row_count+1)
                     tile=(img,img_rect)
                     self.all_tiles.append(tile)
+                    self.wall_tiles.append(tile)
+
                 col_count+=1
             row_count+=1
          
