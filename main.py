@@ -31,7 +31,7 @@ class Game:
         self.all_sprites=pygame.sprite.Group()
         
         #create player
-        self.player=Player(self,World.TILE_SIZE,World.TILE_SIZE)
+        self.player=Player(self,World.TILE_SIZE*2,World.TILE_SIZE*2)
         
         #create world
         self.world=World(self,TEST_WORLD)

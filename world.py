@@ -10,6 +10,7 @@ class World:
         self.all_tiles=[]
         self.floor_tiles=[]
         self.wall_tiles=[]
+        self.grass_tiles=[]
         row_count=0
         for row in data:
             col_count=0
@@ -26,6 +27,12 @@ class World:
                     tile=Tile(img,World.TILE_SIZE*col_count,World.TILE_SIZE*(row_count+1))
                     self.all_tiles.append(tile)
                     self.wall_tiles.append(tile)
+                elif tile==2:
+                    img=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
+                    img.fill(DARK_GREEN)
+                    tile=Tile(img,World.TILE_SIZE*col_count,World.TILE_SIZE*(row_count+1))
+                    self.all_tiles.append(tile)
+                    self.grass_tiles.append(tile)
 
                 col_count+=1
             row_count+=1
