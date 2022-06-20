@@ -31,8 +31,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.x=x
         self.rect.y=y
         
-        self.dx=0
-        self.dy=0
+        self.dx=0 #change in x for each frame
+        self.dy=0 #change in y for each frame
         
     def load_files(self):
         #load player images, sounds, etc.
@@ -68,18 +68,18 @@ class Player(pygame.sprite.Sprite):
                if self.dy>0:
                     self.dy=tile[1].top-self.rect.bottom
 
+        #prevents player from moving off screen
+        if self.rect.x+self.dx<0:
+            self.dx=-self.rect.left #player can go to left edge
+        elif self.rect.right+self.dx>WIDTH:
+            self.dx=WIDTH-self.rect.right #player can go to right edge
+        if self.rect.y+self.dy<World.TILE_SIZE:
+            self.dy=World.TILE_SIZE-self.rect.top #player can go to 1 TILE_SIZE below the top for landscape
+        elif self.rect.bottom+self.dy>HEIGHT-World.TILE_SIZE:
+            self.dy=HEIGHT-World.TILE_SIZE-self.rect.bottom #player can go to 1 TILE_SIZE above the bottom for landscape
+
         self.rect.x+=self.dx
         self.rect.y+=self.dy
-        
-        #prevents player from moving off screen
-        if self.rect.x<0:
-            self.rect.x=0 #player can go to left edge
-        elif self.rect.right>WIDTH:
-            self.rect.right=WIDTH #player can go to right edge
-        if self.rect.y<World.TILE_SIZE:
-            self.rect.y=World.TILE_SIZE #player can go to 1 TILE_SIZE below the top for landscape
-        if self.rect.bottom>HEIGHT-World.TILE_SIZE:
-            self.rect.bottom=HEIGHT-World.TILE_SIZE #player can go to 1 TILE_SIZE above the bottom for landscape
 
 class Button:
     def __init__(self,game,x,y,image):
