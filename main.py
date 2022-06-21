@@ -31,7 +31,7 @@ class Game:
         self.all_sprites=pygame.sprite.Group()
 
         #create buttons
-        self.menu_buttons=[]
+        self.menu_buttons=[] #make buttons for main game menu
         for i in range(len(menu_text)):
             img=pygame.Surface((BUTTON_SIZE,BUTTON_SIZE))
             img.fill(WHITE)
@@ -77,6 +77,7 @@ class Game:
 
         self.screen.fill(RED)
 
+        #display menu buttons
         for i in range(len(self.menu_buttons)):
             self.menu_buttons[i].draw()
             draw_text(self.screen,menu_text[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(menu_text)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(menu_text)//2))+BUTTON_SIZE+BORDER_BTW_BUTTONS,'midtop')
@@ -159,9 +160,11 @@ class Game:
                 self.playing=False
                 self.running=False
             if event.type==pygame.KEYUP:
-                self.page='play'
+                if event.key==pygame.K_a:
+                    self.page='play'
         self.screen.fill(BLACK)
         draw_text(self.screen,TITLE,48,WHITE,WIDTH//2,HEIGHT//4,'midtop')
+        draw_text(self.screen,"Press 'A' to start",36,WHITE,WIDTH//2,HEIGHT//2,'midtop')
         pygame.display.flip()
         
     #end screen shown when game is over
