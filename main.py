@@ -44,9 +44,14 @@ class Game:
         self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
         
         #for testing catches
-#         for _ in range(7):
-#             self.player.catch(Pokemon('Bulbasaur'))
-        
+        for _ in range(19):
+            self.player.catch(Pokemon('Bulbasaur'))
+            self.player.catch(Pokemon('Charmander'))
+
+        print(self.player.party)
+        print(self.player.boxes)
+        ######################
+
         #create world
         self.world=World(self,TEST_WORLD)
         

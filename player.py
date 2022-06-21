@@ -6,7 +6,7 @@ class Player:
         self.party=[None]*6
 
         #boxes are lists of up to 30 Pokemon in storage, with up to 32 lists total
-        self.boxes=[[None]*30]*32
+        self.boxes=[ [None]*30 for _ in range(32)]
 
         #dex is dictionary of Pokemon (strings) and counts for number seen (0) and caught (1)
         self.dex={'Bulbasaur':[0,0],
@@ -32,4 +32,10 @@ class Player:
         if i<len(self.party):
             self.party[i]=pokemon
         else:
-            print("There's no room in your boxes!")
+            i=0
+            while i<len(self.boxes)*len(self.boxes[0]) and self.boxes[i//len(self.boxes[0])][i%len(self.boxes[0])] is not None:
+                i+=1
+            if i<len(self.boxes)*len(self.boxes[0]):
+                self.boxes[i//len(self.boxes[0])][i%len(self.boxes[0])]=pokemon
+            else:
+                print("There's no room in your boxes!")
