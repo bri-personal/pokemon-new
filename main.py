@@ -4,7 +4,8 @@ from os import path
 from settings import *
 from sprites import *
 from world import *
-        
+from player import *
+     
 class Game:
     def __init__(self):
         #initialize pygame and create window
@@ -39,7 +40,7 @@ class Game:
             self.menu_buttons.append(Button(self,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(menu_text)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(menu_text)//2)),img))
 
         #create player
-        self.player=Player(self,World.TILE_SIZE*2,World.TILE_SIZE*2)
+        self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
         
         #create world
         self.world=World(self,TEST_WORLD)

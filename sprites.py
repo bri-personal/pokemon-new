@@ -16,10 +16,10 @@ def draw_text(surface,text,size,color,x,y,orientation):
     surface.blit(text_surface,text_rect)
 
 #classes
-class Player(pygame.sprite.Sprite):
+class Player_Sprite(pygame.sprite.Sprite):
     SPEED=World.TILE_SIZE//5
 
-    def __init__(self,game,x,y):
+    def __init__(self,game,x,y,player):
         self.game=game
         self.groups=self.game.all_sprites
         pygame.sprite.Sprite.__init__(self,self.groups)
@@ -33,6 +33,8 @@ class Player(pygame.sprite.Sprite):
         
         self.dx=0 #change in x for each frame
         self.dy=0 #change in y for each frame
+
+        self.player=player
         
     def load_files(self):
         #load player images, sounds, etc.
@@ -44,13 +46,13 @@ class Player(pygame.sprite.Sprite):
         #move left/right
         keys=pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            self.dx-=Player.SPEED
+            self.dx-=Player_Sprite.SPEED
         if keys[pygame.K_RIGHT]:
-            self.dx+=Player.SPEED
+            self.dx+=Player_Sprite.SPEED
         if keys[pygame.K_DOWN]:
-            self.dy+=Player.SPEED
+            self.dy+=Player_Sprite.SPEED
         if keys[pygame.K_UP]:
-            self.dy-=Player.SPEED
+            self.dy-=Player_Sprite.SPEED
 
         #prevents player from walking through walls
         for tile in self.game.world.wall_tiles:
