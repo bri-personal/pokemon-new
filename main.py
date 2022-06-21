@@ -5,6 +5,7 @@ from settings import *
 from sprites import *
 from world import *
 from player import *
+from pokemon import *
      
 class Game:
     def __init__(self):
@@ -41,6 +42,10 @@ class Game:
 
         #create player
         self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
+        
+        #for testing catches
+#         for _ in range(7):
+#             self.player.catch(Pokemon('Bulbasaur'))
         
         #create world
         self.world=World(self,TEST_WORLD)

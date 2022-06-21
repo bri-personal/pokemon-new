@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 from world import World
+from player import *
 
 #show text on surface with parameters given
 def draw_text(surface,text,size,color,x,y,orientation):
@@ -16,13 +17,14 @@ def draw_text(surface,text,size,color,x,y,orientation):
     surface.blit(text_surface,text_rect)
 
 #classes
-class Player_Sprite(pygame.sprite.Sprite):
+class Player_Sprite(pygame.sprite.Sprite,Player):
     SPEED=World.TILE_SIZE//5
 
     def __init__(self,game,x,y,player):
         self.game=game
         self.groups=self.game.all_sprites
         pygame.sprite.Sprite.__init__(self,self.groups)
+        Player.__init__(self)
         self.load_files()
         
         self.image=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
