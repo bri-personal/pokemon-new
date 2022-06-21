@@ -29,7 +29,15 @@ class Game:
     def new(self):
         #create Sprite groups
         self.all_sprites=pygame.sprite.Group()
-        
+
+        #create buttons
+        self.menu_buttons=[]
+        for i in range(len(menu_text)):
+            img=pygame.Surface((BUTTON_SIZE,BUTTON_SIZE))
+            img.fill(WHITE)
+            draw_text(img,menu_text[i],32,RED,BUTTON_SIZE//2,BUTTON_SIZE//2,'center')
+            self.menu_buttons.append(Button(self,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(menu_text)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(menu_text)//2)),img))
+
         #create player
         self.player=Player(self,World.TILE_SIZE*2,World.TILE_SIZE*2)
         
@@ -49,12 +57,32 @@ class Game:
                 self.start_screen()
             elif self.page=='play':
                 self.play_screen()
+            elif self.page=='menu':
+                self.menu_screen()
             elif self.page=='end':
                 self.end_screen()
             else:
                 print("Page not found!")
                 self.page='start'
             
+    #screen for game menu
+    def menu_screen(self):
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_b:
+                    self.page='play'
+
+        self.screen.fill(RED)
+
+        for i in range(len(self.menu_buttons)):
+            self.menu_buttons[i].draw()
+            draw_text(self.screen,menu_text[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(menu_text)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(menu_text)//2))+BUTTON_SIZE+BORDER_BTW_BUTTONS,'midtop')
+
+        pygame.display.flip()
+
     #default game loop method
     def play_screen(self):
         #process input (events)
@@ -62,6 +90,9 @@ class Game:
             if event.type==pygame.QUIT:
                 self.playing=False
                 self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_x:
+                    self.page='menu'
                 
         #update
         self.all_sprites.update()
