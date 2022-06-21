@@ -4,10 +4,6 @@ HEIGHT=640 #use for measurements based on smaller side of window to fit on scree
 WIDTH= HEIGHT*3//2 #3:2 aspect ratio
 FPS=60
 
-BUTTON_SIZE=HEIGHT//3
-BORDER_BTW_BUTTONS=10
-BUTTON_TEXT_BORDER=HEIGHT//9
-
 #define fonts
 FONT_NAME='Arial'
 
@@ -22,6 +18,9 @@ DARK_GREEN=(0,128,0)
 
 #menu data
 menu_text=['Pokedex','Boxes','Items','Settings','Map','???','Mystery Gift','Save'] #8 buttons
+BUTTON_SIZE=HEIGHT//3
+BORDER_BTW_BUTTONS=10
+BUTTON_TEXT_BORDER=HEIGHT//9
 
 #world data
 TEST_WORLD=[[1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
