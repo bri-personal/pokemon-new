@@ -1,11 +1,18 @@
 import pygame
 import random
 from os import path
+from enum import Enum
 from settings import *
 from sprites import *
 from world import *
 from player import *
 from pokemon import *
+
+class Pages(Enum):
+    START=0
+    PLAY=1
+    MENU=2
+    END=-1
      
 class Game:
     def __init__(self):
@@ -44,18 +51,18 @@ class Game:
         self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
         
         #for testing catches
-        for _ in range(19):
-            self.player.catch(Pokemon('Bulbasaur'))
-            self.player.catch(Pokemon('Charmander'))
-
-        print(self.player.party)
-        print(self.player.boxes)
+#        for _ in range(19):
+#            self.player.catch(Pokemon('Bulbasaur'))
+#            self.player.catch(Pokemon('Charmander'))
+#
+#        print(self.player.party)
+#        print(self.player.boxes)
         ######################
 
         #create world
         self.world=World(self,TEST_WORLD)
         
-        self.page='start'
+        self.page=Pages.START
         self.run()
 
     #main loop calls other methods for specific pages
@@ -64,17 +71,17 @@ class Game:
         while self.playing:
             #keep loop running at correct speed
             self.clock.tick(FPS)
-            if self.page=='start':
+            if self.page==Pages.START:
                 self.start_screen()
-            elif self.page=='play':
+            elif self.page==Pages.PLAY:
                 self.play_screen()
-            elif self.page=='menu':
+            elif self.page==Pages.MENU:
                 self.menu_screen()
-            elif self.page=='end':
+            elif self.page==Pages.END:
                 self.end_screen()
             else:
                 print("Page not found!")
-                self.page='start'
+                self.page=Pages.START
             
     #screen for game menu
     def menu_screen(self):
@@ -84,7 +91,7 @@ class Game:
                 self.running=False
             if event.type==pygame.KEYUP:
                 if event.key==pygame.K_b:
-                    self.page='play'
+                    self.page=Pages.PLAY
 
         self.screen.fill(RED)
 
@@ -104,7 +111,7 @@ class Game:
                 self.running=False
             if event.type==pygame.KEYUP:
                 if event.key==pygame.K_x:
-                    self.page='menu'
+                    self.page=Pages.MENU
                 
         #update
         self.all_sprites.update()
@@ -172,7 +179,7 @@ class Game:
                 self.running=False
             if event.type==pygame.KEYUP:
                 if event.key==pygame.K_a:
-                    self.page='play'
+                    self.page=Pages.PLAY
         self.screen.fill(BLACK)
         draw_text(self.screen,TITLE,48,WHITE,WIDTH//2,HEIGHT//4,'midtop')
         draw_text(self.screen,"Press 'A' to start",36,WHITE,WIDTH//2,HEIGHT//2,'midtop')
