@@ -52,10 +52,10 @@ class Game:
         #create buttons
         self.menu_buttons=[] #make buttons for main game menu
         for i in range(len(MENU_TEXT)):
-            img=pygame.Surface((BUTTON_SIZE,BUTTON_SIZE))
+            img=pygame.Surface((MENU_BUTTON_SIZE,MENU_BUTTON_SIZE))
             img.fill(WHITE)
-            draw_text(img,MENU_TEXT[i],BUTTON_SIZE//6,MENU_COLORS[i],BUTTON_SIZE//2,BUTTON_SIZE//2,'center')
-            self.menu_buttons.append(Button(self,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2)),img))
+            draw_text(img,MENU_TEXT[i],MENU_BUTTON_SIZE//6,MENU_COLORS[i],MENU_BUTTON_SIZE//2,MENU_BUTTON_SIZE//2,'center')
+            self.menu_buttons.append(Button(self,WIDTH//2-2*MENU_BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS)+MENU_BUTTON_SIZE//2,HEIGHT//2-MENU_BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2)),img))
 
         #create player
         self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
@@ -168,9 +168,9 @@ class Game:
 
         #display menu buttons
         for i in range(len(self.menu_buttons)):
-            draw_text(self.screen,MENU_TEXT[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))+BUTTON_SIZE+BORDER_BTW_BUTTONS//2,'midtop')
+            draw_text(self.screen,MENU_TEXT[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*MENU_BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS)+MENU_BUTTON_SIZE//2,HEIGHT//2-MENU_BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))+MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS//2,'midtop')
             if i==self.menu_selection:
-                pygame.draw.rect(self.screen,WHITE,(WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)-BORDER_BTW_BUTTONS//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))-BORDER_BTW_BUTTONS//2,BUTTON_SIZE+BORDER_BTW_BUTTONS,BUTTON_SIZE+BORDER_BTW_BUTTONS),3)
+                pygame.draw.rect(self.screen,WHITE,(WIDTH//2-2*MENU_BUTTON_SIZE-3*BORDER_BTW_BUTTONS//2+(i%(len(MENU_TEXT)//2))*(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS)-BORDER_BTW_BUTTONS//2,HEIGHT//2-MENU_BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))-BORDER_BTW_BUTTONS//2,MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS,MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS),3)
 
             if self.menu_buttons[i].draw():
                 match i:
@@ -275,9 +275,9 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
                 if event.key==pygame.K_DOWN:
-                    if self.dex_selection<12-1:
+                    if self.dex_selection<12-1: #replace 12 with length of dex
                         self.dex_selection+=1
-                        if self.dex_selection>=self.dex_start+6:
+                        if self.dex_selection>=self.dex_start+DEX_NUM_BUTTONS:
                             self.dex_start+=1
                     else:
                         self.dex_start=0
@@ -288,20 +288,20 @@ class Game:
                         if self.dex_selection<self.dex_start:
                             self.dex_start-=1
                     else:
-                        self.dex_start=12-6
-                        self.dex_selection=12-1
+                        self.dex_start=12-DEX_NUM_BUTTONS #replace 12 with length of dex
+                        self.dex_selection=12-1 #replace 12 with length of dex
 
         self.screen.fill(MENU_COLORS[MENU_TEXT.index('Pokedex')])
-        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-BORDER_BTW_BUTTONS*5//2-HEIGHT*3//8,WIDTH*7//20,6*HEIGHT//8+5*BORDER_BTW_BUTTONS),3)
+        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-BORDER_BTW_BUTTONS*5//2-3*DEX_BUTTON_SIZE,WIDTH*7//20,DEX_NUM_BUTTONS*DEX_BUTTON_SIZE+(DEX_NUM_BUTTONS-1)*BORDER_BTW_BUTTONS),3)
 
         count=0
-        for i in range(self.dex_start,self.dex_start+6):
+        for i in range(self.dex_start,self.dex_start+DEX_NUM_BUTTONS):
             if i==self.dex_selection:
                 color=WHITE
             else:
                 color=BLACK
-            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-BORDER_BTW_BUTTONS*5//2-HEIGHT*3//8+count*(HEIGHT//8+BORDER_BTW_BUTTONS),WIDTH//2,HEIGHT//8),3)
-            draw_text(self.screen,str(i),HEIGHT//16,color,WIDTH//20+WIDTH//4,HEIGHT//2-BORDER_BTW_BUTTONS*5//2-HEIGHT*3//8+HEIGHT//16+count*(HEIGHT//8+BORDER_BTW_BUTTONS),'center')
+            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-BORDER_BTW_BUTTONS*5//2-3*DEX_BUTTON_SIZE+count*(DEX_BUTTON_SIZE+BORDER_BTW_BUTTONS),WIDTH//2,DEX_BUTTON_SIZE),3)
+            draw_text(self.screen,str(i),DEX_BUTTON_SIZE//2,color,WIDTH//20+WIDTH//4,HEIGHT//2-BORDER_BTW_BUTTONS*5//2-3*DEX_BUTTON_SIZE+DEX_BUTTON_SIZE//2+count*(DEX_BUTTON_SIZE+BORDER_BTW_BUTTONS),'center')
             count+=1
 
         pygame.display.flip()

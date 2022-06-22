@@ -23,9 +23,13 @@ PURPLE=(75,0,130)
 #menu data
 MENU_TEXT=['Pokedex','Boxes','Bag','Settings','Map','Trade','Mystery Gift','Save'] #8 buttons
 MENU_COLORS=[RED,ORANGE,GREEN,CYAN,DARK_GREEN,BLUE,PURPLE,MAGENTA] #must be same length as MENU_TEXT
-BUTTON_SIZE=HEIGHT//3
+MENU_BUTTON_SIZE=HEIGHT//3
 BORDER_BTW_BUTTONS=20
 BUTTON_TEXT_BORDER=HEIGHT//9
+
+#dex menu data
+DEX_NUM_BUTTONS=6
+DEX_BUTTON_SIZE=HEIGHT//8
 
 #world data
 TEST_WORLD=[[1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
