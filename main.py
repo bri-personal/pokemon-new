@@ -17,11 +17,13 @@ class Pages(Enum):
     DEX=4
     BOXES=5
     BAG=6
-    SETTINGS=7
-    MAP=8
-    TRADE=9
-    GIFT=10
-    SAVE=11
+    CARD=7
+    SAVE=8
+    MAP=9
+    CAMP=10
+    GIFT=11
+    VS=12
+    SETTINGS=13
     END=-1
      
 class Game:
@@ -55,7 +57,7 @@ class Game:
             img=pygame.Surface((MENU_BUTTON_SIZE,MENU_BUTTON_SIZE))
             img.fill(WHITE)
             draw_text(img,MENU_TEXT[i],MENU_BUTTON_SIZE//6,MENU_COLORS[i],MENU_BUTTON_SIZE//2,MENU_BUTTON_SIZE//2,'center')
-            self.menu_buttons.append(Button(self,WIDTH//2-2*MENU_BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS)+MENU_BUTTON_SIZE//2,HEIGHT//2-MENU_BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2)),img))
+            self.menu_buttons.append(Button(self,WIDTH//2-5*MENU_BUTTON_SIZE//2-2*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS)+MENU_BUTTON_SIZE//2,HEIGHT//2-MENU_BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2)),img))
 
         #create player
         self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
@@ -102,16 +104,20 @@ class Game:
                 self.boxes_screen()
             elif self.page==Pages.BAG:
                 self.bag_screen()
-            elif self.page==Pages.SETTINGS:
-                self.settings_screen()
-            elif self.page==Pages.MAP:
-                self.map_screen()
-            elif self.page==Pages.TRADE:
-                self.trade_screen()
-            elif self.page==Pages.GIFT:
-                self.gift_screen()
+            elif self.page==Pages.CARD:
+                self.card_screen()
             elif self.page==Pages.SAVE:
                 self.save_screen()
+            elif self.page==Pages.MAP:
+                self.map_screen()
+            elif self.page==Pages.CAMP:
+                self.camp_screen()
+            elif self.page==Pages.GIFT:
+                self.gift_screen()
+            elif self.page==Pages.VS:
+                self.vs_screen()
+            elif self.page==Pages.SETTINGS:
+                self.settings_screen()
             elif self.page==Pages.END:
                 self.end_screen()
             else:
@@ -134,15 +140,19 @@ class Game:
                         case 2:
                             self.page=Pages.BAG
                         case 3:
-                            self.page=Pages.SETTINGS
+                            self.page=Pages.CARD
                         case 4:
-                            self.page=Pages.MAP
-                        case 5:
-                            self.page=Pages.TRADE
-                        case 6:
-                            self.page=Pages.GIFT
-                        case 7:
                             self.page=Pages.SAVE
+                        case 5:
+                            self.page=Pages.MAP
+                        case 6:
+                            self.page=Pages.CAMP
+                        case 7:
+                            self.page=Pages.GIFT
+                        case 8:
+                            self.page=Pages.VS
+                        case 9:
+                            self.page=Pages.SETTINGS
                 if event.key==pygame.K_b:
                     self.page=Pages.WORLD
                 if event.key==pygame.K_RIGHT:
@@ -168,9 +178,9 @@ class Game:
 
         #display menu buttons
         for i in range(len(self.menu_buttons)):
-            draw_text(self.screen,MENU_TEXT[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*MENU_BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS)+MENU_BUTTON_SIZE//2,HEIGHT//2-MENU_BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))+MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS//2,'midtop')
+            draw_text(self.screen,MENU_TEXT[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-5*MENU_BUTTON_SIZE//2-2*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS)+MENU_BUTTON_SIZE//2,HEIGHT//2-MENU_BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))+MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS//2,'midtop')
             if i==self.menu_selection:
-                pygame.draw.rect(self.screen,WHITE,(WIDTH//2-2*MENU_BUTTON_SIZE-3*BORDER_BTW_BUTTONS//2+(i%(len(MENU_TEXT)//2))*(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS)-BORDER_BTW_BUTTONS//2,HEIGHT//2-MENU_BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))-BORDER_BTW_BUTTONS//2,MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS,MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS),3)
+                pygame.draw.rect(self.screen,WHITE,(WIDTH//2-5*MENU_BUTTON_SIZE//2-2*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS)-BORDER_BTW_BUTTONS//2,HEIGHT//2-MENU_BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))-BORDER_BTW_BUTTONS//2,MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS,MENU_BUTTON_SIZE+BORDER_BTW_BUTTONS),3)
 
             if self.menu_buttons[i].draw():
                 match i:
@@ -181,17 +191,20 @@ class Game:
                     case 2:
                         self.page=Pages.BAG
                     case 3:
-                        self.page=Pages.SETTINGS
+                        self.page=Pages.CARD
                     case 4:
-                        self.page=Pages.MAP
-                    case 5:
-                        self.page=Pages.TRADE
-                    case 6:
-                        self.page=Pages.GIFT
-                    case 7:
                         self.page=Pages.SAVE
+                    case 5:
+                        self.page=Pages.MAP
+                    case 6:
+                        self.page=Pages.CAMP
+                    case 7:
+                        self.page=Pages.GIFT
+                    case 8:
+                        self.page=Pages.VS
+                    case 9:
+                        self.page=Pages.SETTINGS
 
-        
         pygame.display.flip()
 
     #default game loop method
@@ -312,19 +325,25 @@ class Game:
     def bag_screen(self):
         self.page=Pages.WORLD
 
-    def settings_screen(self):
+    def card_screen(self):
+        self.page=Pages.WORLD
+
+    def save_screen(self):
         self.page=Pages.WORLD
 
     def map_screen(self):
         self.page=Pages.WORLD
 
-    def trade_screen(self):
+    def camp_screen(self):
         self.page=Pages.WORLD
 
     def gift_screen(self):
         self.page=Pages.WORLD
 
-    def save_screen(self):
+    def vs_screen(self):
+        self.page=Pages.WORLD
+
+    def settings_screen(self):
         self.page=Pages.WORLD
 
     #start screen shown when game is first opened
