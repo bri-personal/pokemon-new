@@ -131,6 +131,9 @@ class Game:
                 self.playing=False
                 self.running=False
             if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
                 if event.key==pygame.K_a:
                     match self.menu_selection:
                         case 0:
@@ -215,6 +218,9 @@ class Game:
                 self.playing=False
                 self.running=False
             if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
                 if event.key==pygame.K_x:
                     self.page=Pages.MENU
                 
@@ -285,6 +291,9 @@ class Game:
                 self.playing=False
                 self.running=False
             if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
                 if event.key==pygame.K_DOWN:
@@ -320,31 +329,157 @@ class Game:
         pygame.display.flip()
 
     def boxes_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('Boxes')])
+        draw_text(self.screen,'Boxes',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
 
     def bag_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('Bag')])
+        draw_text(self.screen,'Bag',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
 
     def card_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('Card')])
+        draw_text(self.screen,'Card',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
 
     def save_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('Save')])
+        draw_text(self.screen,'Save',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
 
     def map_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('Map')])
+        draw_text(self.screen,'Map',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
 
     def camp_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('Camp')])
+        draw_text(self.screen,'Camp',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
 
     def gift_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('Mystery Gift')])
+        draw_text(self.screen,'Mystery Gift',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
 
     def vs_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('VS')])
+        draw_text(self.screen,'VS',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
 
     def settings_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('Settings')])
+        draw_text(self.screen,'Settings',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
 
     #start screen shown when game is first opened
     def start_screen(self):
@@ -353,6 +488,9 @@ class Game:
                 self.playing=False
                 self.running=False
             if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
                 if event.key==pygame.K_a:
                     self.page=Pages.WORLD
         self.screen.fill(BLACK)
@@ -366,6 +504,10 @@ class Game:
             if event.type==pygame.QUIT:
                 self.playing=False
                 self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
         self.screen.fill(BLACK)
         draw_text(self.screen,"GAME OVER",48,WHITE,WIDTH//2,HEIGHT//4,'midtop')
         pygame.display.flip()
