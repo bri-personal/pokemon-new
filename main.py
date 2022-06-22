@@ -18,7 +18,7 @@ class Pages(Enum):
     BAG=6
     SETTINGS=7
     MAP=8
-    ONLINE=9
+    TRADE=9
     GIFT=10
     SAVE=11
     END=-1
@@ -98,8 +98,8 @@ class Game:
                 self.settings_screen()
             elif self.page==Pages.MAP:
                 self.map_screen()
-            elif self.page==Pages.ONLINE:
-                self.online_screen()
+            elif self.page==Pages.TRADE:
+                self.trade_screen()
             elif self.page==Pages.GIFT:
                 self.gift_screen()
             elif self.page==Pages.SAVE:
@@ -124,9 +124,27 @@ class Game:
 
         #display menu buttons
         for i in range(len(self.menu_buttons)):
-            self.menu_buttons[i].draw()
             draw_text(self.screen,MENU_TEXT[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))+BUTTON_SIZE+BORDER_BTW_BUTTONS,'midtop')
+            if self.menu_buttons[i].draw():
+                match i:
+                    case 0:
+                        self.page=Pages.DEX
+                    case 1:
+                        self.page=Pages.BOXES
+                    case 2:
+                        self.page=Pages.BAG
+                    case 3:
+                        self.page=Pages.SETTINGS
+                    case 4:
+                        self.page=Pages.MAP
+                    case 5:
+                        self.page=Pages.TRADE
+                    case 6:
+                        self.page=Pages.GIFT
+                    case 7:
+                        self.page=Pages.SAVE
 
+        
         pygame.display.flip()
 
     #default game loop method
@@ -216,7 +234,7 @@ class Game:
     def map_screen(self):
         self.page=Pages.WORLD
 
-    def online_screen(self):
+    def trade_screen(self):
         self.page=Pages.WORLD
 
     def gift_screen(self):
