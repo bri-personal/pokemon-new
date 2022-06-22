@@ -15,9 +15,14 @@ GREEN=(0,255,0)
 BLUE=(0,0,255)
 YELLOW=(255,255,0)
 DARK_GREEN=(0,128,0)
+ORANGE=(255, 165, 0)
+CYAN=(0,255,255)
+MAGENTA=(255,0,255)
+PURPLE=(75,0,130)
 
 #menu data
-menu_text=['Pokedex','Boxes','Items','Settings','Map','???','Mystery Gift','Save'] #8 buttons
+MENU_TEXT=['Pokedex','Boxes','Bag','Settings','Map','Online','Mystery Gift','Save'] #8 buttons
+MENU_COLORS=[RED,ORANGE,GREEN,CYAN,DARK_GREEN,BLUE,PURPLE,MAGENTA] #must be same length as MENU_TEXT
 BUTTON_SIZE=HEIGHT//3
 BORDER_BTW_BUTTONS=10
 BUTTON_TEXT_BORDER=HEIGHT//9

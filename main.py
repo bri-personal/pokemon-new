@@ -10,8 +10,17 @@ from pokemon import *
 
 class Pages(Enum):
     START=0
-    PLAY=1
-    MENU=2
+    WORLD=1
+    BATTLE=2
+    MENU=3
+    DEX=4
+    BOXES=5
+    BAG=6
+    SETTINGS=7
+    MAP=8
+    ONLINE=9
+    GIFT=10
+    SAVE=11
     END=-1
      
 class Game:
@@ -41,11 +50,11 @@ class Game:
 
         #create buttons
         self.menu_buttons=[] #make buttons for main game menu
-        for i in range(len(menu_text)):
+        for i in range(len(MENU_TEXT)):
             img=pygame.Surface((BUTTON_SIZE,BUTTON_SIZE))
             img.fill(WHITE)
-            draw_text(img,menu_text[i],32,RED,BUTTON_SIZE//2,BUTTON_SIZE//2,'center')
-            self.menu_buttons.append(Button(self,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(menu_text)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(menu_text)//2)),img))
+            draw_text(img,MENU_TEXT[i],32,MENU_COLORS[i],BUTTON_SIZE//2,BUTTON_SIZE//2,'center')
+            self.menu_buttons.append(Button(self,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2)),img))
 
         #create player
         self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
@@ -73,10 +82,28 @@ class Game:
             self.clock.tick(FPS)
             if self.page==Pages.START:
                 self.start_screen()
-            elif self.page==Pages.PLAY:
-                self.play_screen()
+            elif self.page==Pages.WORLD:
+                self.world_screen()
+            elif self.page==Pages.BATTLE:
+                self.battle_screen()
             elif self.page==Pages.MENU:
                 self.menu_screen()
+            elif self.page==Pages.DEX:
+                self.dex_screen()
+            elif self.page==Pages.BOXES:
+                self.boxes_screen()
+            elif self.page==Pages.BAG:
+                self.bag_screen()
+            elif self.page==Pages.SETTINGS:
+                self.settings_screen()
+            elif self.page==Pages.MAP:
+                self.map_screen()
+            elif self.page==Pages.ONLINE:
+                self.online_screen()
+            elif self.page==Pages.GIFT:
+                self.gift_screen()
+            elif self.page==Pages.SAVE:
+                self.save_screen()
             elif self.page==Pages.END:
                 self.end_screen()
             else:
@@ -91,19 +118,19 @@ class Game:
                 self.running=False
             if event.type==pygame.KEYUP:
                 if event.key==pygame.K_b:
-                    self.page=Pages.PLAY
+                    self.page=Pages.WORLD
 
         self.screen.fill(RED)
 
         #display menu buttons
         for i in range(len(self.menu_buttons)):
             self.menu_buttons[i].draw()
-            draw_text(self.screen,menu_text[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(menu_text)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(menu_text)//2))+BUTTON_SIZE+BORDER_BTW_BUTTONS,'midtop')
+            draw_text(self.screen,MENU_TEXT[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))+BUTTON_SIZE+BORDER_BTW_BUTTONS,'midtop')
 
         pygame.display.flip()
 
     #default game loop method
-    def play_screen(self):
+    def world_screen(self):
         #process input (events)
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -171,6 +198,33 @@ class Game:
         
         pygame.display.flip()
 
+    def battle_screen(self):
+        self.page=Pages.WORLD
+
+    def dex_screen(self):
+        self.page=Pages.WORLD
+
+    def boxes_screen(self):
+        self.page=Pages.WORLD
+
+    def bag_screen(self):
+        self.page=Pages.WORLD
+
+    def settings_screen(self):
+        self.page=Pages.WORLD
+
+    def map_screen(self):
+        self.page=Pages.WORLD
+
+    def online_screen(self):
+        self.page=Pages.WORLD
+
+    def gift_screen(self):
+        self.page=Pages.WORLD
+
+    def save_screen(self):
+        self.page=Pages.WORLD
+
     #start screen shown when game is first opened
     def start_screen(self):
         for event in pygame.event.get():
@@ -179,7 +233,7 @@ class Game:
                 self.running=False
             if event.type==pygame.KEYUP:
                 if event.key==pygame.K_a:
-                    self.page=Pages.PLAY
+                    self.page=Pages.WORLD
         self.screen.fill(BLACK)
         draw_text(self.screen,TITLE,48,WHITE,WIDTH//2,HEIGHT//4,'midtop')
         draw_text(self.screen,"Press 'A' to start",36,WHITE,WIDTH//2,HEIGHT//2,'midtop')
