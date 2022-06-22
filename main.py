@@ -1,3 +1,4 @@
+from sre_parse import WHITESPACE
 import pygame
 import random
 from os import path
@@ -53,7 +54,7 @@ class Game:
         for i in range(len(MENU_TEXT)):
             img=pygame.Surface((BUTTON_SIZE,BUTTON_SIZE))
             img.fill(WHITE)
-            draw_text(img,MENU_TEXT[i],32,MENU_COLORS[i],BUTTON_SIZE//2,BUTTON_SIZE//2,'center')
+            draw_text(img,MENU_TEXT[i],BUTTON_SIZE//6,MENU_COLORS[i],BUTTON_SIZE//2,BUTTON_SIZE//2,'center')
             self.menu_buttons.append(Button(self,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2)),img))
 
         #create player
@@ -70,6 +71,13 @@ class Game:
 
         #create world
         self.world=World(self,TEST_WORLD)
+
+        #index for which button is selected on the menu screen
+        self.menu_selection=0
+
+        #indices for which Pokemon are shown on the dex page and which is selected
+        self.dex_start=0
+        self.dex_selection=0
         
         self.page=Pages.START
         self.run()
@@ -117,14 +125,53 @@ class Game:
                 self.playing=False
                 self.running=False
             if event.type==pygame.KEYUP:
+                if event.key==pygame.K_a:
+                    match self.menu_selection:
+                        case 0:
+                            self.page=Pages.DEX
+                        case 1:
+                            self.page=Pages.BOXES
+                        case 2:
+                            self.page=Pages.BAG
+                        case 3:
+                            self.page=Pages.SETTINGS
+                        case 4:
+                            self.page=Pages.MAP
+                        case 5:
+                            self.page=Pages.TRADE
+                        case 6:
+                            self.page=Pages.GIFT
+                        case 7:
+                            self.page=Pages.SAVE
                 if event.key==pygame.K_b:
                     self.page=Pages.WORLD
+                if event.key==pygame.K_RIGHT:
+                    if self.menu_selection==len(MENU_TEXT)//2-1:
+                        self.menu_selection=0
+                    elif self.menu_selection==len(MENU_TEXT)-1:
+                        self.menu_selection=len(MENU_TEXT)//2
+                    else:
+                        self.menu_selection+=1
+                if event.key==pygame.K_LEFT:
+                    if self.menu_selection==0:
+                        self.menu_selection=len(MENU_TEXT)//2-1
+                    elif self.menu_selection==len(MENU_TEXT)//2:
+                        self.menu_selection=len(MENU_TEXT)-1
+                    else:
+                        self.menu_selection-=1
+                if event.key==pygame.K_DOWN:
+                    self.menu_selection=(self.menu_selection+len(MENU_TEXT)//2)%len(MENU_TEXT)
+                if event.key==pygame.K_UP:
+                    self.menu_selection=(self.menu_selection-len(MENU_TEXT)//2)%len(MENU_TEXT)
 
         self.screen.fill(RED)
 
         #display menu buttons
         for i in range(len(self.menu_buttons)):
-            draw_text(self.screen,MENU_TEXT[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))+BUTTON_SIZE+BORDER_BTW_BUTTONS,'midtop')
+            draw_text(self.screen,MENU_TEXT[i],BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)+BUTTON_SIZE//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))+BUTTON_SIZE+BORDER_BTW_BUTTONS//2,'midtop')
+            if i==self.menu_selection:
+                pygame.draw.rect(self.screen,WHITE,(WIDTH//2-2*BUTTON_SIZE-1.5*BORDER_BTW_BUTTONS+(i%(len(MENU_TEXT)//2))*(BUTTON_SIZE+BORDER_BTW_BUTTONS)-BORDER_BTW_BUTTONS//2,HEIGHT//2-BUTTON_SIZE-BORDER_BTW_BUTTONS-BUTTON_TEXT_BORDER+(BUTTON_SIZE+BORDER_BTW_BUTTONS*2+BUTTON_TEXT_BORDER)*(i//(len(MENU_TEXT)//2))-BORDER_BTW_BUTTONS//2,BUTTON_SIZE+BORDER_BTW_BUTTONS,BUTTON_SIZE+BORDER_BTW_BUTTONS),3)
+
             if self.menu_buttons[i].draw():
                 match i:
                     case 0:
@@ -220,7 +267,44 @@ class Game:
         self.page=Pages.WORLD
 
     def dex_screen(self):
-        self.page=Pages.WORLD
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_b:
+                    self.page=Pages.MENU
+                if event.key==pygame.K_DOWN:
+                    if self.dex_selection<12-1:
+                        self.dex_selection+=1
+                        if self.dex_selection>=self.dex_start+6:
+                            self.dex_start+=1
+                    else:
+                        self.dex_start=0
+                        self.dex_selection=0
+                if event.key==pygame.K_UP:
+                    if self.dex_selection>0:
+                        self.dex_selection-=1
+                        if self.dex_selection<self.dex_start:
+                            self.dex_start-=1
+                    else:
+                        self.dex_start=12-6
+                        self.dex_selection=12-1
+
+        self.screen.fill(MENU_COLORS[MENU_TEXT.index('Pokedex')])
+        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-BORDER_BTW_BUTTONS*5//2-HEIGHT*3//8,WIDTH*7//20,6*HEIGHT//8+5*BORDER_BTW_BUTTONS),3)
+
+        count=0
+        for i in range(self.dex_start,self.dex_start+6):
+            if i==self.dex_selection:
+                color=WHITE
+            else:
+                color=BLACK
+            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-BORDER_BTW_BUTTONS*5//2-HEIGHT*3//8+count*(HEIGHT//8+BORDER_BTW_BUTTONS),WIDTH//2,HEIGHT//8),3)
+            draw_text(self.screen,str(i),HEIGHT//16,color,WIDTH//20+WIDTH//4,HEIGHT//2-BORDER_BTW_BUTTONS*5//2-HEIGHT*3//8+HEIGHT//16+count*(HEIGHT//8+BORDER_BTW_BUTTONS),'center')
+            count+=1
+
+        pygame.display.flip()
 
     def boxes_screen(self):
         self.page=Pages.WORLD
