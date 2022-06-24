@@ -5,6 +5,7 @@ from settings import *
 from sprites import *
 from world import *
 from menu import Menu
+from dex import Dex
 from player import Player
 from pokemon import *
      
@@ -40,10 +41,7 @@ class Game:
         self.menu=Menu(self)
 
         #create dex
-        #self.dex=Dex(self)
-        #indices for which Pokemon are shown on the dex page and which is selected
-        self.dex_start=0
-        self.dex_selection=0
+        self.dex=Dex(self)
 
         #create player
         self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
@@ -228,33 +226,21 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
                 if event.key==pygame.K_DOWN:
-                    if self.dex_selection<12-1: #replace 12 with length of dex
-                        self.dex_selection+=1
-                        if self.dex_selection>=self.dex_start+DEX_NUM_BUTTONS:
-                            self.dex_start+=1
-                    else:
-                        self.dex_start=0
-                        self.dex_selection=0
+                    self.dex.move_down()
                 if event.key==pygame.K_UP:
-                    if self.dex_selection>0:
-                        self.dex_selection-=1
-                        if self.dex_selection<self.dex_start:
-                            self.dex_start-=1
-                    else:
-                        self.dex_start=12-DEX_NUM_BUTTONS #replace 12 with length of dex
-                        self.dex_selection=12-1 #replace 12 with length of dex
+                    self.dex.move_up()
 
         self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Pokedex')])
-        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-Menu.BORDER_BTW_BUTTONS*5//2-3*DEX_BUTTON_SIZE,WIDTH*7//20,DEX_NUM_BUTTONS*DEX_BUTTON_SIZE+(DEX_NUM_BUTTONS-1)*Menu.BORDER_BTW_BUTTONS),3) #change to Dex.stuff
+        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-Dex.BORDER_BTW_BUTTONS*5//2-3*Dex.DEX_BUTTON_SIZE,WIDTH*7//20,Dex.DEX_NUM_BUTTONS*Dex.DEX_BUTTON_SIZE+(Dex.DEX_NUM_BUTTONS-1)*Dex.BORDER_BTW_BUTTONS),3)
 
         count=0
-        for i in range(self.dex_start,self.dex_start+DEX_NUM_BUTTONS):
-            if i==self.dex_selection:
+        for i in range(self.dex.start,self.dex.start+Dex.DEX_NUM_BUTTONS):
+            if i==self.dex.selection:
                 color=WHITE
             else:
                 color=BLACK
-            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-Menu.BORDER_BTW_BUTTONS*5//2-3*DEX_BUTTON_SIZE+count*(DEX_BUTTON_SIZE+Menu.BORDER_BTW_BUTTONS),WIDTH//2,DEX_BUTTON_SIZE),3) #change to Dex.stuff
-            draw_text(self.screen,str(i),DEX_BUTTON_SIZE//2,color,WIDTH//20+WIDTH//4,HEIGHT//2-Menu.BORDER_BTW_BUTTONS*5//2-3*DEX_BUTTON_SIZE+DEX_BUTTON_SIZE//2+count*(DEX_BUTTON_SIZE+Menu.BORDER_BTW_BUTTONS),'center') #change to Dex.stuff
+            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-Dex.BORDER_BTW_BUTTONS*5//2-3*Dex.DEX_BUTTON_SIZE+count*(Dex.DEX_BUTTON_SIZE+Dex.BORDER_BTW_BUTTONS),WIDTH//2,Dex.DEX_BUTTON_SIZE),3)
+            draw_text(self.screen,str(i),Dex.DEX_BUTTON_SIZE//2,color,WIDTH//20+WIDTH//4,HEIGHT//2-Dex.BORDER_BTW_BUTTONS*5//2-3*Dex.DEX_BUTTON_SIZE+Dex.DEX_BUTTON_SIZE//2+count*(Dex.DEX_BUTTON_SIZE+Dex.BORDER_BTW_BUTTONS),'center')
             count+=1
 
         pygame.display.flip()

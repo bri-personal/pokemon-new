@@ -20,10 +20,6 @@ CYAN=(0,255,255)
 MAGENTA=(255,0,255)
 PURPLE=(75,0,130)
 
-#dex menu data
-DEX_NUM_BUTTONS=6
-DEX_BUTTON_SIZE=HEIGHT//8
-
 #world data
 TEST_WORLD=[[1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
             [2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
