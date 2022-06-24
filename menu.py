@@ -49,25 +49,25 @@ class Menu:
 
     def get_page_from_button(self):
         match self.selection:
-            case 0:
+            case 0: #index of Pokedex in MENU_TEXT
                 return Pages.DEX
-            case 1:
+            case 1: #index of Boxes in MENU_TEXT
                 return Pages.BOXES
-            case 2:
+            case 2: #index of Bag in MENU_TEXT
                 return Pages.BAG
-            case 3:
+            case 3: #index of Card in MENU_TEXT
                 return Pages.CARD
-            case 4:
+            case 4: #index of Save in MENU_TEXT
                 return Pages.SAVE
-            case 5:
+            case 5: #index of Map in MENU_TEXT
                 return Pages.MAP
-            case 6:
+            case 6: #index of Camp in MENU_TEXT
                 return Pages.CAMP
-            case 7:
+            case 7: #index of Mystery Gift in MENU_TEXT
                 return Pages.GIFT
-            case 8:
+            case 8: #index of VS in MENU_TEXT
                 return Pages.VS
-            case 9:
+            case 9: #index of Settings in MENU_TEXT
                 return Pages.SETTINGS
 
 
