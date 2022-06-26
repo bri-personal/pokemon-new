@@ -3,7 +3,7 @@ from os import path
 from pages import Pages
 from settings import *
 from sprites import *
-from world import *
+from world import World
 from menu import MenuUI
 from dex import DexUI
 from player import Player
