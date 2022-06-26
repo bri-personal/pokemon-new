@@ -4,8 +4,8 @@ from pages import Pages
 from settings import *
 from sprites import *
 from world import *
-from menu import Menu
-from dex import Dex
+from menu import MenuUI
+from dex import DexUI
 from player import Player
 from pokemon import *
      
@@ -38,10 +38,10 @@ class Game:
         #pass
 
         #create menu
-        self.menu=Menu(self)
+        self.menu=MenuUI(self)
 
         #create dex
-        self.dex=Dex(self)
+        self.dex=DexUI(self)
 
         #create player
         self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
@@ -203,9 +203,9 @@ class Game:
 
         #display menu buttons
         for i in range(len(self.menu.buttons)):
-            draw_text(self.screen,Menu.MENU_TEXT[i],Menu.BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-5*Menu.MENU_BUTTON_SIZE//2-2*Menu.BORDER_BTW_BUTTONS+(i%(len(Menu.MENU_TEXT)//2))*(Menu.MENU_BUTTON_SIZE+Menu.BORDER_BTW_BUTTONS)+Menu.MENU_BUTTON_SIZE//2,HEIGHT//2-Menu.MENU_BUTTON_SIZE-Menu.BORDER_BTW_BUTTONS-Menu.BUTTON_TEXT_BORDER+(Menu.MENU_BUTTON_SIZE+Menu.BORDER_BTW_BUTTONS*2+Menu.BUTTON_TEXT_BORDER)*(i//(len(Menu.MENU_TEXT)//2))+Menu.MENU_BUTTON_SIZE+Menu.BORDER_BTW_BUTTONS//2,'midtop')
+            draw_text(self.screen,MenuUI.MENU_TEXT[i],MenuUI.BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-5*MenuUI.MENU_BUTTON_SIZE//2-2*MenuUI.BORDER_BTW_BUTTONS+(i%(len(MenuUI.MENU_TEXT)//2))*(MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS)+MenuUI.MENU_BUTTON_SIZE//2,HEIGHT//2-MenuUI.MENU_BUTTON_SIZE-MenuUI.BORDER_BTW_BUTTONS-MenuUI.BUTTON_TEXT_BORDER+(MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS*2+MenuUI.BUTTON_TEXT_BORDER)*(i//(len(MenuUI.MENU_TEXT)//2))+MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS//2,'midtop')
             if i==self.menu.selection:
-                pygame.draw.rect(self.screen,WHITE,(WIDTH//2-5*Menu.MENU_BUTTON_SIZE//2-2*Menu.BORDER_BTW_BUTTONS+(i%(len(Menu.MENU_TEXT)//2))*(Menu.MENU_BUTTON_SIZE+Menu.BORDER_BTW_BUTTONS)-Menu.BORDER_BTW_BUTTONS//2,HEIGHT//2-Menu.MENU_BUTTON_SIZE-Menu.BORDER_BTW_BUTTONS-Menu.BUTTON_TEXT_BORDER+(Menu.MENU_BUTTON_SIZE+Menu.BORDER_BTW_BUTTONS*2+Menu.BUTTON_TEXT_BORDER)*(i//(len(Menu.MENU_TEXT)//2))-Menu.BORDER_BTW_BUTTONS//2,Menu.MENU_BUTTON_SIZE+Menu.BORDER_BTW_BUTTONS,Menu.MENU_BUTTON_SIZE+Menu.BORDER_BTW_BUTTONS),3)
+                pygame.draw.rect(self.screen,WHITE,(WIDTH//2-5*MenuUI.MENU_BUTTON_SIZE//2-2*MenuUI.BORDER_BTW_BUTTONS+(i%(len(MenuUI.MENU_TEXT)//2))*(MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS)-MenuUI.BORDER_BTW_BUTTONS//2,HEIGHT//2-MenuUI.MENU_BUTTON_SIZE-MenuUI.BORDER_BTW_BUTTONS-MenuUI.BUTTON_TEXT_BORDER+(MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS*2+MenuUI.BUTTON_TEXT_BORDER)*(i//(len(MenuUI.MENU_TEXT)//2))-MenuUI.BORDER_BTW_BUTTONS//2,MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS,MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS),3)
 
             #buttons can be pressed to open screens
             if self.menu.buttons[i].draw():
@@ -230,17 +230,17 @@ class Game:
                 if event.key==pygame.K_UP:
                     self.dex.move_up()
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Pokedex')])
-        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-Dex.BORDER_BTW_BUTTONS*5//2-3*Dex.DEX_BUTTON_SIZE,WIDTH*7//20,Dex.DEX_NUM_BUTTONS*Dex.DEX_BUTTON_SIZE+(Dex.DEX_NUM_BUTTONS-1)*Dex.BORDER_BTW_BUTTONS),3)
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Pokedex')])
+        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_SIZE,WIDTH*7//20,DexUI.DEX_NUM_BUTTONS*DexUI.DEX_BUTTON_SIZE+(DexUI.DEX_NUM_BUTTONS-1)*DexUI.BORDER_BTW_BUTTONS),3)
 
         count=0
-        for i in range(self.dex.start,self.dex.start+Dex.DEX_NUM_BUTTONS):
+        for i in range(self.dex.start,self.dex.start+DexUI.DEX_NUM_BUTTONS):
             if i==self.dex.selection:
                 color=WHITE
             else:
                 color=BLACK
-            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-Dex.BORDER_BTW_BUTTONS*5//2-3*Dex.DEX_BUTTON_SIZE+count*(Dex.DEX_BUTTON_SIZE+Dex.BORDER_BTW_BUTTONS),WIDTH//2,Dex.DEX_BUTTON_SIZE),3)
-            draw_text(self.screen,str(i),Dex.DEX_BUTTON_SIZE//2,color,WIDTH//20+WIDTH//4,HEIGHT//2-Dex.BORDER_BTW_BUTTONS*5//2-3*Dex.DEX_BUTTON_SIZE+Dex.DEX_BUTTON_SIZE//2+count*(Dex.DEX_BUTTON_SIZE+Dex.BORDER_BTW_BUTTONS),'center')
+            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_SIZE+count*(DexUI.DEX_BUTTON_SIZE+DexUI.BORDER_BTW_BUTTONS),WIDTH//2,DexUI.DEX_BUTTON_SIZE),3)
+            draw_text(self.screen,str(i),DexUI.DEX_BUTTON_SIZE//2,color,WIDTH//20+WIDTH//4,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_SIZE+DexUI.DEX_BUTTON_SIZE//2+count*(DexUI.DEX_BUTTON_SIZE+DexUI.BORDER_BTW_BUTTONS),'center')
             count+=1
 
         pygame.display.flip()
@@ -257,7 +257,7 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Boxes')])
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Boxes')])
         draw_text(self.screen,'Boxes',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
@@ -274,7 +274,7 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Bag')])
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Bag')])
         draw_text(self.screen,'Bag',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
@@ -291,7 +291,7 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Card')])
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Card')])
         draw_text(self.screen,'Card',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
@@ -308,7 +308,7 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Save')])
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Save')])
         draw_text(self.screen,'Save',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
@@ -325,7 +325,7 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Map')])
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Map')])
         draw_text(self.screen,'Map',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
@@ -342,7 +342,7 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Camp')])
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Camp')])
         draw_text(self.screen,'Camp',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
@@ -359,7 +359,7 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Mystery Gift')])
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Mystery Gift')])
         draw_text(self.screen,'Mystery Gift',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
@@ -376,7 +376,7 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('VS')])
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('VS')])
         draw_text(self.screen,'VS',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
@@ -393,7 +393,7 @@ class Game:
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
-        self.screen.fill(Menu.MENU_COLORS[Menu.MENU_TEXT.index('Settings')])
+        self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Settings')])
         draw_text(self.screen,'Settings',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()

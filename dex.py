@@ -1,7 +1,7 @@
 import pygame
 from settings import *
 
-class Dex:
+class DexUI:
     #dex menu data
     DEX_NUM_BUTTONS=6
     DEX_BUTTON_SIZE=HEIGHT//8
@@ -17,7 +17,7 @@ class Dex:
     def move_down(self):
         if self.selection<12-1: #replace 12 with length of dex
             self.selection+=1
-            if self.selection>=self.start+Dex.DEX_NUM_BUTTONS:
+            if self.selection>=self.start+DexUI.DEX_NUM_BUTTONS:
                 self.start+=1
         else:
             self.start=0
@@ -29,7 +29,7 @@ class Dex:
             if self.selection<self.start:
                 self.start-=1
         else:
-            self.start=12-Dex.DEX_NUM_BUTTONS #replace 12 with length of dex
+            self.start=12-DexUI.DEX_NUM_BUTTONS #replace 12 with length of dex
             self.selection=12-1 #replace 12 with length of dex
 
 
