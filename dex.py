@@ -4,7 +4,8 @@ from settings import *
 class DexUI:
     #dex menu data
     DEX_NUM_BUTTONS=6
-    DEX_BUTTON_SIZE=HEIGHT//8
+    DEX_BUTTON_WIDTH=WIDTH//2
+    DEX_BUTTON_HEIGHT=HEIGHT//8
     BORDER_BTW_BUTTONS=HEIGHT//32
 
     def __init__(self,game):

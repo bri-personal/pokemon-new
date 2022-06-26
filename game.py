@@ -6,6 +6,7 @@ from sprites import *
 from world import World
 from menu import MenuUI
 from dex import DexUI
+from save import SaveUI
 from player import Player
 from pokemon import *
      
@@ -42,6 +43,9 @@ class Game:
 
         #create dex
         self.dex=DexUI(self)
+
+        #create save ui
+        self.save_ui=SaveUI(self)
 
         #create player
         self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
@@ -231,7 +235,7 @@ class Game:
                     self.dex.move_up()
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Pokedex')])
-        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_SIZE,WIDTH*7//20,DexUI.DEX_NUM_BUTTONS*DexUI.DEX_BUTTON_SIZE+(DexUI.DEX_NUM_BUTTONS-1)*DexUI.BORDER_BTW_BUTTONS),3)
+        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT,WIDTH*7//20,DexUI.DEX_NUM_BUTTONS*DexUI.DEX_BUTTON_HEIGHT+(DexUI.DEX_NUM_BUTTONS-1)*DexUI.BORDER_BTW_BUTTONS),3)
 
         count=0
         for i in range(self.dex.start,self.dex.start+DexUI.DEX_NUM_BUTTONS):
@@ -239,8 +243,8 @@ class Game:
                 color=WHITE
             else:
                 color=BLACK
-            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_SIZE+count*(DexUI.DEX_BUTTON_SIZE+DexUI.BORDER_BTW_BUTTONS),WIDTH//2,DexUI.DEX_BUTTON_SIZE),3)
-            draw_text(self.screen,str(i),DexUI.DEX_BUTTON_SIZE//2,color,WIDTH//20+WIDTH//4,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_SIZE+DexUI.DEX_BUTTON_SIZE//2+count*(DexUI.DEX_BUTTON_SIZE+DexUI.BORDER_BTW_BUTTONS),'center')
+            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+count*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS),DexUI.DEX_BUTTON_WIDTH,DexUI.DEX_BUTTON_HEIGHT),3)
+            draw_text(self.screen,str(i),DexUI.DEX_BUTTON_HEIGHT//2,color,WIDTH//20+WIDTH//4,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+DexUI.DEX_BUTTON_HEIGHT//2+count*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS),'center')
             count+=1
 
         pygame.display.flip()
@@ -309,7 +313,8 @@ class Game:
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Save')])
-        draw_text(self.screen,'Save',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+        if self.save_ui.button.draw():
+            self.save_ui.save()
 
         pygame.display.flip()
 
