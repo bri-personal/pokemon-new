@@ -37,6 +37,7 @@ class World:
                 col_count+=1
             row_count+=1
          
+    #draw all tiles on screen
     def draw_tiles(self):
         for tile in self.all_tiles:
             tile.draw(self.game.screen)
@@ -51,13 +52,16 @@ class Tile:
 
         self.hitbox=pygame.Rect(self.rect.x,self.rect.bottom-World.TILE_SIZE,World.TILE_SIZE,World.TILE_SIZE)
 
+    #draw tile image on screen
     def draw(self,surface):
         surface.blit(self.image,self.rect)
 
+    #move tile and hitbox in x dir
     def move_x(self,dx):
         self.rect.x+=dx
         self.hitbox.x+=dx
     
+    #move tile and hitbox in y dir
     def move_y(self,dy):
         self.rect.y+=dy
         self.hitbox.y+=dy

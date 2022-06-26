@@ -15,6 +15,7 @@ class DexUI:
         self.start=0
         self.selection=0
 
+    #move dex buttons down
     def move_down(self):
         if self.selection<12-1: #replace 12 with length of dex
             self.selection+=1
@@ -24,6 +25,7 @@ class DexUI:
             self.start=0
             self.selection=0
 
+    #move dex buttons up
     def move_up(self):
         if self.selection>0:
             self.selection-=1

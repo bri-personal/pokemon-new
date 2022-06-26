@@ -218,6 +218,7 @@ class Game:
 
         pygame.display.flip()
 
+    #show screen for player's pokedex
     def dex_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -249,6 +250,7 @@ class Game:
 
         pygame.display.flip()
 
+    #show screen for player's pokemon
     def boxes_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -266,6 +268,7 @@ class Game:
 
         pygame.display.flip()
 
+    #show screen for player's items
     def bag_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -283,6 +286,7 @@ class Game:
 
         pygame.display.flip()
 
+    #show screen to look at player's and others' league cards
     def card_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -300,6 +304,7 @@ class Game:
 
         pygame.display.flip()
 
+    #show screen to save game data
     def save_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -314,10 +319,11 @@ class Game:
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Save')])
         if self.save_ui.button.draw():
-            self.save_ui.save()
+            self.save()
 
         pygame.display.flip()
 
+    #show screen for region map and using Fly to get around
     def map_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -335,6 +341,7 @@ class Game:
 
         pygame.display.flip()
 
+    #show screen for playing pokemon camp
     def camp_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -352,6 +359,7 @@ class Game:
 
         pygame.display.flip()
 
+    #show screen for receiving mystery gifts
     def gift_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -369,6 +377,7 @@ class Game:
 
         pygame.display.flip()
 
+    #show screen for searching for VS battles
     def vs_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -386,6 +395,7 @@ class Game:
 
         pygame.display.flip()
 
+    #show screen for changing in game settings
     def settings_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -433,6 +443,10 @@ class Game:
         self.screen.fill(BLACK)
         draw_text(self.screen,"GAME OVER",48,WHITE,WIDTH//2,HEIGHT//4,'midtop')
         pygame.display.flip()
+
+    #save data for persistent data
+    def save(self):
+        print(self.player.rect.x,self.player.rect.y)
 
 
 
