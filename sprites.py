@@ -76,10 +76,10 @@ class Player_Sprite(pygame.sprite.Sprite,Player):
             self.dx=-self.rect.left #player can go to left edge
         elif self.rect.right+self.dx>WIDTH:
             self.dx=WIDTH-self.rect.right #player can go to right edge
-        if self.rect.y+self.dy<World.TILE_SIZE:
-            self.dy=World.TILE_SIZE-self.rect.top #player can go to 1 TILE_SIZE below the top for landscape
-        elif self.rect.bottom+self.dy>HEIGHT-World.TILE_SIZE:
-            self.dy=HEIGHT-World.TILE_SIZE-self.rect.bottom #player can go to 1 TILE_SIZE above the bottom for landscape
+        if self.rect.y+self.dy<0:
+            self.dy=-self.rect.top #player can go to top edge
+        elif self.rect.bottom+self.dy>HEIGHT:
+            self.dy=HEIGHT-self.rect.bottom #player can go to bottom edge
 
         self.rect.x+=self.dx
         self.rect.y+=self.dy

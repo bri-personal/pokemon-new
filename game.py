@@ -60,7 +60,7 @@ class Game:
         ######################
 
         #create world
-        self.world=World(self,TEST_WORLD)
+        self.world=World(self,TEST_WORLD,0,0)
         
         self.page=Pages.START
         self.run()
@@ -148,7 +148,7 @@ class Game:
                 sprite.rect.x+=dx
                 
         #scroll up/down
-        if self.player.rect.y<HEIGHT//2 and self.world.all_tiles[0].rect.y<World.TILE_SIZE or self.player.rect.y>HEIGHT//2 and self.world.all_tiles[len(self.world.all_tiles)-1].rect.bottom>HEIGHT-World.TILE_SIZE:
+        if self.player.rect.y<HEIGHT//2 and self.world.all_tiles[0].rect.y<0 or self.player.rect.y>HEIGHT//2 and self.world.all_tiles[len(self.world.all_tiles)-1].rect.bottom>HEIGHT:
             self.player.dy=self.player.rect.y-HEIGHT//2
             for tile in self.world.all_tiles:
                 tile.move_y(-self.player.dy)
@@ -156,15 +156,15 @@ class Game:
                 sprite.rect.y-=self.player.dy
              
         #make sure edge tiles do not move past top/bottom edges
-        if self.world.all_tiles[0].rect.y>World.TILE_SIZE:
-            dy=self.world.all_tiles[0].rect.y-World.TILE_SIZE
+        if self.world.all_tiles[0].rect.y>0:
+            dy=self.world.all_tiles[0].rect.y
             for tile in self.world.all_tiles:
                 tile.move_y(-dy)
             for sprite in self.all_sprites:
                 sprite.rect.y-=dy
                 
-        if self.world.all_tiles[len(self.world.all_tiles)-1].rect.bottom<HEIGHT-World.TILE_SIZE:
-            dy=HEIGHT-World.TILE_SIZE-self.world.all_tiles[len(self.world.all_tiles)-1].rect.bottom
+        if self.world.all_tiles[len(self.world.all_tiles)-1].rect.bottom<HEIGHT:
+            dy=HEIGHT-self.world.all_tiles[len(self.world.all_tiles)-1].rect.bottom
             for tile in self.world.all_tiles:
                 tile.move_y(dy)
             for sprite in self.all_sprites:
@@ -446,7 +446,8 @@ class Game:
 
     #save data for persistent data
     def save(self):
-        print(self.player.rect.x,self.player.rect.y)
+        print("Player",self.player.rect.x,self.player.rect.y)
+        print("World",self.world.all_tiles[0].rect.x,self.world.all_tiles[0].rect.y)
 
 
 
