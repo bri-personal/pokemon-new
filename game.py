@@ -1,5 +1,3 @@
-from pickle import NONE
-from types import NoneType
 import pygame
 from os import path
 from pages import Pages
@@ -208,9 +206,9 @@ class Game:
 
         #display menu buttons
         for i in range(len(self.menu.buttons)):
-            draw_text(self.screen,MenuUI.MENU_TEXT[i],MenuUI.BUTTON_TEXT_BORDER//2,WHITE,WIDTH//2-5*MenuUI.MENU_BUTTON_SIZE//2-2*MenuUI.BORDER_BTW_BUTTONS+(i%(len(MenuUI.MENU_TEXT)//2))*(MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS)+MenuUI.MENU_BUTTON_SIZE//2,HEIGHT//2-MenuUI.MENU_BUTTON_SIZE-MenuUI.BORDER_BTW_BUTTONS-MenuUI.BUTTON_TEXT_BORDER+(MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS*2+MenuUI.BUTTON_TEXT_BORDER)*(i//(len(MenuUI.MENU_TEXT)//2))+MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS//2,'midtop')
+            draw_text(self.screen,MenuUI.MENU_TEXT[i],MenuUI.BUTTON_TEXT_BORDER//2,WHITE,self.menu.buttons[i].rect.x+MenuUI.MENU_BUTTON_SIZE//2,self.menu.buttons[i].rect.y+self.menu.buttons[i].rect.height+MenuUI.BORDER_BTW_BUTTONS//2,'midtop')
             if i==self.menu.selection:
-                pygame.draw.rect(self.screen,WHITE,(WIDTH//2-5*MenuUI.MENU_BUTTON_SIZE//2-2*MenuUI.BORDER_BTW_BUTTONS+(i%(len(MenuUI.MENU_TEXT)//2))*(MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS)-MenuUI.BORDER_BTW_BUTTONS//2,HEIGHT//2-MenuUI.MENU_BUTTON_SIZE-MenuUI.BORDER_BTW_BUTTONS-MenuUI.BUTTON_TEXT_BORDER+(MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS*2+MenuUI.BUTTON_TEXT_BORDER)*(i//(len(MenuUI.MENU_TEXT)//2))-MenuUI.BORDER_BTW_BUTTONS//2,MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS,MenuUI.MENU_BUTTON_SIZE+MenuUI.BORDER_BTW_BUTTONS),3)
+                pygame.draw.rect(self.screen,WHITE,(self.menu.buttons[i].rect.x-MenuUI.BORDER_BTW_BUTTONS//2,self.menu.buttons[i].rect.y-MenuUI.BORDER_BTW_BUTTONS//2,self.menu.buttons[i].rect.width+MenuUI.BORDER_BTW_BUTTONS,self.menu.buttons[i].rect.height+MenuUI.BORDER_BTW_BUTTONS),3)
 
             #buttons can be pressed to open screens
             if self.menu.buttons[i].draw():
@@ -315,12 +313,17 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
+                if event.key==pygame.K_a:
+                    self.save()
+                    self.page=Pages.MENU
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Save')])
+        pygame.draw.rect(self.screen,WHITE,(self.save_ui.button.rect.x-10,self.save_ui.button.rect.y-10,self.save_ui.button.rect.width+20,self.save_ui.button.rect.height+20),3)
         if self.save_ui.button.draw():
             self.save()
+            self.page=Pages.MENU
 
         pygame.display.flip()
 
