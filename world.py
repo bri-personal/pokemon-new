@@ -11,31 +11,28 @@ class World:
         self.floor_tiles=[]
         self.wall_tiles=[]
         self.grass_tiles=[]
-        row_count=0
-        for row in data:
-            col_count=0
-            for tile in row:
-                if tile==0:
+        
+        for i in range(len(data)):
+            for j in range(len(data[i])):
+                if data[i][j]==0:
                     img=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
                     img.fill(GREEN)
-                    tile=Tile(img,x+World.TILE_SIZE*col_count,bottom+World.TILE_SIZE*row_count) #first tile has bottomleft at x,bottom
-                    self.all_tiles.append(tile)
-                    self.floor_tiles.append(tile)
-                elif tile==1:
+                    self.add_tile(img,x,bottom,i,j)
+                    self.floor_tiles.append(self.all_tiles[-1])
+                elif data[i][j]==1:
                     img=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
                     img.fill(YELLOW)
-                    tile=Tile(img,x+World.TILE_SIZE*col_count,bottom+World.TILE_SIZE*row_count)
-                    self.all_tiles.append(tile)
-                    self.wall_tiles.append(tile)
-                elif tile==2:
+                    self.add_tile(img,x,bottom,i,j)
+                    self.wall_tiles.append(self.all_tiles[-1])
+                elif data[i][j]==2:
                     img=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
                     img.fill(DARK_GREEN)
-                    tile=Tile(img,x+World.TILE_SIZE*col_count,bottom+World.TILE_SIZE*row_count)
-                    self.all_tiles.append(tile)
-                    self.grass_tiles.append(tile)
+                    self.add_tile(img,x,bottom,i,j)
+                    self.grass_tiles.append(self.all_tiles[-1])
 
-                col_count+=1
-            row_count+=1
+    def add_tile(self,img,x,bottom,row_count,col_count):
+        tile=Tile(img,x+World.TILE_SIZE*col_count,bottom+World.TILE_SIZE*row_count)
+        self.all_tiles.append(tile)
          
     #draw all tiles on screen
     def draw_tiles(self):
