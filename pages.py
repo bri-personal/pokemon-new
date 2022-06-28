@@ -7,7 +7,7 @@ class Pages(Enum):
     BATTLE=2
     MENU=3
     DEX=4
-    BOXES=5
+    PARTY=5
     BAG=6
     CARD=7
     SAVE=8

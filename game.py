@@ -7,6 +7,7 @@ from world import World
 from menu import MenuUI
 from dex import DexUI
 from save import SaveUI
+from party_ui import PartyUI
 from player import Player
 from pokemon import *
      
@@ -47,6 +48,9 @@ class Game:
         #create save ui
         self.save_ui=SaveUI(self)
 
+        #create team ui
+        self.party_ui=PartyUI(self)
+
         #create player and world from saved data, if it exists
         self.load()
        
@@ -78,8 +82,8 @@ class Game:
                 self.menu_screen()
             elif self.page==Pages.DEX:
                 self.dex_screen()
-            elif self.page==Pages.BOXES:
-                self.boxes_screen()
+            elif self.page==Pages.PARTY:
+                self.party_screen()
             elif self.page==Pages.BAG:
                 self.bag_screen()
             elif self.page==Pages.CARD:
@@ -250,7 +254,7 @@ class Game:
         pygame.display.flip()
 
     #show screen for player's pokemon
-    def boxes_screen(self):
+    def party_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 self.playing=False
@@ -263,7 +267,8 @@ class Game:
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Boxes')])
-        draw_text(self.screen,'Boxes',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+        for button in self.party_ui.buttons:
+            button.draw()
 
         pygame.display.flip()
 

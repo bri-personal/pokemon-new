@@ -57,7 +57,7 @@ class MenuUI:
             case 0: #index of Pokedex in MENU_TEXT
                 return Pages.DEX
             case 1: #index of Boxes in MENU_TEXT
-                return Pages.BOXES
+                return Pages.PARTY
             case 2: #index of Bag in MENU_TEXT
                 return Pages.BAG
             case 3: #index of Card in MENU_TEXT
