@@ -4,9 +4,9 @@ from pages import Pages
 from settings import *
 from sprites import *
 from world import World
-from menu import MenuUI
-from dex import DexUI
-from save import SaveUI
+from menu_ui import MenuUI
+from dex_ui import DexUI
+from save_ui import SaveUI
 from party_ui import PartyUI
 from player import Player
 from pokemon import *
