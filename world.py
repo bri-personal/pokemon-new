@@ -5,7 +5,7 @@ class World:
     NUM_TILES=15 #number of tiles to be shown on shorter dimension of screen
     TILE_SIZE=HEIGHT//NUM_TILES #size of tiles on screen
 
-    def __init__(self,game,data,x,y): #data is matrix (list of lists) of tiles
+    def __init__(self,game,data,x,bottom): #data is matrix (list of lists) of tiles
         self.game=game
         self.all_tiles=[]
         self.floor_tiles=[]
@@ -18,19 +18,19 @@ class World:
                 if tile==0:
                     img=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
                     img.fill(GREEN)
-                    tile=Tile(img,x+World.TILE_SIZE*col_count,y+World.TILE_SIZE*row_count) #first tile has topleft at x,y
+                    tile=Tile(img,x+World.TILE_SIZE*col_count,bottom+World.TILE_SIZE*row_count) #first tile has bottomleft at x,bottom
                     self.all_tiles.append(tile)
                     self.floor_tiles.append(tile)
                 elif tile==1:
                     img=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
                     img.fill(YELLOW)
-                    tile=Tile(img,x+World.TILE_SIZE*col_count,y+World.TILE_SIZE*row_count)
+                    tile=Tile(img,x+World.TILE_SIZE*col_count,bottom+World.TILE_SIZE*row_count)
                     self.all_tiles.append(tile)
                     self.wall_tiles.append(tile)
                 elif tile==2:
                     img=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
                     img.fill(DARK_GREEN)
-                    tile=Tile(img,x+World.TILE_SIZE*col_count,y+World.TILE_SIZE*row_count)
+                    tile=Tile(img,x+World.TILE_SIZE*col_count,bottom+World.TILE_SIZE*row_count)
                     self.all_tiles.append(tile)
                     self.grass_tiles.append(tile)
 

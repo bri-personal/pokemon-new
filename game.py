@@ -1,3 +1,5 @@
+from pickle import NONE
+from types import NoneType
 import pygame
 from os import path
 from pages import Pages
@@ -47,9 +49,9 @@ class Game:
         #create save ui
         self.save_ui=SaveUI(self)
 
-        #create player
-        self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player())
-        
+        #create player and world from saved data, if it exists
+        self.load()
+       
         #for testing catches
 #        for _ in range(19):
 #            self.player.catch(Pokemon('Bulbasaur'))
@@ -58,9 +60,6 @@ class Game:
 #        print(self.player.party)
 #        print(self.player.boxes)
         ######################
-
-        #create world
-        self.world=World(self,TEST_WORLD,0,0) #tiles start with topleft at 0,0
         
         self.page=Pages.START
         self.run()
@@ -448,9 +447,35 @@ class Game:
 
     #save data for persistent data
     def save(self):
-        print("Player",self.player.rect.x,self.player.rect.y)
-        print("World",self.world.all_tiles[0].rect.x,self.world.all_tiles[0].rect.y)
+        o_f = open('save_data.txt', 'w')
+        o_f.write("Player "+str(self.player.rect.x)+" "+str(self.player.rect.y))
+        o_f.write('\n')
+        o_f.write("World "+str(self.world.all_tiles[0].rect.x)+" "+str(self.world.all_tiles[0].rect.bottom))
+        o_f.close()
+        
+    #load data from save.txt for location of player and first tile in world
+    def load(self):
+        self.player=None
+        self.world=None
+        try:
+            i_f=open('save_data.txt','r')
+            lines=i_f.readlines()
+            for i in range(len(lines)):
+                line=lines[i].split()
+                if line[0]=="Player": #create player
+                    self.player=Player_Sprite(self,int(line[1]),int(line[2]),Player())
+                elif line[0]=="World": #create world
+                    self.world=World(self,TEST_WORLD,int(line[1]),int(line[2]))
+            i_f.close()
+            
+        except:
+            #create player from scratch
+            if not self.player:
+                self.player=Player_Sprite(self,World.TILE_SIZE*2,World.TILE_SIZE*2,Player()) #player starts with topleft at TILE_SIZE*2 x,y
 
+            #create world from scratch
+            if not self.world:
+                self.world=World(self,TEST_WORLD,0,World.TILE_SIZE) #tiles start with bottomleft at 0,TILE_SIZE
 
 
 
