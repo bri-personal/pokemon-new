@@ -60,7 +60,7 @@ class Game:
         ######################
 
         #create world
-        self.world=World(self,TEST_WORLD,0,0)
+        self.world=World(self,TEST_WORLD,0,0) #tiles start with topleft at 0,0
         
         self.page=Pages.START
         self.run()
@@ -126,13 +126,14 @@ class Game:
         #scroll world as player moves across screen if world is too big for screen
         #scroll left/right
         if self.player.rect.x<WIDTH//2 and self.world.all_tiles[0].rect.x<0 or self.player.rect.x>WIDTH//2 and self.world.all_tiles[len(self.world.all_tiles)-1].rect.right>WIDTH:
-            self.player.dx=self.player.rect.x-WIDTH//2
-            for tile in self.world.all_tiles:
+            #if left tiles have left edge off screen or right tiles have right edge off screen when player is still closer to that edge
+            self.player.dx=self.player.rect.x-WIDTH//2 #player is moved to middle
+            for tile in self.world.all_tiles: #tiles move according to how player would move if it was not in the middle
                 tile.move_x(-self.player.dx)
             for sprite in self.all_sprites:
                 sprite.rect.x-=self.player.dx
                 
-        #make sure edge tiles do not move past left/right edges
+        #make sure edge tiles do not move past left/right edges the wrong way
         if self.world.all_tiles[0].rect.x>0:
             dx=self.world.all_tiles[0].rect.x
             for tile in self.world.all_tiles:
@@ -149,13 +150,14 @@ class Game:
                 
         #scroll up/down
         if self.player.rect.y<HEIGHT//2 and self.world.all_tiles[0].rect.y<0 or self.player.rect.y>HEIGHT//2 and self.world.all_tiles[len(self.world.all_tiles)-1].rect.bottom>HEIGHT:
-            self.player.dy=self.player.rect.y-HEIGHT//2
-            for tile in self.world.all_tiles:
+            #if top tiles have top edge off screen or bottom tiles have bottom edge off screen when player is still closer to that edge
+            self.player.dy=self.player.rect.y-HEIGHT//2 #player is moved to middle
+            for tile in self.world.all_tiles: #tiles move according to how player would move if it was not in the middle
                 tile.move_y(-self.player.dy)
             for sprite in self.all_sprites:
                 sprite.rect.y-=self.player.dy
              
-        #make sure edge tiles do not move past top/bottom edges
+        #make sure edge tiles do not move past top/bottom edges the wrong way
         if self.world.all_tiles[0].rect.y>0:
             dy=self.world.all_tiles[0].rect.y
             for tile in self.world.all_tiles:

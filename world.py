@@ -18,7 +18,7 @@ class World:
                 if tile==0:
                     img=pygame.Surface((World.TILE_SIZE,World.TILE_SIZE))
                     img.fill(GREEN)
-                    tile=Tile(img,x+World.TILE_SIZE*col_count,y+World.TILE_SIZE*row_count)
+                    tile=Tile(img,x+World.TILE_SIZE*col_count,y+World.TILE_SIZE*row_count) #first tile has topleft at x,y
                     self.all_tiles.append(tile)
                     self.floor_tiles.append(tile)
                 elif tile==1:
