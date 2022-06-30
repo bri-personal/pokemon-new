@@ -1,9 +1,10 @@
 import pygame
 from settings import *
-from sprites import Button
+from sprites import Button, draw_text
+from player import Player
 
 class PartyUI:
-    NUM_BUTTONS=6
+    NUM_BUTTONS=Player.MAX_PARTY_SIZE
     PARTY_BUTTON_WIDTH=WIDTH//2
     PARTY_BUTTON_HEIGHT=HEIGHT//8
     BORDER_BTW_BUTTONS=HEIGHT//32
@@ -24,5 +25,14 @@ class PartyUI:
 
     def move_up(self):
         self.selection=(self.selection-1)%PartyUI.NUM_BUTTONS
+
+    def reset_buttons(self):
+        for i in range(len(self.buttons)):
+            self.buttons[i].image.fill(WHITE)
+            if self.game.player.party[i] is not None:
+                img=pygame.Surface((PartyUI.PARTY_BUTTON_HEIGHT*3//4,PartyUI.PARTY_BUTTON_HEIGHT*3//4))
+                img.fill(BLACK)
+                self.buttons[i].image.blit(img,(PartyUI.PARTY_BUTTON_HEIGHT//8,PartyUI.PARTY_BUTTON_HEIGHT//8))
+                draw_text(self.buttons[i].image,self.game.player.party[i].nickname,PartyUI.PARTY_BUTTON_HEIGHT//3,BLACK,PartyUI.PARTY_BUTTON_HEIGHT,PartyUI.PARTY_BUTTON_HEIGHT//8,'topleft')
 
 

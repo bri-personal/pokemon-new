@@ -1,9 +1,12 @@
 from settings import *
+from pokemon import Pokemon
 
 class Player:
+    MAX_PARTY_SIZE=6
+
     def __init__(self):
         #party is list of up to 6 Pokemon in current party
-        self.party=[None]*6
+        self.party: list[Pokemon]=[None]*Player.MAX_PARTY_SIZE
 
         #boxes are lists of up to 30 Pokemon in storage, with up to 32 lists total
         self.boxes=[ [None]*30 for _ in range(32)]
@@ -24,7 +27,7 @@ class Player:
             self.dex[name][1]+=1
 
     def catch(self,pokemon):
-        self.update_dex(pokemon.name,True)
+        self.update_dex(pokemon.species,True)
 
         i=0
         while i<len(self.party) and self.party[i] is not None:

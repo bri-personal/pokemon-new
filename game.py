@@ -55,9 +55,10 @@ class Game:
         self.load()
        
         #for testing catches
-#        for _ in range(19):
-#            self.player.catch(Pokemon('Bulbasaur'))
-#            self.player.catch(Pokemon('Charmander'))
+#        for _ in range(1):
+#            self.player.catch(Pokemon('Bulbasaur',5))
+#            self.player.catch(Pokemon('Charmander',5))
+#            self.player.catch(Pokemon('Squirtle',5))
 #
 #        print(self.player.party)
 #        print(self.player.boxes)
@@ -195,6 +196,8 @@ class Game:
                     self.running=False
                 if event.key==pygame.K_a:
                     self.page=self.menu.get_page_from_button()
+                    if self.page==Pages.PARTY:
+                        self.party_ui.reset_buttons()
                 if event.key==pygame.K_b:
                     self.page=Pages.WORLD
                 if event.key==pygame.K_r:

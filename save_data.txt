@@ -1,2 +1,2 @@
-Player 876 0
-World -90 42
+Player 310 144
+World 0 42
