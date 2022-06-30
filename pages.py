@@ -4,7 +4,7 @@ from enum import Enum
 class Pages(Enum):
     START=0
     WORLD=1
-    BATTLE=2
+    BATTLE=2 #screen not implemented
     MENU=3
     DEX=4
     PARTY=5
@@ -16,4 +16,6 @@ class Pages(Enum):
     GIFT=11
     VS=12
     SETTINGS=13
+    BOXES=14 #screen not implemented
+    POKEMON=15 #screen not implemented
     END=-1

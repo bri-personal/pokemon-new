@@ -102,6 +102,10 @@ class Game:
                 self.vs_screen()
             elif self.page==Pages.SETTINGS:
                 self.settings_screen()
+            elif self.page==Pages.BOXES:
+                self.boxes_screen()
+            elif self.page==Pages.POKEMON:
+                self.pokemon_screen()
             elif self.page==Pages.END:
                 self.end_screen()
             else:
@@ -270,12 +274,13 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_a: #select current selection
-                    pass 
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_a: #A to select current selection
+                    if self.player.party[self.party_ui.selection] is not None:
+                        self.page=Pages.POKEMON #add attribute to select certain index of party
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
-                if event.key==pygame.K_r: #go to boxes page
-                    pass 
+                if event.key==pygame.K_r: #R to go to boxes page
+                    self.page=Pages.BOXES
                 if event.key==pygame.K_DOWN: #arrows to move selection
                     self.party_ui.move_down()
                 if event.key==pygame.K_UP:
@@ -301,7 +306,7 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Bag')])
@@ -319,7 +324,7 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Card')])
@@ -340,7 +345,7 @@ class Game:
                 if event.key==pygame.K_a:
                     self.save()
                     self.page=Pages.MENU
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Save')])
@@ -361,7 +366,7 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Map')])
@@ -379,7 +384,7 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Camp')])
@@ -397,7 +402,7 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Mystery Gift')])
@@ -415,7 +420,7 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('VS')])
@@ -433,11 +438,46 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Settings')])
         draw_text(self.screen,'Settings',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
+
+    #show screen for looking at all pokemon in boxes
+    def boxes_screen(self):
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b: #B to go back to party
+                    self.page=Pages.PARTY
+
+        self.screen.fill(WHITE)
+        draw_text(self.screen,'Boxes',HEIGHT//10,BLACK,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
+
+    def pokemon_screen(self):
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b: #B to go back to party
+                    self.page=Pages.PARTY #add attribute to know whether to go back to party or boxess
+
+        self.screen.fill(WHITE)
+        draw_text(self.screen,'Pokemon',HEIGHT//10,BLACK,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
 
@@ -451,7 +491,7 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_a:
+                if event.key==pygame.K_a: #A to go to world
                     self.page=Pages.WORLD
         self.screen.fill(BLACK)
         draw_text(self.screen,TITLE,48,WHITE,WIDTH//2,HEIGHT//4,'midtop')
