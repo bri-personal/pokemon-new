@@ -17,5 +17,5 @@ class Pages(Enum):
     VS=12
     SETTINGS=13
     BOXES=14 #screen not implemented
-    POKEMON=15 #screen not implemented
+    STATS=15 #screen not implemented
     END=-1

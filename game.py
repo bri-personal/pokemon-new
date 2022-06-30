@@ -55,10 +55,10 @@ class Game:
         self.load()
        
         #for testing catches
-#        for _ in range(1):
-#            self.player.catch(Pokemon('Bulbasaur',5))
-#            self.player.catch(Pokemon('Charmander',5))
-#            self.player.catch(Pokemon('Squirtle',5))
+        for _ in range(1):
+            self.player.catch(Pokemon('Bulbasaur',5))
+            self.player.catch(Pokemon('Charmander',5))
+            self.player.catch(Pokemon('Squirtle',5))
 #
 #        print(self.player.party)
 #        print(self.player.boxes)
@@ -104,8 +104,8 @@ class Game:
                 self.settings_screen()
             elif self.page==Pages.BOXES:
                 self.boxes_screen()
-            elif self.page==Pages.POKEMON:
-                self.pokemon_screen()
+            elif self.page==Pages.STATS:
+                self.stats_screen()
             elif self.page==Pages.END:
                 self.end_screen()
             else:
@@ -276,7 +276,7 @@ class Game:
                     self.running=False
                 if event.key==pygame.K_a: #A to select current selection
                     if self.player.party[self.party_ui.selection] is not None:
-                        self.page=Pages.POKEMON #add attribute to select certain index of party
+                        self.page=Pages.STATS #add attribute to select certain index of party
                 if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
                 if event.key==pygame.K_r: #R to go to boxes page
@@ -464,7 +464,7 @@ class Game:
 
         pygame.display.flip()
 
-    def pokemon_screen(self):
+    def stats_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 self.playing=False
