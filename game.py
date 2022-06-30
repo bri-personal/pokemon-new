@@ -197,6 +197,8 @@ class Game:
                     self.page=self.menu.get_page_from_button()
                 if event.key==pygame.K_b:
                     self.page=Pages.WORLD
+                if event.key==pygame.K_r:
+                    self.page=Pages.SAVE
                 if event.key==pygame.K_RIGHT:
                     self.menu.move_right()
                 if event.key==pygame.K_LEFT:
@@ -263,12 +265,23 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
+                if event.key==pygame.K_a:
+                    pass #select current selection
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
+                if event.key==pygame.K_r:
+                    pass #go to boxes page
+                if event.key==pygame.K_DOWN:
+                    self.party_ui.move_down()
+                if event.key==pygame.K_UP:
+                    self.party_ui.move_up()
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Boxes')])
-        for button in self.party_ui.buttons:
-            button.draw()
+        for i in range(len(self.party_ui.buttons)):
+            self.party_ui.buttons[i].draw()
+            if i==self.party_ui.selection:
+                pygame.draw.rect(self.screen,WHITE,(self.party_ui.buttons[i].rect.x-PartyUI.BORDER_BTW_BUTTONS//2,self.party_ui.buttons[i].rect.y-PartyUI.BORDER_BTW_BUTTONS//2,self.party_ui.buttons[i].rect.width+PartyUI.BORDER_BTW_BUTTONS,self.party_ui.buttons[i].rect.height+PartyUI.BORDER_BTW_BUTTONS),3)
+
 
         pygame.display.flip()
 

@@ -19,6 +19,10 @@ class PartyUI:
             img.fill(WHITE)
             self.buttons.append(Button(self.game,WIDTH//20+PartyUI.PARTY_BUTTON_WIDTH//2,HEIGHT//2-PartyUI.BORDER_BTW_BUTTONS*5//2-3*PartyUI.PARTY_BUTTON_HEIGHT+i*(PartyUI.PARTY_BUTTON_HEIGHT+PartyUI.BORDER_BTW_BUTTONS),img))
 
+    def move_down(self):
+        self.selection=(self.selection+1)%PartyUI.NUM_BUTTONS
 
+    def move_up(self):
+        self.selection=(self.selection-1)%PartyUI.NUM_BUTTONS
 
 
