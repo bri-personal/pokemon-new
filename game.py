@@ -8,6 +8,7 @@ from menu_ui import MenuUI
 from dex_ui import DexUI
 from save_ui import SaveUI
 from party_ui import PartyUI
+from boxes_ui import BoxesUI
 from player import Player
 from pokemon import *
      
@@ -48,8 +49,11 @@ class Game:
         #create save ui
         self.save_ui=SaveUI(self)
 
-        #create team ui
+        #create party ui
         self.party_ui=PartyUI(self)
+
+        #create boxes ui
+        self.boxes_ui=BoxesUI(self)
 
         #create player and world from saved data, if it exists
         self.load()
@@ -459,11 +463,18 @@ class Game:
                 if event.key==pygame.K_b: #B to go back to party
                     self.page=Pages.PARTY
 
-        self.screen.fill(WHITE)
-        draw_text(self.screen,'Boxes',HEIGHT//10,BLACK,WIDTH//2,HEIGHT//2,'center')
+        self.screen.fill(RED)
+        self.boxes_ui.page_button.draw()
+
+        for button in self.boxes_ui.party_buttons:
+            button.draw()
+
+        for button in self.boxes_ui.box_buttons:
+            button.draw()
 
         pygame.display.flip()
 
+    #how screen for individual pokemon's stats
     def stats_screen(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:

@@ -3,13 +3,15 @@ from pokemon import Pokemon
 
 class Player:
     MAX_PARTY_SIZE=6
+    BOX_SIZE=30
+    NUM_BOXES=32
 
     def __init__(self):
         #party is list of up to 6 Pokemon in current party
         self.party: list[Pokemon]=[None]*Player.MAX_PARTY_SIZE
 
         #boxes are lists of up to 30 Pokemon in storage, with up to 32 lists total
-        self.boxes=[ [None]*30 for _ in range(32)]
+        self.boxes=[ [None]*Player.BOX_SIZE for _ in range(Player.NUM_BOXES)]
 
         #dex is dictionary of Pokemon (strings) and counts for number seen (0) and caught (1)
         self.dex={'Bulbasaur':[0,0],
