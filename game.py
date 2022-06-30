@@ -73,6 +73,7 @@ class Game:
         while self.playing:
             #keep loop running at correct speed
             self.clock.tick(FPS)
+            #go to method based on current page
             if self.page==Pages.START:
                 self.start_screen()
             elif self.page==Pages.WORLD:
@@ -194,15 +195,15 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_a:
+                if event.key==pygame.K_a: #A to select button
                     self.page=self.menu.get_page_from_button()
                     if self.page==Pages.PARTY:
                         self.party_ui.reset_buttons()
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to world
                     self.page=Pages.WORLD
-                if event.key==pygame.K_r:
+                if event.key==pygame.K_r: #R is hotkey to save screen
                     self.page=Pages.SAVE
-                if event.key==pygame.K_RIGHT:
+                if event.key==pygame.K_RIGHT: #arrows to move selection
                     self.menu.move_right()
                 if event.key==pygame.K_LEFT:
                     self.menu.move_left()
@@ -236,9 +237,9 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_b:
+                if event.key==pygame.K_b: #B to go back to menu
                     self.page=Pages.MENU
-                if event.key==pygame.K_DOWN:
+                if event.key==pygame.K_DOWN: #arrows to move selection
                     self.dex.move_down()
                 if event.key==pygame.K_UP:
                     self.dex.move_up()
@@ -246,6 +247,7 @@ class Game:
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Pokedex')])
         pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT,WIDTH*7//20,DexUI.DEX_NUM_BUTTONS*DexUI.DEX_BUTTON_HEIGHT+(DexUI.DEX_NUM_BUTTONS-1)*DexUI.BORDER_BTW_BUTTONS),3)
 
+        #draw buttons
         count=0
         for i in range(self.dex.start,self.dex.start+DexUI.DEX_NUM_BUTTONS):
             if i==self.dex.selection:
@@ -268,18 +270,19 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_a:
-                    pass #select current selection
+                if event.key==pygame.K_a: #select current selection
+                    pass 
                 if event.key==pygame.K_b:
                     self.page=Pages.MENU
-                if event.key==pygame.K_r:
-                    pass #go to boxes page
-                if event.key==pygame.K_DOWN:
+                if event.key==pygame.K_r: #go to boxes page
+                    pass 
+                if event.key==pygame.K_DOWN: #arrows to move selection
                     self.party_ui.move_down()
                 if event.key==pygame.K_UP:
                     self.party_ui.move_up()
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Boxes')])
+        #draw buttons
         for i in range(len(self.party_ui.buttons)):
             self.party_ui.buttons[i].draw()
             if i==self.party_ui.selection:

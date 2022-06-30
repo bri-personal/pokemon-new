@@ -30,6 +30,7 @@ class World:
                     self.add_tile(img,x,bottom,i,j)
                     self.grass_tiles.append(self.all_tiles[-1])
 
+    #uniform way to create tiles
     def add_tile(self,img,x,bottom,row_count,col_count):
         tile=Tile(img,x+World.TILE_SIZE*col_count,bottom+World.TILE_SIZE*row_count)
         self.all_tiles.append(tile)

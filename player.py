@@ -21,11 +21,13 @@ class Player:
                   'Potion':0,
                   'Revive':0}
 
+    #adds to counts in player dex when pokemon is battled/caught
     def update_dex(self,name,is_caught):
         self.dex[name][0]+=1
         if is_caught:
             self.dex[name][1]+=1
 
+    #adds pokemon to party or boxes and updates player's dex
     def catch(self,pokemon):
         self.update_dex(pokemon.species,True)
 

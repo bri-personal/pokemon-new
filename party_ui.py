@@ -20,12 +20,15 @@ class PartyUI:
             img.fill(WHITE)
             self.buttons.append(Button(self.game,WIDTH//20+PartyUI.PARTY_BUTTON_WIDTH//2,HEIGHT//2-PartyUI.BORDER_BTW_BUTTONS*5//2-3*PartyUI.PARTY_BUTTON_HEIGHT+i*(PartyUI.PARTY_BUTTON_HEIGHT+PartyUI.BORDER_BTW_BUTTONS),img))
 
+    #move menu selection down
     def move_down(self):
         self.selection=(self.selection+1)%PartyUI.NUM_BUTTONS
 
+    #move menu selection up
     def move_up(self):
         self.selection=(self.selection-1)%PartyUI.NUM_BUTTONS
 
+    #sets button images to reflect player's current party
     def reset_buttons(self):
         for i in range(len(self.buttons)):
             self.buttons[i].image.fill(WHITE)
