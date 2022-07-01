@@ -460,8 +460,18 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
+                if event.key==pygame.K_a: #A to select current button
+                    pass
                 if event.key==pygame.K_b: #B to go back to party
                     self.page=Pages.PARTY
+                if event.key==pygame.K_RIGHT:
+                    self.boxes_ui.move_right()
+                if event.key==pygame.K_LEFT:
+                    self.boxes_ui.move_left()
+                if event.key==pygame.K_UP:
+                    self.boxes_ui.move_up()
+                if event.key==pygame.K_DOWN:
+                    self.boxes_ui.move_down()
 
         self.screen.fill(RED)
         self.boxes_ui.page_button.draw()
@@ -471,6 +481,18 @@ class Game:
 
         for button in self.boxes_ui.box_buttons:
             button.draw()
+
+        #draw rectangle around selected button
+        if self.boxes_ui.party_selected and not self.boxes_ui.page_selected:
+            button=self.boxes_ui.party_buttons[self.boxes_ui.selection]
+            pygame.draw.rect(self.screen,BLUE,(button.rect.x,button.rect.y,button.rect.width,button.rect.height),5)
+        elif not self.boxes_ui.party_selected and not self.boxes_ui.page_selected:
+            button=self.boxes_ui.box_buttons[self.boxes_ui.selection]
+            pygame.draw.rect(self.screen,BLUE,(button.rect.x,button.rect.y,button.rect.width,button.rect.height),5)
+        elif self.boxes_ui.page_selected:
+            button=self.boxes_ui.page_button
+            pygame.draw.rect(self.screen,BLUE,(button.rect.x,button.rect.y,button.rect.width,button.rect.height),5)
+
 
         pygame.display.flip()
 

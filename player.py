@@ -4,7 +4,7 @@ from pokemon import Pokemon
 class Player:
     MAX_PARTY_SIZE=6
     BOX_SIZE=30
-    NUM_BOXES=32
+    NUM_BOXES=8
 
     def __init__(self):
         #party is list of up to 6 Pokemon in current party
