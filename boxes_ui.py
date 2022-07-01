@@ -24,24 +24,28 @@ class BoxesUI:
         self.page_index=0 #index of this box in all box pages, max is BoxesUI.NUM_BOXES-1
         self.page_selected=False #True if page button is selected, false otherwise
 
+        #create page button
         img=pygame.Surface((3*BoxesUI.BOX_BUTTON_SIZE+3*BoxesUI.BORDER_BTW_BUTTONS,BoxesUI.BOX_BUTTON_SIZE//2))
-        img.fill(WHITE)
+        img.fill(LIGHT_GRAY)
         draw_text(img,"Box "+str(self.page_index+1),BoxesUI.BOX_BUTTON_SIZE//3,BLACK,(BoxesUI.BOX_BUTTON_SIZE+BoxesUI.BORDER_BTW_BUTTONS)*3//2,BoxesUI.BOX_BUTTON_SIZE//4,'center')
         self.page_button=Button(self.game,WIDTH//20+BoxesUI.PARTY_BUTTON_WIDTH+BoxesUI.BORDER_BTW_BUTTONS+BoxesUI.BOX_BUTTON_SIZE//2+BoxesUI.BOX_BUTTON_SIZE*5//2+3*BoxesUI.BORDER_BTW_BUTTONS,HEIGHT//2-BoxesUI.BORDER_BTW_BUTTONS*5//2-3*BoxesUI.PARTY_BUTTON_HEIGHT+BoxesUI.BOX_BUTTON_SIZE//2,img)
 
+        #create party buttons
         self.party_buttons=[]
         for i in range(BoxesUI.NUM_PARTY_BUTTONS):
             img=pygame.Surface((BoxesUI.PARTY_BUTTON_WIDTH,BoxesUI.PARTY_BUTTON_HEIGHT))
             img.fill(WHITE)
             self.party_buttons.append(Button(self.game,WIDTH//20+BoxesUI.PARTY_BUTTON_WIDTH//2,HEIGHT//2-BoxesUI.BORDER_BTW_BUTTONS*5//2-3*BoxesUI.PARTY_BUTTON_HEIGHT+i*(BoxesUI.PARTY_BUTTON_HEIGHT+BoxesUI.BORDER_BTW_BUTTONS),img))
 
+        #create box buttons
         self.box_buttons=[]
         for i in range(BoxesUI.NUM_BOX_BUTTON_ROWS):
             for j in range(BoxesUI.NUM_BOX_BUTTON_COLS):
                 img=pygame.Surface((BoxesUI.BOX_BUTTON_SIZE,BoxesUI.BOX_BUTTON_SIZE))
-                img.fill(WHITE)
+                img.fill(LIGHT_GRAY)
                 self.box_buttons.append(Button(self.game,WIDTH//20+BoxesUI.PARTY_BUTTON_WIDTH+BoxesUI.BORDER_BTW_BUTTONS+BoxesUI.BOX_BUTTON_SIZE//2+j*(BoxesUI.BOX_BUTTON_SIZE+BoxesUI.BORDER_BTW_BUTTONS),HEIGHT//2-BoxesUI.BORDER_BTW_BUTTONS*5//2-3*BoxesUI.PARTY_BUTTON_HEIGHT+(i+1)*(BoxesUI.BOX_BUTTON_SIZE+BoxesUI.BORDER_BTW_BUTTONS),img))
 
+    #change number on page button to reflect current page
     def update_page_button(self):
         self.page_button.image.fill(WHITE)
         draw_text(self.page_button.image,"Box "+str(self.page_index+1),BoxesUI.BOX_BUTTON_SIZE//3,BLACK,(BoxesUI.BOX_BUTTON_SIZE+BoxesUI.BORDER_BTW_BUTTONS)*3//2,BoxesUI.BOX_BUTTON_SIZE//4,'center')
@@ -53,6 +57,8 @@ class BoxesUI:
             else:
                 self.party_selected=False
                 self.selection=(self.selection-1)*BoxesUI.NUM_BOX_BUTTON_COLS
+            self.color_boxes(WHITE)
+            self.color_party(LIGHT_GRAY)
         elif not self.party_selected and not self.page_selected: #if in box, go to adjacent button and wrap around in box if at edge
             self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS*BoxesUI.NUM_BOX_BUTTON_COLS+(self.selection+1)%BoxesUI.NUM_BOX_BUTTON_COLS
         elif self.page_selected: #if in page button, go to next page
@@ -60,12 +66,8 @@ class BoxesUI:
             self.update_page_button()
 
     def move_left(self):
-        if not self.party_selected and not self.page_selected: #if in box, go to party if on left edge or go to adjacent button otherwise
-            if self.selection%BoxesUI.NUM_BOX_BUTTON_COLS==0:
-                self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS+1
-                self.party_selected=True
-            else:
-                self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS*BoxesUI.NUM_BOX_BUTTON_COLS+(self.selection-1)%BoxesUI.NUM_BOX_BUTTON_COLS
+        if not self.party_selected and not self.page_selected: #if in box, go to adjacent button and wrap around in box if at edge
+            self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS*BoxesUI.NUM_BOX_BUTTON_COLS+(self.selection-1)%BoxesUI.NUM_BOX_BUTTON_COLS
         elif self.page_selected: #if in page button, go to previous page
             self.page_index=(self.page_index-1)%BoxesUI.NUM_BOXES
             self.update_page_button()
@@ -87,5 +89,30 @@ class BoxesUI:
         elif not self.party_selected and not self.page_selected: #if in box, go to row below and wrap around at bottom edge
             self.selection=(self.selection+BoxesUI.NUM_BOX_BUTTON_COLS)%BoxesUI.NUM_BOX_BUTTONS
         elif self.page_selected: #if in page button, go to middle of top row of box
+            if self.party_selected:
+                self.selection=BoxesUI.NUM_BOX_BUTTON_COLS//2-1
             self.page_selected=False
             self.party_selected=False
+
+    #when B is pressed and boxes or page button is selected, go back to party buttons selection
+    def go_back(self):
+        if self.page_selected:
+            self.selection=0
+        else: #party_selected must be false for this method to be called
+            self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS+1
+        self.page_selected=False
+        self.party_selected=True
+        self.color_boxes(LIGHT_GRAY)
+        self.color_party(WHITE)
+
+    #gray out party buttons when moving selection to box buttons
+    def color_party(self,color):
+        for button in self.party_buttons:
+            button.image.fill(color)
+
+    #gray out box buttons and page button when moving selection to party buttons
+    def color_boxes(self,color):
+        for button in self.box_buttons:
+            button.image.fill(color)
+        self.page_button.image.fill(color)
+        draw_text(self.page_button.image,"Box "+str(self.page_index+1),BoxesUI.BOX_BUTTON_SIZE//3,BLACK,(BoxesUI.BOX_BUTTON_SIZE+BoxesUI.BORDER_BTW_BUTTONS)*3//2,BoxesUI.BOX_BUTTON_SIZE//4,'center')

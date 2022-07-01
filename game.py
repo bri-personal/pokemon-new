@@ -462,8 +462,13 @@ class Game:
                     self.running=False
                 if event.key==pygame.K_a: #A to select current button
                     pass
-                if event.key==pygame.K_b: #B to go back to party
-                    self.page=Pages.PARTY
+                if event.key==pygame.K_b:
+                    #B to go back to party screen if party buttons selected
+                    if self.boxes_ui.party_selected and not self.boxes_ui.page_selected:
+                        self.page=Pages.PARTY
+                    #B to go back to party buttons if box buttons or page button selected
+                    elif self.boxes_ui.page_selected or (not self.boxes_ui.party_selected and not self.boxes_ui.page_selected):
+                        self.boxes_ui.go_back()
                 if event.key==pygame.K_RIGHT:
                     self.boxes_ui.move_right()
                 if event.key==pygame.K_LEFT:
