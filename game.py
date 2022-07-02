@@ -502,6 +502,10 @@ class Game:
                     self.boxes_ui.move_down()
 
         self.screen.fill(RED)
+        pygame.draw.line(self.screen,WHITE,(BoxesUI.LEFT_BORDER*2+BoxesUI.PARTY_BUTTON_WIDTH,0),(BoxesUI.LEFT_BORDER*2+BoxesUI.PARTY_BUTTON_WIDTH,HEIGHT),3)
+        draw_text(self.screen,"PARTY",BoxesUI.PARTY_BUTTON_HEIGHT*3//4,WHITE,BoxesUI.LEFT_BORDER+BoxesUI.PARTY_BUTTON_WIDTH//2,HEIGHT//2-BoxesUI.BORDER_BTW_BUTTONS*5//2-3*BoxesUI.PARTY_BUTTON_HEIGHT+BoxesUI.BOX_BUTTON_SIZE//2-BoxesUI.PARTY_BUTTON_HEIGHT,'midtop')
+        draw_text(self.screen,"BOXES",BoxesUI.PARTY_BUTTON_HEIGHT*3//4,WHITE,BoxesUI.LEFT_BORDER*3+BoxesUI.PARTY_BUTTON_WIDTH+BoxesUI.BOX_BUTTON_SIZE//2+BoxesUI.BOX_BUTTON_SIZE*5//2+BoxesUI.BORDER_BTW_BUTTONS*3,HEIGHT//2-BoxesUI.BORDER_BTW_BUTTONS*5//2-3*BoxesUI.PARTY_BUTTON_HEIGHT+BoxesUI.BOX_BUTTON_SIZE//2-BoxesUI.PARTY_BUTTON_HEIGHT,'midtop')
+
         self.boxes_ui.page_button.draw()
 
         for button in self.boxes_ui.party_buttons:
@@ -513,14 +517,15 @@ class Game:
         #draw rectangle around selected button
         if self.boxes_ui.party_selected and not self.boxes_ui.page_selected:
             button=self.boxes_ui.party_buttons[self.boxes_ui.selection]
-            pygame.draw.rect(self.screen,BLUE,(button.rect.x,button.rect.y,button.rect.width,button.rect.height),5)
+            pygame.draw.rect(self.screen,BLUE,(button.rect.x-1,button.rect.y-1,button.rect.width+2,button.rect.height+2),4)
         elif not self.boxes_ui.party_selected and not self.boxes_ui.page_selected:
             button=self.boxes_ui.box_buttons[self.boxes_ui.selection]
-            pygame.draw.rect(self.screen,BLUE,(button.rect.x,button.rect.y,button.rect.width,button.rect.height),5)
+            pygame.draw.rect(self.screen,BLUE,(button.rect.x-1,button.rect.y-1,button.rect.width+2,button.rect.height+2),4)
         elif self.boxes_ui.page_selected:
             button=self.boxes_ui.page_button
-            pygame.draw.rect(self.screen,BLUE,(button.rect.x,button.rect.y,button.rect.width,button.rect.height),5)
+            pygame.draw.rect(self.screen,BLUE,(button.rect.x-1,button.rect.y-1,button.rect.width+2,button.rect.height+2),4)
 
+        self.screen.blit(self.boxes_ui.stats_tab.image,self.boxes_ui.stats_tab.rect)
 
         pygame.display.flip()
 
