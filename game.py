@@ -259,7 +259,7 @@ class Game:
                     self.dex.move_up()
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Pokedex')])
-        pygame.draw.rect(self.screen,WHITE,(WIDTH//20+WIDTH//2+WIDTH//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT,WIDTH*7//20,DexUI.DEX_NUM_BUTTONS*DexUI.DEX_BUTTON_HEIGHT+(DexUI.DEX_NUM_BUTTONS-1)*DexUI.BORDER_BTW_BUTTONS),3)
+        pygame.draw.rect(self.screen,WHITE,(WIDTH-(WIDTH//20+WIDTH//2+WIDTH//20)-WIDTH*7//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT,WIDTH*7//20,DexUI.DEX_NUM_BUTTONS*DexUI.DEX_BUTTON_HEIGHT+(DexUI.DEX_NUM_BUTTONS-1)*DexUI.BORDER_BTW_BUTTONS),3)
 
         #draw buttons
         count=0
@@ -268,8 +268,8 @@ class Game:
                 color=WHITE
             else:
                 color=BLACK
-            pygame.draw.rect(self.screen,color,(WIDTH//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+count*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS),DexUI.DEX_BUTTON_WIDTH,DexUI.DEX_BUTTON_HEIGHT),3)
-            draw_text(self.screen,str(i),DexUI.DEX_BUTTON_HEIGHT//2,color,WIDTH//20+WIDTH//4,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+DexUI.DEX_BUTTON_HEIGHT//2+count*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS),'center')
+            pygame.draw.rect(self.screen,color,(WIDTH-WIDTH//20-DexUI.DEX_BUTTON_WIDTH,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+count*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS),DexUI.DEX_BUTTON_WIDTH,DexUI.DEX_BUTTON_HEIGHT),3)
+            draw_text(self.screen,str(i),DexUI.DEX_BUTTON_HEIGHT//2,color,WIDTH-(WIDTH//20+WIDTH//4),HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+DexUI.DEX_BUTTON_HEIGHT//2+count*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS),'center')
             count+=1
 
         pygame.display.flip()
