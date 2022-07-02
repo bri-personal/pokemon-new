@@ -296,6 +296,8 @@ class Game:
                     self.page=Pages.BOXES
                     self.boxes_ui.reset_party_buttons(WHITE)
                     self.boxes_ui.reset_box_buttons(LIGHT_GRAY)
+                    if self.player.party[self.boxes_ui.selection] is not None:
+                        self.boxes_ui.stats_tab.set_pokemon(self.player.party[self.boxes_ui.selection])
                 if event.key==pygame.K_DOWN: #arrows to move selection
                     self.party_ui.move_down()
                 if event.key==pygame.K_UP:
@@ -525,7 +527,9 @@ class Game:
             button=self.boxes_ui.page_button
             pygame.draw.rect(self.screen,BLUE,(button.rect.x-1,button.rect.y-1,button.rect.width+2,button.rect.height+2),4)
 
-        self.screen.blit(self.boxes_ui.stats_tab.image,self.boxes_ui.stats_tab.rect)
+        #show stats tab if pokemon is selected
+        if not self.boxes_ui.page_selected and not ((self.boxes_ui.party_selected and self.player.party[self.boxes_ui.selection] is None) or (not self.boxes_ui.party_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is None)):
+            self.screen.blit(self.boxes_ui.stats_tab.image,self.boxes_ui.stats_tab.rect)
 
         pygame.display.flip()
 
