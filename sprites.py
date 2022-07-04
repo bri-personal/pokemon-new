@@ -14,6 +14,10 @@ def draw_text(surface,text,size,color,x,y,orientation):
         text_rect.midtop=(x,y)
     elif orientation=='center':
         text_rect.center=(x,y)
+    elif orientation=='topright':
+        text_rect.topright=(x,y)
+    elif orientation=='midleft':
+        text_rect.midleft=(x,y)
     surface.blit(text_surface,text_rect)
 
 #classes
