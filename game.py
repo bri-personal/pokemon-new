@@ -292,12 +292,7 @@ class Game:
                     self.prev_page=self.page
                     self.page=Pages.MENU
                 if event.key==pygame.K_r: #R to go to boxes page
-                    self.prev_page=self.page
-                    self.page=Pages.BOXES
-                    self.boxes_ui.reset_party_buttons(WHITE)
-                    self.boxes_ui.reset_box_buttons(LIGHT_GRAY)
-                    if self.player.party[self.boxes_ui.selection] is not None:
-                        self.boxes_ui.stats_tab.set_pokemon(self.player.party[self.boxes_ui.selection])
+                    self.go_to_boxes()
                 if event.key==pygame.K_DOWN: #arrows to move selection
                     self.party_ui.move_down()
                 if event.key==pygame.K_UP:
@@ -310,6 +305,8 @@ class Game:
             if i==self.party_ui.selection:
                 pygame.draw.rect(self.screen,WHITE,(self.party_ui.buttons[i].rect.x-PartyUI.BORDER_BTW_BUTTONS//2,self.party_ui.buttons[i].rect.y-PartyUI.BORDER_BTW_BUTTONS//2,self.party_ui.buttons[i].rect.width+PartyUI.BORDER_BTW_BUTTONS,self.party_ui.buttons[i].rect.height+PartyUI.BORDER_BTW_BUTTONS),3)
 
+        if self.party_ui.boxes_button.draw():
+            self.go_to_boxes()
 
         pygame.display.flip()
 
@@ -616,6 +613,14 @@ class Game:
             #create world from scratch
             if not self.world:
                 self.world=World(self,TEST_WORLD,0,World.TILE_SIZE) #tiles start with bottomleft at 0,TILE_SIZE
+
+    def go_to_boxes(self):
+        self.prev_page=self.page
+        self.page=Pages.BOXES
+        self.boxes_ui.reset_party_buttons(WHITE)
+        self.boxes_ui.reset_box_buttons(LIGHT_GRAY)
+        if self.player.party[self.boxes_ui.selection] is not None:
+            self.boxes_ui.stats_tab.set_pokemon(self.player.party[self.boxes_ui.selection])
 
 
 

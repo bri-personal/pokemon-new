@@ -20,6 +20,11 @@ class PartyUI:
             img.fill(WHITE)
             self.buttons.append(Button(self.game,WIDTH//20+PartyUI.PARTY_BUTTON_WIDTH//2,HEIGHT//2-PartyUI.BORDER_BTW_BUTTONS*5//2-3*PartyUI.PARTY_BUTTON_HEIGHT+i*(PartyUI.PARTY_BUTTON_HEIGHT+PartyUI.BORDER_BTW_BUTTONS),img))
 
+        img=pygame.Surface((PartyUI.PARTY_BUTTON_HEIGHT,PartyUI.PARTY_BUTTON_HEIGHT))
+        img.fill(WHITE)
+        draw_text(img,'R',PartyUI.PARTY_BUTTON_HEIGHT//3,BLACK,PartyUI.PARTY_BUTTON_HEIGHT//2,PartyUI.PARTY_BUTTON_HEIGHT//2,'center')
+        self.boxes_button=Button(self.game,WIDTH-PartyUI.PARTY_BUTTON_HEIGHT//2,HEIGHT-PartyUI.PARTY_BUTTON_HEIGHT,img)
+
     #move menu selection down
     def move_down(self):
         self.selection=(self.selection+1)%PartyUI.NUM_BUTTONS
