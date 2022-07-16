@@ -52,11 +52,11 @@ class StatsTab:
         #types
         pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.types[0]],(StatsTab.TAB_WIDTH//40,y,StatsTab.TAB_WIDTH//2-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH*3//20))
         pygame.draw.rect(self.image,WHITE,(StatsTab.TAB_WIDTH//20,y+StatsTab.TAB_WIDTH//40,StatsTab.TAB_WIDTH//10,StatsTab.TAB_WIDTH//10),3)
-        draw_text(self.image,self.pokemon.types[0],StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40,y+StatsTab.TAB_WIDTH*3//40,'midleft')
+        draw_text(self.image,self.pokemon.types[0].upper(),StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40,y+StatsTab.TAB_WIDTH*3//40,'midleft')
         if self.pokemon.types[1] is not None: #show second type if applicable
             pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.types[1]],(StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//2,y,StatsTab.TAB_WIDTH//2-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH*3//20))
             pygame.draw.rect(self.image,WHITE,(StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//2,y+StatsTab.TAB_WIDTH//40,StatsTab.TAB_WIDTH//10,StatsTab.TAB_WIDTH//10),3)
-            draw_text(self.image,self.pokemon.types[1],StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//2,y+StatsTab.TAB_WIDTH*3//40,'midleft')
+            draw_text(self.image,self.pokemon.types[1].upper(),StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//2,y+StatsTab.TAB_WIDTH*3//40,'midleft')
 
         y+=StatsTab.TAB_WIDTH*3//20+StatsTab.TAB_WIDTH//20
 

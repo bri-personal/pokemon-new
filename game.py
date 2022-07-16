@@ -229,12 +229,10 @@ class Game:
 
         #display menu buttons
         for i in range(len(self.menu.buttons)):
+            self.menu.buttons[i].draw()
             draw_text(self.screen,MenuUI.MENU_TEXT[i],MenuUI.BUTTON_TEXT_BORDER//2,WHITE,self.menu.buttons[i].rect.x+MenuUI.MENU_BUTTON_SIZE//2,self.menu.buttons[i].rect.y+self.menu.buttons[i].rect.height+MenuUI.BORDER_BTW_BUTTONS//2,'midtop')
             if i==self.menu.selection:
-                pygame.draw.rect(self.screen,WHITE,(self.menu.buttons[i].rect.x-MenuUI.BORDER_BTW_BUTTONS//2,self.menu.buttons[i].rect.y-MenuUI.BORDER_BTW_BUTTONS//2,self.menu.buttons[i].rect.width+MenuUI.BORDER_BTW_BUTTONS,self.menu.buttons[i].rect.height+MenuUI.BORDER_BTW_BUTTONS),3)
-
-            #draw buttons to open screens
-            self.menu.buttons[i].draw()
+                pygame.draw.rect(self.screen,BLUE,(self.menu.buttons[i].rect.x-1,self.menu.buttons[i].rect.y-1,self.menu.buttons[i].rect.width+2,self.menu.buttons[i].rect.height+2),4)
 
         pygame.display.flip()
 
@@ -301,7 +299,7 @@ class Game:
         for i in range(len(self.party_ui.buttons)):
             self.party_ui.buttons[i].draw()
             if i==self.party_ui.selection:
-                pygame.draw.rect(self.screen,WHITE,(self.party_ui.buttons[i].rect.x-PartyUI.BORDER_BTW_BUTTONS//2,self.party_ui.buttons[i].rect.y-PartyUI.BORDER_BTW_BUTTONS//2,self.party_ui.buttons[i].rect.width+PartyUI.BORDER_BTW_BUTTONS,self.party_ui.buttons[i].rect.height+PartyUI.BORDER_BTW_BUTTONS),3)
+                pygame.draw.rect(self.screen,BLUE,(self.party_ui.buttons[i].rect.x-1,self.party_ui.buttons[i].rect.y-1,self.party_ui.buttons[i].rect.width+2,self.party_ui.buttons[i].rect.height+2),4)
 
         self.party_ui.boxes_button.draw()
 
@@ -364,8 +362,8 @@ class Game:
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Save')])
-        pygame.draw.rect(self.screen,WHITE,(self.save_ui.button.rect.x-10,self.save_ui.button.rect.y-10,self.save_ui.button.rect.width+20,self.save_ui.button.rect.height+20),3)
         self.save_ui.button.draw()
+        pygame.draw.rect(self.screen,BLUE,(self.save_ui.button.rect.x-1,self.save_ui.button.rect.y-1,self.save_ui.button.rect.width+2,self.save_ui.button.rect.height+2),4)
 
         pygame.display.flip()
 
