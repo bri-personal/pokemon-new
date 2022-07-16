@@ -233,10 +233,8 @@ class Game:
             if i==self.menu.selection:
                 pygame.draw.rect(self.screen,WHITE,(self.menu.buttons[i].rect.x-MenuUI.BORDER_BTW_BUTTONS//2,self.menu.buttons[i].rect.y-MenuUI.BORDER_BTW_BUTTONS//2,self.menu.buttons[i].rect.width+MenuUI.BORDER_BTW_BUTTONS,self.menu.buttons[i].rect.height+MenuUI.BORDER_BTW_BUTTONS),3)
 
-            #buttons can be pressed to open screens
-            if self.menu.buttons[i].draw():
-                self.menu.selection=i
-                self.page=self.menu.get_page_from_button()
+            #draw buttons to open screens
+            self.menu.buttons[i].draw()
 
         pygame.display.flip()
 
@@ -305,8 +303,7 @@ class Game:
             if i==self.party_ui.selection:
                 pygame.draw.rect(self.screen,WHITE,(self.party_ui.buttons[i].rect.x-PartyUI.BORDER_BTW_BUTTONS//2,self.party_ui.buttons[i].rect.y-PartyUI.BORDER_BTW_BUTTONS//2,self.party_ui.buttons[i].rect.width+PartyUI.BORDER_BTW_BUTTONS,self.party_ui.buttons[i].rect.height+PartyUI.BORDER_BTW_BUTTONS),3)
 
-        if self.party_ui.boxes_button.draw():
-            self.go_to_boxes()
+        self.party_ui.boxes_button.draw()
 
         pygame.display.flip()
 
@@ -368,9 +365,7 @@ class Game:
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Save')])
         pygame.draw.rect(self.screen,WHITE,(self.save_ui.button.rect.x-10,self.save_ui.button.rect.y-10,self.save_ui.button.rect.width+20,self.save_ui.button.rect.height+20),3)
-        if self.save_ui.button.draw():
-            self.save()
-            self.page=Pages.MENU
+        self.save_ui.button.draw()
 
         pygame.display.flip()
 
