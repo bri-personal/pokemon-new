@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from sprites import draw_text
 
+#tab that shows pokemon data on sidebar in boxes screen
 class StatsTab:
     TAB_WIDTH=2*WIDTH//40+WIDTH//5 #BoxesUI.LEFT_BORDER*2+BoxesUI.PARTY_BUTTON_WIDTH
     TAB_HEIGHT=HEIGHT*5//6
@@ -29,7 +30,8 @@ class StatsTab:
         #name
         draw_text(self.image,pokemon.nickname,StatsTab.TAB_WIDTH*3//40,BLACK,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10,StatsTab.TAB_WIDTH//30,'topleft')
         #draw gender image
-        pygame.draw.circle(self.image,BLUE,(StatsTab.TAB_WIDTH-(StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//20),StatsTab.TAB_WIDTH*3//40),StatsTab.TAB_WIDTH//20,3)
+        color=BLUE if self.pokemon.gender=='male' else RED
+        pygame.draw.circle(self.image,color,(StatsTab.TAB_WIDTH-(StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//20),StatsTab.TAB_WIDTH*3//40),StatsTab.TAB_WIDTH//20,3)
         #level
         draw_text(self.image,"Lv. "+str(pokemon.level),StatsTab.TAB_WIDTH*3//40,BLACK,StatsTab.TAB_WIDTH-(StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10),StatsTab.TAB_WIDTH//30,'topright')
 
@@ -40,7 +42,7 @@ class StatsTab:
         pygame.draw.rect(self.image,GRAY,(StatsTab.TAB_WIDTH//40,StatsTab.TAB_WIDTH*3//20+StatsTab.TAB_WIDTH*5//40,StatsTab.TAB_WIDTH//2-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10))
         pygame.draw.rect(self.image,WHITE,(StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH*3//20+StatsTab.TAB_WIDTH*3//20,StatsTab.TAB_WIDTH//10,StatsTab.TAB_WIDTH//10),3)
         draw_text(self.image,"Type 1",StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40,StatsTab.TAB_WIDTH*3//20+StatsTab.TAB_WIDTH*8//40,'midleft')
-        if True:
+        if True: #show second type if applicable
             pygame.draw.rect(self.image,GRAY,(StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//2,StatsTab.TAB_WIDTH*3//20+StatsTab.TAB_WIDTH*5//40,StatsTab.TAB_WIDTH//2-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10))
             pygame.draw.rect(self.image,WHITE,(StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//2,StatsTab.TAB_WIDTH*3//20+StatsTab.TAB_WIDTH*3//20,StatsTab.TAB_WIDTH//10,StatsTab.TAB_WIDTH//10),3)
             draw_text(self.image,"Type 2",StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//2,StatsTab.TAB_WIDTH*3//20+StatsTab.TAB_WIDTH*8//40,'midleft')

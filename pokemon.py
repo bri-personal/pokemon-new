@@ -5,6 +5,7 @@ class Pokemon:
         self.nickname=species
         self.species=species
         self.level=level
+        self.gender= 'male' if random.random()>0.5 else 'female' #50/50 for all for now, change for specific species
 
         #individual values - stats determined on init
         self.ivs=[]
