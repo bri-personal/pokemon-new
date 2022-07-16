@@ -50,6 +50,7 @@ class BoxesUI:
         
         #create pokemon view stats tab
         self.stats_tab=StatsTab()
+        self.show_tab=False #determines whether tab or pokemon image is shown
 
     def move_right(self):
         if self.party_selected and not self.page_selected: #if in party, go to page button if index is 0 or go to box buttons otherwise

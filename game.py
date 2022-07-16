@@ -491,6 +491,9 @@ class Game:
                     #B to go back to party buttons if box buttons or page button selected
                     elif self.boxes_ui.page_selected or (not self.boxes_ui.party_selected and not self.boxes_ui.page_selected):
                         self.boxes_ui.go_back()
+                if event.key==pygame.K_EQUALS:
+                    #switch stats tab on/off
+                    self.boxes_ui.show_tab=not self.boxes_ui.show_tab
                 if event.key==pygame.K_RIGHT:
                     self.boxes_ui.move_right()
                 if event.key==pygame.K_LEFT:
@@ -526,7 +529,14 @@ class Game:
 
         #show stats tab if pokemon is selected
         if not self.boxes_ui.page_selected and not ((self.boxes_ui.party_selected and self.player.party[self.boxes_ui.selection] is None) or (not self.boxes_ui.party_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is None)):
-            self.screen.blit(self.boxes_ui.stats_tab.image,self.boxes_ui.stats_tab.rect)
+            if self.boxes_ui.show_tab:
+                self.screen.blit(self.boxes_ui.stats_tab.image,self.boxes_ui.stats_tab.rect)
+            else:
+                if self.boxes_ui.party_selected:
+                    pygame.draw.rect(self.screen,PokeTypes.COLORS[self.player.party[self.boxes_ui.selection].types[0]],(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4))
+                else:
+                    pygame.draw.rect(self.screen,PokeTypes.COLORS[self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection%BoxesUI.NUM_BOX_BUTTONS].types[0]],(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4))
+                pygame.draw.rect(self.screen,BLACK,(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4),3)
 
         pygame.display.flip()
 
