@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from sprites import Button, draw_text
 from player import Player
+from poke_types import PokeTypes
 
 class PartyUI:
     NUM_BUTTONS=Player.MAX_PARTY_SIZE
@@ -39,7 +40,8 @@ class PartyUI:
             self.buttons[i].image.fill(WHITE)
             if self.game.player.party[i] is not None:
                 img=pygame.Surface((PartyUI.PARTY_BUTTON_HEIGHT*3//4,PartyUI.PARTY_BUTTON_HEIGHT*3//4))
-                img.fill(BLACK)
+                img.fill(PokeTypes.COLORS[self.game.player.party[i].types[0]])
+                pygame.draw.rect(img,BLACK,img.get_rect(),3)
                 self.buttons[i].image.blit(img,(PartyUI.PARTY_BUTTON_HEIGHT//8,PartyUI.PARTY_BUTTON_HEIGHT//8))
                 draw_text(self.buttons[i].image,self.game.player.party[i].nickname,PartyUI.PARTY_BUTTON_HEIGHT//3,BLACK,PartyUI.PARTY_BUTTON_HEIGHT,PartyUI.PARTY_BUTTON_HEIGHT//8,'topleft')
 

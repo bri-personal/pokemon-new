@@ -2,6 +2,7 @@ from pstats import Stats
 import pygame
 from settings import *
 from sprites import draw_text
+from poke_types import PokeTypes
 
 #tab that shows pokemon data on sidebar in boxes screen
 class StatsTab:
@@ -49,13 +50,13 @@ class StatsTab:
         y+=StatsTab.TAB_WIDTH//10
 
         #types
-        pygame.draw.rect(self.image,GRAY,(StatsTab.TAB_WIDTH//40,y,StatsTab.TAB_WIDTH//2-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH*3//20))
+        pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.types[0]],(StatsTab.TAB_WIDTH//40,y,StatsTab.TAB_WIDTH//2-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH*3//20))
         pygame.draw.rect(self.image,WHITE,(StatsTab.TAB_WIDTH//20,y+StatsTab.TAB_WIDTH//40,StatsTab.TAB_WIDTH//10,StatsTab.TAB_WIDTH//10),3)
-        draw_text(self.image,"Type 1",StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40,y+StatsTab.TAB_WIDTH*3//40,'midleft')
-        if True: #show second type if applicable
-            pygame.draw.rect(self.image,GRAY,(StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//2,y,StatsTab.TAB_WIDTH//2-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH*3//20))
+        draw_text(self.image,self.pokemon.types[0],StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40,y+StatsTab.TAB_WIDTH*3//40,'midleft')
+        if self.pokemon.types[1] is not None: #show second type if applicable
+            pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.types[1]],(StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//2,y,StatsTab.TAB_WIDTH//2-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH*3//20))
             pygame.draw.rect(self.image,WHITE,(StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//2,y+StatsTab.TAB_WIDTH//40,StatsTab.TAB_WIDTH//10,StatsTab.TAB_WIDTH//10),3)
-            draw_text(self.image,"Type 2",StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//2,y+StatsTab.TAB_WIDTH*3//40,'midleft')
+            draw_text(self.image,self.pokemon.types[1],StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40+StatsTab.TAB_WIDTH//2,y+StatsTab.TAB_WIDTH*3//40,'midleft')
 
         y+=StatsTab.TAB_WIDTH*3//20+StatsTab.TAB_WIDTH//20
 

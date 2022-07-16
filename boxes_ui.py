@@ -3,6 +3,7 @@ from settings import *
 from sprites import Button, draw_text
 from stats_tab import StatsTab
 from player import Player
+from poke_types import PokeTypes
 
 class BoxesUI:
     NUM_BOXES=Player.NUM_BOXES
@@ -129,7 +130,8 @@ class BoxesUI:
             self.party_buttons[i].image.fill(color)
             if self.game.player.party[i] is not None:
                 img=pygame.Surface((BoxesUI.PARTY_BUTTON_HEIGHT*3//4,BoxesUI.PARTY_BUTTON_HEIGHT*3//4))
-                img.fill(BLACK)
+                img.fill(PokeTypes.COLORS[self.game.player.party[i].types[0]])
+                pygame.draw.rect(img,BLACK,img.get_rect(),3)
                 self.party_buttons[i].image.blit(img,(BoxesUI.PARTY_BUTTON_HEIGHT//8,BoxesUI.PARTY_BUTTON_HEIGHT//8))
                 draw_text(self.party_buttons[i].image,self.game.player.party[i].nickname,BoxesUI.PARTY_BUTTON_HEIGHT//3,BLACK,BoxesUI.PARTY_BUTTON_HEIGHT,BoxesUI.PARTY_BUTTON_HEIGHT//8,'topleft')
 
@@ -139,7 +141,8 @@ class BoxesUI:
             self.box_buttons[i].image.fill(color)
             if self.game.player.boxes[self.page_index][i%BoxesUI.NUM_BOX_BUTTONS] is not None:
                 img=pygame.Surface((BoxesUI.BOX_BUTTON_SIZE*3//4,BoxesUI.BOX_BUTTON_SIZE*3//4))
-                img.fill(BLACK)
+                img.fill(PokeTypes.COLORS[self.game.player.boxes[self.page_index][i%BoxesUI.NUM_BOX_BUTTONS].types[0]])
+                pygame.draw.rect(img,BLACK,img.get_rect(),3)
                 self.box_buttons[i].image.blit(img,(BoxesUI.BOX_BUTTON_SIZE//8,BoxesUI.BOX_BUTTON_SIZE//8))
                 
         self.page_button.image.fill(color)

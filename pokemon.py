@@ -1,4 +1,5 @@
 import random
+from poke_types import PokeTypes
 
 class Pokemon:
     def __init__(self,species,level):
@@ -6,7 +7,7 @@ class Pokemon:
         self.species=species
         self.level=level
         self.gender= 'male' if random.random()>0.5 else 'female' #50/50 for all for now, change for specific species
-        
+        self.types=[random.choice(PokeTypes.TYPES),random.choice(PokeTypes.TYPES) if random.random()>0.5 else None]
         self.nature='Nature '+str(random.randrange(32))
         self.item='None'
         self.ability='Ability '+str(random.randrange(100))
