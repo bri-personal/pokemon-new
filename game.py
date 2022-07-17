@@ -295,11 +295,16 @@ class Game:
                     self.party_ui.move_up()
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Boxes')])
+
         #draw buttons
         for i in range(len(self.party_ui.buttons)):
             self.party_ui.buttons[i].draw()
             if i==self.party_ui.selection:
                 pygame.draw.rect(self.screen,BLUE,(self.party_ui.buttons[i].rect.x-1,self.party_ui.buttons[i].rect.y-1,self.party_ui.buttons[i].rect.width+2,self.party_ui.buttons[i].rect.height+2),4)
+
+        if self.player.party[self.party_ui.selection] is not None:
+            pygame.draw.rect(self.screen,PokeTypes.COLORS[self.player.party[self.party_ui.selection].types[0]],(WIDTH*5//8,(HEIGHT-WIDTH*3//10)//2,WIDTH*3//10,WIDTH*3//10))
+            pygame.draw.rect(self.screen,BLACK,(WIDTH*5//8,(HEIGHT-WIDTH*3//10)//2,WIDTH*3//10,WIDTH*3//10),3)
 
         self.party_ui.boxes_button.draw()
 
@@ -353,7 +358,7 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
-                if event.key==pygame.K_a:
+                if event.key==pygame.K_a: #A to save game and go back to menu
                     self.save()
                     self.prev_page=self.page
                     self.page=Pages.MENU
@@ -362,7 +367,16 @@ class Game:
                     self.page=Pages.MENU
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Save')])
+        draw_text(self.screen,'Save Your Progress',HEIGHT//10,WHITE,self.save_ui.button.rect.centerx,HEIGHT//6,'midtop')
+
+        #draw pokemon images for current party
+        for i in range(len(self.player.party)):
+            if self.player.party[i] is not None:
+                pygame.draw.rect(self.screen,PokeTypes.COLORS[self.player.party[i].types[0]],(self.save_ui.button.rect.centerx-3*HEIGHT//10-5*HEIGHT//50//2+i*(HEIGHT//10+HEIGHT//50),HEIGHT//6+HEIGHT//10+HEIGHT//20,HEIGHT//10,HEIGHT//10))
+                pygame.draw.rect(self.screen,BLACK,(self.save_ui.button.rect.centerx-3*HEIGHT//10-5*HEIGHT//50//2+i*(HEIGHT//10+HEIGHT//50),HEIGHT//6+HEIGHT//10+HEIGHT//20,HEIGHT//10,HEIGHT//10),3)
+        
         self.save_ui.button.draw()
+        
         pygame.draw.rect(self.screen,BLUE,(self.save_ui.button.rect.x-1,self.save_ui.button.rect.y-1,self.save_ui.button.rect.width+2,self.save_ui.button.rect.height+2),4)
 
         pygame.display.flip()
