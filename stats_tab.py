@@ -3,6 +3,7 @@ import pygame
 from settings import *
 from sprites import draw_text
 from poke_types import PokeTypes
+from pokemon import Pokemon
 
 #tab that shows pokemon data on sidebar in boxes screen
 class StatsTab:
@@ -64,14 +65,21 @@ class StatsTab:
 
         y+=StatsTab.TAB_WIDTH//40
 
-        #stats and other info
+        #stats
         stat_text=['HP:         ', 'ATK:       ', 'DEF:       ', 'SPATK:   ', 'SPDEF:  ', 'SPD:       ']
         for i in range(len(stat_text)):
-            draw_text(self.image,stat_text[i]+str(self.pokemon.stats[i]),StatsTab.TAB_WIDTH*5//80,BLACK,StatsTab.TAB_WIDTH//40,y,'topleft')
+            if Pokemon.NATURES[self.pokemon.nature][i]==1.1:
+                color=BLUE
+            elif Pokemon.NATURES[self.pokemon.nature][i]==0.9:
+                color=RED
+            else:
+                color=BLACK
+            draw_text(self.image,stat_text[i]+str(self.pokemon.stats[i]),StatsTab.TAB_WIDTH*5//80,color,StatsTab.TAB_WIDTH//40,y,'topleft')
             y+=StatsTab.TAB_WIDTH*5//80+StatsTab.TAB_WIDTH//40
 
         y+=StatsTab.TAB_WIDTH//40
 
+        #nature, item, ability
         draw_text(self.image,self.pokemon.nature+' by nature',StatsTab.TAB_WIDTH*5//80,BLACK,StatsTab.TAB_WIDTH//40,y,'topleft')
 
         y+=StatsTab.TAB_WIDTH*5//80+StatsTab.TAB_WIDTH//40
