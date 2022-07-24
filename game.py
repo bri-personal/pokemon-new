@@ -60,9 +60,9 @@ class Game:
        
         #for testing catches
         for _ in range(13):
-            self.player.catch(Pokemon('Bulbasaur',5))
-            self.player.catch(Pokemon('Charmander',5))
-            self.player.catch(Pokemon('Squirtle',5))
+            self.player.catch(Pokemon('Bulbasaur',6))
+            self.player.catch(Pokemon('Charmander',6))
+            self.player.catch(Pokemon('Squirtle',6))
 #
 #        print(self.player.party)
 #        print(self.player.boxes)

@@ -83,15 +83,15 @@ class StatsTab:
         y+=StatsTab.TAB_WIDTH//40
 
         #nature, item, ability
-        draw_text(self.image,self.pokemon.nature+' by nature',StatsTab.TAB_WIDTH*5//80,BLACK,StatsTab.TAB_WIDTH//40,y,'topleft')
+        draw_text(self.image,self.pokemon.nature+' by nature!',StatsTab.TAB_WIDTH*5//80,BLACK,StatsTab.TAB_WIDTH//40,y,'topleft')
 
         y+=StatsTab.TAB_WIDTH*5//80+StatsTab.TAB_WIDTH//40
 
-        draw_text(self.image,'Held item: '+self.pokemon.item,StatsTab.TAB_WIDTH*5//80,BLACK,StatsTab.TAB_WIDTH//40,y,'topleft')
+        draw_text(self.image,'Held item: '+('---' if self.pokemon.item is None else self.pokemon.item),StatsTab.TAB_WIDTH*5//80,BLACK,StatsTab.TAB_WIDTH//40,y,'topleft')
 
         y+=StatsTab.TAB_WIDTH*5//80+StatsTab.TAB_WIDTH//40
 
-        draw_text(self.image,'Ability: '+self.pokemon.ability,StatsTab.TAB_WIDTH*5//80,BLACK,StatsTab.TAB_WIDTH//40,y,'topleft')
+        draw_text(self.image,'Ability: '+(self.pokemon.ability[3:] if self.pokemon.ability[:3]=='ha_' else self.pokemon.ability),StatsTab.TAB_WIDTH*5//80,BLACK,StatsTab.TAB_WIDTH//40,y,'topleft')
 
         y+=StatsTab.TAB_WIDTH*5//80+StatsTab.TAB_WIDTH//20
 
