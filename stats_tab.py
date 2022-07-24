@@ -1,4 +1,4 @@
-from pstats import Stats
+﻿from pstats import Stats
 import pygame
 from settings import *
 from sprites import draw_text
@@ -68,13 +68,16 @@ class StatsTab:
         #stats
         stat_text=['HP:         ', 'ATK:       ', 'DEF:       ', 'SPATK:   ', 'SPDEF:  ', 'SPD:       ']
         for i in range(len(stat_text)):
+            text=stat_text[i]+str(self.pokemon.stats[i])
             if Pokemon.NATURES[self.pokemon.nature][i]==1.1:
                 color=BLUE
+                text+=' ↑'
             elif Pokemon.NATURES[self.pokemon.nature][i]==0.9:
                 color=RED
+                text+=' ↓'
             else:
                 color=BLACK
-            draw_text(self.image,stat_text[i]+str(self.pokemon.stats[i]),StatsTab.TAB_WIDTH*5//80,color,StatsTab.TAB_WIDTH//40,y,'topleft')
+            draw_text(self.image,text,StatsTab.TAB_WIDTH*5//80,color,StatsTab.TAB_WIDTH//40,y,'topleft')
             y+=StatsTab.TAB_WIDTH*5//80+StatsTab.TAB_WIDTH//40
 
         y+=StatsTab.TAB_WIDTH//40
