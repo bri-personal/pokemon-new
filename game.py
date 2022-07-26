@@ -10,7 +10,8 @@ from save_ui import SaveUI
 from party_ui import PartyUI
 from boxes_ui import BoxesUI
 from player import Player
-from pokemon import *
+from pokemon import Pokemon
+from poke_types import PokeTypes
      
 class Game:
     def __init__(self):

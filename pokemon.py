@@ -1,6 +1,6 @@
 import random
-from poke_types import PokeTypes
-from pokedex import Pokedex
+from pokedex import ALL_POKEMON_DATA
+from move import ALL_MOVES
 
 class Pokemon:
 
@@ -36,23 +36,23 @@ class Pokemon:
         self.nickname=species
         self.species=species
         self.level=level
-        self.gender= 'male' if random.random()<Pokedex.DEX[self.species].gender_ratio else 'female' #50/50 for all for now, change for specific species
-        self.types=Pokedex.DEX[self.species].types
+        self.gender= 'male' if random.random()<ALL_POKEMON_DATA[self.species].gender_ratio else 'female' #50/50 for all for now, change for specific species
+        self.types=ALL_POKEMON_DATA[self.species].types
         self.nature=random.choice(list(Pokemon.NATURES))
         self.item=None
-        self.ability=random.choice(Pokedex.DEX[self.species].abilities)
+        self.ability=random.choice(ALL_POKEMON_DATA[self.species].abilities)
 
         #up to four moves
         #get moves from moveset that can be learned at this level
         learnable=[]
-        for move in Pokedex.DEX[self.species].moveset.keys():
-            if Pokedex.DEX[self.species].moveset[move]<=self.level:
+        for move in ALL_POKEMON_DATA[self.species].moveset.keys():
+            if ALL_POKEMON_DATA[self.species].moveset[move]<=self.level:
                 learnable.append(move)
 
         #add up to 4 learnable moves to this pokemon's moves
         self.moves=[]
         for i in range(min(len(learnable),4)):
-            self.moves.append(learnable[i])
+            self.moves.append(ALL_MOVES[learnable[i]])
 
         #individual values - stats determined on init
         self.ivs=[]
@@ -66,7 +66,7 @@ class Pokemon:
         self.stats=[]
         #calculate stats based on base stats
         for i in range(len(self.ivs)):
-            self.stats.append(Pokedex.DEX[self.species].base_stats[i]+self.level*self.ivs[i]+self.evs[i])
+            self.stats.append(ALL_POKEMON_DATA[self.species].base_stats[i]+self.level*self.ivs[i]+self.evs[i])
 
     def __repr__(self):
         return self.species+" level "+str(self.level)

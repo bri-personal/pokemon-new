@@ -1,5 +1,4 @@
-﻿from pstats import Stats
-import pygame
+﻿import pygame
 from settings import *
 from sprites import draw_text
 from poke_types import PokeTypes
@@ -106,9 +105,9 @@ class StatsTab:
         
         for i in range(4):
             if i<len(self.pokemon.moves):
-                pygame.draw.rect(self.image,GRAY,(StatsTab.TAB_WIDTH//40,y,StatsTab.TAB_WIDTH-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH*3//20))
+                pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.moves[i].type],(StatsTab.TAB_WIDTH//40,y,StatsTab.TAB_WIDTH-StatsTab.TAB_WIDTH//20,StatsTab.TAB_WIDTH*3//20))
                 pygame.draw.rect(self.image,WHITE,(StatsTab.TAB_WIDTH//20,y+StatsTab.TAB_WIDTH//40,StatsTab.TAB_WIDTH//10,StatsTab.TAB_WIDTH//10),3)
-                draw_text(self.image,self.pokemon.moves[i],StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40,y+StatsTab.TAB_WIDTH*3//40,'midleft')
+                draw_text(self.image,self.pokemon.moves[i].name,StatsTab.TAB_WIDTH*3//40,WHITE,StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40,y+StatsTab.TAB_WIDTH*3//40,'midleft')
             y+=StatsTab.TAB_WIDTH//20+StatsTab.TAB_WIDTH//10+StatsTab.TAB_WIDTH//40
 
         #markings
