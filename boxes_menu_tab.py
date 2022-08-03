@@ -1,5 +1,6 @@
 from settings import *
 from sprites import draw_text
+from pages import Pages
 import pygame
 
 
@@ -40,3 +41,14 @@ class BoxesMenuTab:
     def go_up(self):
         self.selection=(self.selection-1)%len(self.items)
         self.update()
+
+    def get_page_from_selection(self):
+        match self.selection:
+            case 0:
+                return Pages.STATS #'View Stats' -> go to pokemon stats page
+            case 1:
+                return Pages.BAG #'Held Item; -> go to bag to select held item
+            case 2:
+                return Pages.BOXES #'Markings' -> change markings on boxes page
+            case 3:
+                return Pages.BOXES #'Back' -> go back to boxes page

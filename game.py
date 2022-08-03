@@ -322,8 +322,10 @@ class Game:
                     self.playing=False
                     self.running=False
                 if event.key==pygame.K_b: #B to go back to menu
+                    #go back to prev page
+                    temp=self.prev_page
                     self.prev_page=self.page
-                    self.page=Pages.MENU
+                    self.page=temp
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Bag')])
         draw_text(self.screen,'Bag',HEIGHT//10,WHITE,WIDTH//2,HEIGHT//2,'center')
@@ -488,9 +490,20 @@ class Game:
                     self.playing=False
                     self.running=False
                 if event.key==pygame.K_a: #A to select current button
-                    #if in boxes, enable menu tab
                     if not self.boxes_ui.page_selected and not self.boxes_ui.party_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is not None:
-                        self.boxes_ui.set_menu_tab()
+                        #if in boxes, enable menu tab if not already enabled
+                        if not self.boxes_ui.show_menu_tab:
+                            self.boxes_ui.set_menu_tab()
+                        #if menu tab is enabled go to current selection on it
+                        else:
+                            new_page=self.boxes_ui.menu_tab.get_page_from_selection()
+                            #if going to other page, set boxes as prev page
+                            if new_page==Pages.STATS or new_page==Pages.BAG:
+                                self.prev_page=self.page
+                            #if staying on boxes page, hide menu tab
+                            elif new_page==Pages.BOXES:
+                                self.boxes_ui.show_menu_tab=False
+                            self.page=new_page
                     #if in party, go to pokemon screen for now
                     elif not self.boxes_ui.page_selected and self.boxes_ui.party_selected and self.player.party[self.boxes_ui.selection] is not None:
                         self.prev_page=self.page
@@ -658,8 +671,11 @@ class Game:
         self.page=Pages.BOXES
         self.boxes_ui.reset_party_buttons(WHITE)
         self.boxes_ui.reset_box_buttons(LIGHT_GRAY)
+        self.boxes_ui.selection=0
+        self.boxes_ui.party_selected=True
         if self.player.party[self.boxes_ui.selection] is not None:
             self.boxes_ui.stats_tab.set_pokemon(self.player.party[self.boxes_ui.selection])
+        self.boxes_ui.show_menu_tab=False
 
 
 
