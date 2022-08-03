@@ -1,5 +1,5 @@
 class Move:
-    def __init__(self,name,move_type,power,accuracy,pp,max_pp,priority):
+    def __init__(self,name:str,move_type:str,power:int,accuracy:float,pp:int,max_pp:int,priority:int):
         self.name=name
         self.type=move_type
         self.power=power #int power factor to user in damage calculation

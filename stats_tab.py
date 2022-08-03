@@ -3,6 +3,7 @@ from settings import *
 from sprites import draw_text
 from poke_types import PokeTypes
 from pokemon import Pokemon
+from pokedex import NATURES
 
 #tab that shows pokemon data on sidebar in boxes screen
 class StatsTab:
@@ -20,6 +21,9 @@ class StatsTab:
         self.rect.y=(HEIGHT-StatsTab.TAB_HEIGHT)//2
         if self.pokemon is not None:
             self.set_pokemon(pokemon)
+
+    def draw(self,surface):
+        surface.blit(self.image,self.rect)
 
     def set_pokemon(self,pokemon):
         self.pokemon=pokemon
@@ -68,10 +72,10 @@ class StatsTab:
         stat_text=['HP:         ', 'ATK:       ', 'DEF:       ', 'SPATK:   ', 'SPDEF:  ', 'SPD:       ']
         for i in range(len(stat_text)):
             text=stat_text[i]+str(self.pokemon.stats[i])
-            if Pokemon.NATURES[self.pokemon.nature][i]==1.1:
+            if NATURES[self.pokemon.nature][i]==1.1:
                 color=BLUE
                 text+=' ↑'
-            elif Pokemon.NATURES[self.pokemon.nature][i]==0.9:
+            elif NATURES[self.pokemon.nature][i]==0.9:
                 color=RED
                 text+=' ↓'
             else:

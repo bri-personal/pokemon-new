@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from sprites import Button, draw_text
 from stats_tab import StatsTab
+from boxes_menu_tab import BoxesMenuTab
 from player import Player
 from poke_types import PokeTypes
 
@@ -52,65 +53,77 @@ class BoxesUI:
         self.stats_tab=StatsTab()
         self.show_tab=False #determines whether tab or pokemon image is shown
 
+        #create boxes menu tab
+        self.menu_tab=BoxesMenuTab()
+        self.show_menu_tab=False #determines whether tab is shown or not
+
     def move_right(self):
-        if self.party_selected and not self.page_selected: #if in party, go to page button if index is 0 or go to box buttons otherwise
-            if self.selection==0:
-                self.page_selected=True
-            else:
-                self.party_selected=False
-                self.selection=(self.selection-1)*BoxesUI.NUM_BOX_BUTTON_COLS
+        if not self.show_menu_tab:
+            if self.party_selected and not self.page_selected: #if in party, go to page button if index is 0 or go to box buttons otherwise
+                if self.selection==0:
+                    self.page_selected=True
+                else:
+                    self.party_selected=False
+                    self.selection=(self.selection-1)*BoxesUI.NUM_BOX_BUTTON_COLS
+                    if self.game.player.boxes[self.page_index][self.selection] is not None:
+                        self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
+                self.reset_box_buttons(WHITE)
+                self.reset_party_buttons(LIGHT_GRAY)
+            elif not self.party_selected and not self.page_selected: #if in box, go to adjacent button and wrap around in box if at edge
+                self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS*BoxesUI.NUM_BOX_BUTTON_COLS+(self.selection+1)%BoxesUI.NUM_BOX_BUTTON_COLS
                 if self.game.player.boxes[self.page_index][self.selection] is not None:
                     self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
-            self.reset_box_buttons(WHITE)
-            self.reset_party_buttons(LIGHT_GRAY)
-        elif not self.party_selected and not self.page_selected: #if in box, go to adjacent button and wrap around in box if at edge
-            self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS*BoxesUI.NUM_BOX_BUTTON_COLS+(self.selection+1)%BoxesUI.NUM_BOX_BUTTON_COLS
-            if self.game.player.boxes[self.page_index][self.selection] is not None:
-                self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
-        elif self.page_selected: #if in page button, go to next page
-            self.page_index=(self.page_index+1)%BoxesUI.NUM_BOXES
-            self.reset_box_buttons(WHITE)
+            elif self.page_selected: #if in page button, go to next page
+                self.page_index=(self.page_index+1)%BoxesUI.NUM_BOXES
+                self.reset_box_buttons(WHITE)
 
     def move_left(self):
-        if not self.party_selected and not self.page_selected: #if in box, go to adjacent button and wrap around in box if at edge
-            self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS*BoxesUI.NUM_BOX_BUTTON_COLS+(self.selection-1)%BoxesUI.NUM_BOX_BUTTON_COLS
-            if self.game.player.boxes[self.page_index][self.selection] is not None:
-                self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
-        elif self.page_selected: #if in page button, go to previous page
-            self.page_index=(self.page_index-1)%BoxesUI.NUM_BOXES
-            self.reset_box_buttons(WHITE)
-        #if in party, do nothing
-
-    def move_up(self):
-        if self.party_selected and not self.page_selected: #if in party, go up and wrap around at top edge
-            self.selection=(self.selection-1)%BoxesUI.NUM_PARTY_BUTTONS
-            if self.game.player.party[self.selection] is not None:
-                self.stats_tab.set_pokemon(self.game.player.party[self.selection])
-        elif not self.party_selected and not self.page_selected: #if in box, go to page button if at top row or row above otherwise
-            if self.selection<BoxesUI.NUM_BOX_BUTTON_COLS:
-                self.page_selected=True
-            else:
-                self.selection=(self.selection-BoxesUI.NUM_BOX_BUTTON_COLS)%BoxesUI.NUM_BOX_BUTTONS
+        if not self.show_menu_tab:
+            if not self.party_selected and not self.page_selected: #if in box, go to adjacent button and wrap around in box if at edge
+                self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS*BoxesUI.NUM_BOX_BUTTON_COLS+(self.selection-1)%BoxesUI.NUM_BOX_BUTTON_COLS
                 if self.game.player.boxes[self.page_index][self.selection] is not None:
                     self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
-        #do nothing if on page button
+            elif self.page_selected: #if in page button, go to previous page
+                self.page_index=(self.page_index-1)%BoxesUI.NUM_BOXES
+                self.reset_box_buttons(WHITE)
+            #if in party, do nothing
+
+    def move_up(self):
+        if self.show_menu_tab:
+            pass
+        else:
+            if self.party_selected and not self.page_selected: #if in party, go up and wrap around at top edge
+                self.selection=(self.selection-1)%BoxesUI.NUM_PARTY_BUTTONS
+                if self.game.player.party[self.selection] is not None:
+                    self.stats_tab.set_pokemon(self.game.player.party[self.selection])
+            elif not self.party_selected and not self.page_selected: #if in box, go to page button if at top row or row above otherwise
+                if self.selection<BoxesUI.NUM_BOX_BUTTON_COLS:
+                    self.page_selected=True
+                else:
+                    self.selection=(self.selection-BoxesUI.NUM_BOX_BUTTON_COLS)%BoxesUI.NUM_BOX_BUTTONS
+                    if self.game.player.boxes[self.page_index][self.selection] is not None:
+                        self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
+            #do nothing if on page button
             
     def move_down(self):
-        if self.party_selected and not self.page_selected: #if in party, go down and wrap around at bottom edge
-            self.selection=(self.selection+1)%BoxesUI.NUM_PARTY_BUTTONS
-            if self.game.player.party[self.selection] is not None:
-                self.stats_tab.set_pokemon(self.game.player.party[self.selection])
-        elif not self.party_selected and not self.page_selected: #if in box, go to row below and wrap around at bottom edge
-            self.selection=(self.selection+BoxesUI.NUM_BOX_BUTTON_COLS)%BoxesUI.NUM_BOX_BUTTONS
-            if self.game.player.boxes[self.page_index][self.selection] is not None:
-                self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
-        elif self.page_selected: #if in page button, go to middle of top row of box
-            if self.party_selected:
-                self.selection=BoxesUI.NUM_BOX_BUTTON_COLS//2-1
-            self.page_selected=False
-            self.party_selected=False
-            if self.game.player.boxes[self.page_index][self.selection] is not None:
-                self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
+        if self.show_menu_tab:
+            pass
+        else:
+            if self.party_selected and not self.page_selected: #if in party, go down and wrap around at bottom edge
+                self.selection=(self.selection+1)%BoxesUI.NUM_PARTY_BUTTONS
+                if self.game.player.party[self.selection] is not None:
+                    self.stats_tab.set_pokemon(self.game.player.party[self.selection])
+            elif not self.party_selected and not self.page_selected: #if in box, go to row below and wrap around at bottom edge
+                self.selection=(self.selection+BoxesUI.NUM_BOX_BUTTON_COLS)%BoxesUI.NUM_BOX_BUTTONS
+                if self.game.player.boxes[self.page_index][self.selection] is not None:
+                    self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
+            elif self.page_selected: #if in page button, go to middle of top row of box
+                if self.party_selected:
+                    self.selection=BoxesUI.NUM_BOX_BUTTON_COLS//2-1
+                self.page_selected=False
+                self.party_selected=False
+                if self.game.player.boxes[self.page_index][self.selection] is not None:
+                    self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
 
     #when B is pressed and boxes or page button is selected, go back to party buttons selection
     def go_back(self):
@@ -124,6 +137,29 @@ class BoxesUI:
         self.reset_party_buttons(WHITE)
         if self.game.player.party[self.selection] is not None:
             self.stats_tab.set_pokemon(self.game.player.party[self.selection])
+
+    #when A is pressed on pokemon box button, activate menu tab
+    def set_menu_tab(self):
+        self.show_menu_tab=True
+        orientation=''
+
+        if self.selection//BoxesUI.NUM_BOX_BUTTON_COLS<BoxesUI.NUM_BOX_BUTTON_ROWS//2+1:
+            y=self.box_buttons[self.selection].rect.y
+            orientation+='top'
+        else:
+            y=self.box_buttons[self.selection].rect.bottom
+            orientation+='bottom'
+
+        if self.selection%BoxesUI.NUM_BOX_BUTTON_COLS<BoxesUI.NUM_BOX_BUTTON_COLS//2:
+            x=self.box_buttons[self.selection].rect.right
+            orientation+='right'
+        else:
+            x=self.box_buttons[self.selection].rect.left
+            orientation+='left'
+
+        self.menu_tab.set_loc(x,y,orientation)
+        self.menu_tab.selection=0
+        self.menu_tab.update()
 
     #gray out party buttons when moving selection to box buttons
     def reset_party_buttons(self,color):

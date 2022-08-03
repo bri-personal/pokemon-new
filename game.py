@@ -488,7 +488,11 @@ class Game:
                     self.playing=False
                     self.running=False
                 if event.key==pygame.K_a: #A to select current button
-                    if not self.boxes_ui.page_selected and ((self.boxes_ui.party_selected and self.player.party[self.boxes_ui.selection] is not None) or (not self.boxes_ui.party_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is not None)):
+                    #if in boxes, enable menu tab
+                    if not self.boxes_ui.page_selected and not self.boxes_ui.party_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is not None:
+                        self.boxes_ui.set_menu_tab()
+                    #if in party, go to pokemon screen for now
+                    elif not self.boxes_ui.page_selected and self.boxes_ui.party_selected and self.player.party[self.boxes_ui.selection] is not None:
                         self.prev_page=self.page
                         self.page=Pages.STATS
                 if event.key==pygame.K_b:
@@ -496,6 +500,9 @@ class Game:
                     if self.boxes_ui.party_selected and not self.boxes_ui.page_selected:
                         self.prev_page=self.page
                         self.page=Pages.PARTY
+                    #B to disable boxes menu tab if it is on
+                    elif not self.boxes_ui.page_selected and not self.boxes_ui.party_selected and self.boxes_ui.show_menu_tab:
+                        self.boxes_ui.show_menu_tab=False
                     #B to go back to party buttons if box buttons or page button selected
                     elif self.boxes_ui.page_selected or (not self.boxes_ui.party_selected and not self.boxes_ui.page_selected):
                         self.boxes_ui.go_back()
@@ -507,9 +514,19 @@ class Game:
                 if event.key==pygame.K_LEFT:
                     self.boxes_ui.move_left()
                 if event.key==pygame.K_UP:
-                    self.boxes_ui.move_up()
+                    #if menu tab active, go up/down on it
+                    if self.boxes_ui.show_menu_tab:
+                        self.boxes_ui.menu_tab.go_up()
+                    #otherwise, go up/down in boxes
+                    else:
+                        self.boxes_ui.move_up()
                 if event.key==pygame.K_DOWN:
-                    self.boxes_ui.move_down()
+                    #if menu tab active, go up/down on it
+                    if self.boxes_ui.show_menu_tab:
+                        self.boxes_ui.menu_tab.go_down()
+                    #otherwise, go up/down in boxes
+                    else:
+                        self.boxes_ui.move_down()
 
         self.screen.fill(RED)
         pygame.draw.line(self.screen,WHITE,(BoxesUI.LEFT_BORDER*2+BoxesUI.PARTY_BUTTON_WIDTH,0),(BoxesUI.LEFT_BORDER*2+BoxesUI.PARTY_BUTTON_WIDTH,HEIGHT),3)
@@ -538,13 +555,17 @@ class Game:
         #show stats tab if pokemon is selected
         if not self.boxes_ui.page_selected and not ((self.boxes_ui.party_selected and self.player.party[self.boxes_ui.selection] is None) or (not self.boxes_ui.party_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is None)):
             if self.boxes_ui.show_tab:
-                self.screen.blit(self.boxes_ui.stats_tab.image,self.boxes_ui.stats_tab.rect)
+                self.boxes_ui.stats_tab.draw(self.screen)
             else:
                 if self.boxes_ui.party_selected:
                     pygame.draw.rect(self.screen,PokeTypes.COLORS[self.player.party[self.boxes_ui.selection].types[0]],(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4))
                 else:
                     pygame.draw.rect(self.screen,PokeTypes.COLORS[self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection%BoxesUI.NUM_BOX_BUTTONS].types[0]],(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4))
                 pygame.draw.rect(self.screen,BLACK,(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4),3)
+
+        #show menu tab
+        if self.boxes_ui.show_menu_tab:
+            self.boxes_ui.menu_tab.draw(self.screen)
 
         pygame.display.flip()
 
