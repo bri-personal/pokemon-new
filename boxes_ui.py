@@ -1,7 +1,7 @@
 import pygame
 from settings import *
 from sprites import Button, draw_text
-from stats_tab import StatsTab
+from boxes_stats_tab import BoxesStatsTab
 from boxes_menu_tab import BoxesMenuTab
 from player import Player
 from poke_types import PokeTypes
@@ -50,8 +50,8 @@ class BoxesUI:
                 self.box_buttons.append(Button(self.game,BoxesUI.LEFT_BORDER*3+BoxesUI.PARTY_BUTTON_WIDTH+BoxesUI.BOX_BUTTON_SIZE//2+j*(BoxesUI.BOX_BUTTON_SIZE+BoxesUI.BORDER_BTW_BUTTONS),HEIGHT//2-BoxesUI.BORDER_BTW_BUTTONS*5//2-3*BoxesUI.PARTY_BUTTON_HEIGHT+(i+1)*(BoxesUI.BOX_BUTTON_SIZE+BoxesUI.BORDER_BTW_BUTTONS),img))
         
         #create pokemon view stats tab
-        self.stats_tab=StatsTab()
-        self.show_tab=False #determines whether tab or pokemon image is shown
+        self.stats_tab=BoxesStatsTab()
+        self.show_stats_tab=False #determines whether tab or pokemon image is shown
 
         #create boxes menu tab
         self.menu_tab=BoxesMenuTab()

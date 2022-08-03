@@ -508,7 +508,7 @@ class Game:
                         self.boxes_ui.go_back()
                 if event.key==pygame.K_EQUALS:
                     #switch stats tab on/off
-                    self.boxes_ui.show_tab=not self.boxes_ui.show_tab
+                    self.boxes_ui.show_stats_tab=not self.boxes_ui.show_stats_tab
                 if event.key==pygame.K_RIGHT:
                     self.boxes_ui.move_right()
                 if event.key==pygame.K_LEFT:
@@ -554,7 +554,7 @@ class Game:
 
         #show stats tab if pokemon is selected
         if not self.boxes_ui.page_selected and not ((self.boxes_ui.party_selected and self.player.party[self.boxes_ui.selection] is None) or (not self.boxes_ui.party_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is None)):
-            if self.boxes_ui.show_tab:
+            if self.boxes_ui.show_stats_tab:
                 self.boxes_ui.stats_tab.draw(self.screen)
             else:
                 if self.boxes_ui.party_selected:
