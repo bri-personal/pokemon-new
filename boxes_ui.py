@@ -67,15 +67,15 @@ class BoxesUI:
                     self.selection=(self.selection-1)*BoxesUI.NUM_BOX_BUTTON_COLS
                     if self.game.player.boxes[self.page_index][self.selection] is not None:
                         self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
-                self.reset_box_buttons(WHITE)
-                self.reset_party_buttons(LIGHT_GRAY)
+                self.reset_box_buttons(True)
+                self.reset_party_buttons(False)
             elif not self.party_selected and not self.page_selected: #if in box, go to adjacent button and wrap around in box if at edge
                 self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS*BoxesUI.NUM_BOX_BUTTON_COLS+(self.selection+1)%BoxesUI.NUM_BOX_BUTTON_COLS
                 if self.game.player.boxes[self.page_index][self.selection] is not None:
                     self.stats_tab.set_pokemon(self.game.player.boxes[self.page_index][self.selection])
             elif self.page_selected: #if in page button, go to next page
                 self.page_index=(self.page_index+1)%BoxesUI.NUM_BOXES
-                self.reset_box_buttons(WHITE)
+                self.reset_box_buttons(True)
 
     def move_left(self):
         if not self.show_menu_tab:
@@ -133,8 +133,8 @@ class BoxesUI:
             self.selection=self.selection//BoxesUI.NUM_BOX_BUTTON_COLS+1
         self.page_selected=False
         self.party_selected=True
-        self.reset_box_buttons(LIGHT_GRAY)
-        self.reset_party_buttons(WHITE)
+        self.reset_box_buttons(False)
+        self.reset_party_buttons(True)
         if self.game.player.party[self.selection] is not None:
             self.stats_tab.set_pokemon(self.game.player.party[self.selection])
 
@@ -174,9 +174,9 @@ class BoxesUI:
         self.menu_tab.update()
 
     #gray out party buttons when moving selection to box buttons
-    def reset_party_buttons(self,color):
+    def reset_party_buttons(self,active: bool):
         for i in range(len(self.party_buttons)):
-            self.party_buttons[i].image.fill(color)
+            self.party_buttons[i].image.fill(WHITE if active else LIGHT_GRAY)
             if self.game.player.party[i] is not None:
                 img=pygame.Surface((BoxesUI.PARTY_BUTTON_HEIGHT*3//4,BoxesUI.PARTY_BUTTON_HEIGHT*3//4))
                 img.fill(PokeTypes.COLORS[self.game.player.party[i].types[0]])
@@ -185,14 +185,14 @@ class BoxesUI:
                 draw_text(self.party_buttons[i].image,self.game.player.party[i].nickname,BoxesUI.PARTY_BUTTON_HEIGHT//3,BLACK,BoxesUI.PARTY_BUTTON_HEIGHT,BoxesUI.PARTY_BUTTON_HEIGHT//8,'topleft')
 
     #gray out box buttons and page button when moving selection to party buttons
-    def reset_box_buttons(self,color):
+    def reset_box_buttons(self,active: bool):
         for i in range(len(self.box_buttons)):
-            self.box_buttons[i].image.fill(color)
+            self.box_buttons[i].image.fill(WHITE if active else LIGHT_GRAY)
             if self.game.player.boxes[self.page_index][i%BoxesUI.NUM_BOX_BUTTONS] is not None:
                 img=pygame.Surface((BoxesUI.BOX_BUTTON_SIZE*3//4,BoxesUI.BOX_BUTTON_SIZE*3//4))
                 img.fill(PokeTypes.COLORS[self.game.player.boxes[self.page_index][i%BoxesUI.NUM_BOX_BUTTONS].types[0]])
                 pygame.draw.rect(img,BLACK,img.get_rect(),3)
                 self.box_buttons[i].image.blit(img,(BoxesUI.BOX_BUTTON_SIZE//8,BoxesUI.BOX_BUTTON_SIZE//8))
                 
-        self.page_button.image.fill(color)
+        self.page_button.image.fill(WHITE if active else LIGHT_GRAY)
         draw_text(self.page_button.image,"Box "+str(self.page_index+1),BoxesUI.BOX_BUTTON_SIZE//3,BLACK,(BoxesUI.BOX_BUTTON_SIZE+BoxesUI.BORDER_BTW_BUTTONS)*3//2,BoxesUI.BOX_BUTTON_SIZE//4,'center')

@@ -507,12 +507,12 @@ class Game:
                                 if self.boxes_ui.menu_tab.selection==3: #release
                                     if self.boxes_ui.party_selected: #release from party
                                         self.player.release_party(self.boxes_ui.selection)
-                                        self.boxes_ui.reset_party_buttons(WHITE)
-                                        self.boxes_ui.reset_box_buttons(LIGHT_GRAY)
+                                        self.boxes_ui.reset_party_buttons(True)
+                                        self.boxes_ui.reset_box_buttons(False)
                                     else: #release from boxes
                                         self.player.release_boxes(self.boxes_ui.page_index,self.boxes_ui.selection)
-                                        self.boxes_ui.reset_party_buttons(LIGHT_GRAY)
-                                        self.boxes_ui.reset_box_buttons(WHITE)
+                                        self.boxes_ui.reset_party_buttons(False)
+                                        self.boxes_ui.reset_box_buttons(True)
                             self.page=new_page
                 if event.key==pygame.K_b:
                     #B to go back to party screen if party buttons selected
@@ -678,8 +678,8 @@ class Game:
     def go_to_boxes(self):
         self.prev_page=self.page
         self.page=Pages.BOXES
-        self.boxes_ui.reset_party_buttons(WHITE)
-        self.boxes_ui.reset_box_buttons(LIGHT_GRAY)
+        self.boxes_ui.reset_party_buttons(True)
+        self.boxes_ui.reset_box_buttons(False)
         self.boxes_ui.selection=0
         self.boxes_ui.party_selected=True
         if self.player.party[self.boxes_ui.selection] is not None:

@@ -26,7 +26,7 @@ class BoxesMenuTab:
         self.image.fill(WHITE)
         pygame.draw.rect(self.image,BLACK,(0,0,self.rect.width,self.rect.height),3)
         for i in range(len(self.items)):
-            draw_text(self.image,self.items[i],BoxesMenuTab.TAB_HEIGHT//(len(self.items)+2),BLUE if i==self.selection else BLACK,BoxesMenuTab.TAB_WIDTH//2,i*BoxesMenuTab.TAB_HEIGHT//len(self.items),'midtop')
+            draw_text(self.image,self.items[i],BoxesMenuTab.TAB_HEIGHT//(len(self.items)+2),BLUE if i==self.selection else BLACK,BoxesMenuTab.TAB_WIDTH//2,BoxesMenuTab.TAB_HEIGHT//40+i*BoxesMenuTab.TAB_HEIGHT//len(self.items),'midtop')
 
     #draw tab on screen
     def draw(self,surface):
