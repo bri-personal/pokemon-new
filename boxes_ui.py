@@ -143,19 +143,31 @@ class BoxesUI:
         self.show_menu_tab=True
         orientation=''
 
-        if self.selection//BoxesUI.NUM_BOX_BUTTON_COLS<BoxesUI.NUM_BOX_BUTTON_ROWS//2+1:
-            y=self.box_buttons[self.selection].rect.y
-            orientation+='top'
-        else:
-            y=self.box_buttons[self.selection].rect.bottom
-            orientation+='bottom'
-
-        if self.selection%BoxesUI.NUM_BOX_BUTTON_COLS<BoxesUI.NUM_BOX_BUTTON_COLS//2:
-            x=self.box_buttons[self.selection].rect.right
+        #if party selected, tab goes on topright if upper half or bottomright if lower half
+        if self.party_selected:
+            if self.selection<BoxesUI.NUM_PARTY_BUTTONS//2:
+                y=self.party_buttons[self.selection].rect.top
+                orientation+='top'
+            else:
+                y=self.party_buttons[self.selection].rect.bottom
+                orientation+='bottom'
+            x=self.party_buttons[self.selection].rect.right
             orientation+='right'
+        #if boxes selected, tab goes on right of left half of boxes, left on right half of boxes, top on first half of rows, bottom of second half of rows
         else:
-            x=self.box_buttons[self.selection].rect.left
-            orientation+='left'
+            if self.selection//BoxesUI.NUM_BOX_BUTTON_COLS<BoxesUI.NUM_BOX_BUTTON_ROWS//2+1:
+                y=self.box_buttons[self.selection].rect.y
+                orientation+='top'
+            else:
+                y=self.box_buttons[self.selection].rect.bottom
+                orientation+='bottom'
+
+            if self.selection%BoxesUI.NUM_BOX_BUTTON_COLS<BoxesUI.NUM_BOX_BUTTON_COLS//2:
+                x=self.box_buttons[self.selection].rect.right
+                orientation+='right'
+            else:
+                x=self.box_buttons[self.selection].rect.left
+                orientation+='left'
 
         self.menu_tab.set_loc(x,y,orientation)
         self.menu_tab.selection=0

@@ -1,3 +1,4 @@
+from pickle import FALSE
 import pygame
 from os import path
 from pages import Pages
@@ -490,8 +491,8 @@ class Game:
                     self.playing=False
                     self.running=False
                 if event.key==pygame.K_a: #A to select current button
-                    if not self.boxes_ui.page_selected and not self.boxes_ui.party_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is not None:
-                        #if in boxes, enable menu tab if not already enabled
+                    if not self.boxes_ui.page_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is not None:
+                        #if in boxes or party, enable menu tab if not already enabled
                         if not self.boxes_ui.show_menu_tab:
                             self.boxes_ui.set_menu_tab()
                         #if menu tab is enabled go to current selection on it
@@ -504,15 +505,14 @@ class Game:
                             elif new_page==Pages.BOXES:
                                 self.boxes_ui.show_menu_tab=False
                             self.page=new_page
-                    #if in party, go to pokemon screen for now
-                    elif not self.boxes_ui.page_selected and self.boxes_ui.party_selected and self.player.party[self.boxes_ui.selection] is not None:
-                        self.prev_page=self.page
-                        self.page=Pages.STATS
                 if event.key==pygame.K_b:
                     #B to go back to party screen if party buttons selected
                     if self.boxes_ui.party_selected and not self.boxes_ui.page_selected:
-                        self.prev_page=self.page
-                        self.page=Pages.PARTY
+                        if self.boxes_ui.show_menu_tab:
+                            self.boxes_ui.show_menu_tab=False
+                        else:
+                            self.prev_page=self.page
+                            self.page=Pages.PARTY
                     #B to disable boxes menu tab if it is on
                     elif not self.boxes_ui.page_selected and not self.boxes_ui.party_selected and self.boxes_ui.show_menu_tab:
                         self.boxes_ui.show_menu_tab=False
