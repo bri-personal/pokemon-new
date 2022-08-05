@@ -504,6 +504,15 @@ class Game:
                             #if staying on boxes page, hide menu tab
                             elif new_page==Pages.BOXES:
                                 self.boxes_ui.show_menu_tab=False
+                                if self.boxes_ui.menu_tab.selection==3: #release
+                                    if self.boxes_ui.party_selected: #release from party
+                                        self.player.release_party(self.boxes_ui.selection)
+                                        self.boxes_ui.reset_party_buttons(WHITE)
+                                        self.boxes_ui.reset_box_buttons(LIGHT_GRAY)
+                                    else: #release from boxes
+                                        self.player.release_boxes(self.boxes_ui.page_index,self.boxes_ui.selection)
+                                        self.boxes_ui.reset_party_buttons(LIGHT_GRAY)
+                                        self.boxes_ui.reset_box_buttons(WHITE)
                             self.page=new_page
                 if event.key==pygame.K_b:
                     #B to go back to party screen if party buttons selected

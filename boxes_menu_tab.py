@@ -13,7 +13,7 @@ class BoxesMenuTab:
         self.rect=self.image.get_rect()
         
         #items to display on menu
-        self.items=['View Stats','Held Item','Markings','Back']
+        self.items=['View Stats','Move','Held Item','Release','Back']
         self.selection=0 #index of items selected
 
     #set location of tab based on provided orientation
@@ -26,7 +26,7 @@ class BoxesMenuTab:
         self.image.fill(WHITE)
         pygame.draw.rect(self.image,BLACK,(0,0,self.rect.width,self.rect.height),3)
         for i in range(len(self.items)):
-            draw_text(self.image,self.items[i],BoxesMenuTab.TAB_HEIGHT//6,BLUE if i==self.selection else BLACK,BoxesMenuTab.TAB_WIDTH//2,i*BoxesMenuTab.TAB_HEIGHT//4,'midtop')
+            draw_text(self.image,self.items[i],BoxesMenuTab.TAB_HEIGHT//(len(self.items)+2),BLUE if i==self.selection else BLACK,BoxesMenuTab.TAB_WIDTH//2,i*BoxesMenuTab.TAB_HEIGHT//len(self.items),'midtop')
 
     #draw tab on screen
     def draw(self,surface):
@@ -42,13 +42,16 @@ class BoxesMenuTab:
         self.selection=(self.selection-1)%len(self.items)
         self.update()
 
+    #get next page to go to from selection on menu tab
     def get_page_from_selection(self):
         match self.selection:
             case 0:
                 return Pages.STATS #'View Stats' -> go to pokemon stats page
             case 1:
-                return Pages.BAG #'Held Item; -> go to bag to select held item
+                return Pages.BOXES #'Move' -> move pokemon on boxes page
             case 2:
-                return Pages.BOXES #'Markings' -> change markings on boxes page
+                return Pages.BAG #'Held Item; -> go to bag to select held item
             case 3:
+                return Pages.BOXES #'Release' -> remove pokemon on boxes page
+            case 4:
                 return Pages.BOXES #'Back' -> go back to boxes page

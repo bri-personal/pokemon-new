@@ -46,3 +46,14 @@ class Player:
                 self.boxes[i//len(self.boxes[0])][i%len(self.boxes[0])]=pokemon
             else:
                 print("There's no room in your boxes!")
+
+    #remove pokemon from party at specified index, and shift all pokemon after it up
+    def release_party(self,index):
+        while index<len(self.party)-1:
+            self.party[index]=self.party[index+1]
+            index+=1
+        self.party[-1]=None
+
+    #remove pokemon from boxes at specified indices
+    def release_boxes(self,page,index):
+        self.boxes[page][index]=None
