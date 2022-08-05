@@ -509,6 +509,9 @@ class Game:
                                         self.player.release_party(self.boxes_ui.selection)
                                         self.boxes_ui.reset_party_buttons(True)
                                         self.boxes_ui.reset_box_buttons(False)
+                                        #if releasing caused new pokemon to move into selected button, show new pokemon
+                                        if self.player.party[self.boxes_ui.selection] is not None:
+                                            self.boxes_ui.stats_tab.set_pokemon(self.player.party[self.boxes_ui.selection])
                                     else: #release from boxes
                                         self.player.release_boxes(self.boxes_ui.page_index,self.boxes_ui.selection)
                                         self.boxes_ui.reset_party_buttons(False)
