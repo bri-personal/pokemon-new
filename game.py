@@ -491,7 +491,7 @@ class Game:
                     self.playing=False
                     self.running=False
                 if event.key==pygame.K_a: #A to select current button
-                    if not self.boxes_ui.page_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is not None:
+                    if not self.boxes_ui.page_selected and ((self.boxes_ui.party_selected and self.player.party[self.boxes_ui.selection] is not None) or (not self.boxes_ui.party_selected and self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection] is not None)):
                         #if in boxes or party, enable menu tab if not already enabled
                         if not self.boxes_ui.show_menu_tab:
                             self.boxes_ui.set_menu_tab()
