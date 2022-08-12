@@ -257,7 +257,8 @@ class Game:
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Pokedex')])
 
-        pygame.draw.rect(self.screen,WHITE,(WIDTH-(WIDTH//20+WIDTH//2+WIDTH//20)-WIDTH*7//20,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT,WIDTH*7//20,DexUI.DEX_NUM_BUTTONS*DexUI.DEX_BUTTON_HEIGHT+(DexUI.DEX_NUM_BUTTONS-1)*DexUI.BORDER_BTW_BUTTONS),3)
+        #draw image box
+        self.dex_ui.image_box.draw()
 
         #draw buttons
         for i in range(self.dex_ui.start,min(self.dex_ui.start+6,len(self.dex_ui.dex_buttons))):

@@ -24,6 +24,12 @@ class DexUI:
             self.recolor_dex_buttons()
             #change y of buttons to not go so far off screen if they don't need to be shown
 
+        #box to show selected pokemon in dex from button
+        img=pygame.Surface((WIDTH*7//20,DexUI.DEX_NUM_BUTTONS*DexUI.DEX_BUTTON_HEIGHT+(DexUI.DEX_NUM_BUTTONS-1)*DexUI.BORDER_BTW_BUTTONS))
+        img.fill(RED)
+        pygame.draw.rect(img,WHITE,(0,0,img.get_rect().width,img.get_rect().height),3)
+        self.image_box=Button(self.game,WIDTH-(WIDTH//20+WIDTH//2+WIDTH//20)-WIDTH*7//20//2,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT,img)
+
     #highlight selected button
     def recolor_dex_buttons(self):
         for i in range(len(self.dex_buttons)):
