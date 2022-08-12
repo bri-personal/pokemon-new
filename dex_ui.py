@@ -36,13 +36,15 @@ class DexUI:
     #highlight selected button
     def recolor_dex_buttons(self):
         for i in range(len(self.dex_buttons)): #when pokedex has enough items, change back
+            #if pokemon at this index has been caught
             if False: #self.game.player.dex[list(ALL_POKEMON_DATA)[i]][1]>0:
                 color=GREEN
+            #if pokemon at this index has not been caught but has been seen
             elif False: #self.game.player.dex[list(ALL_POKEMON_DATA)[i]][0]>0:
                 color=YELLOW
+            #pokemon has not been caught or seen
             else:
                 color=GRAY
-
 
             self.dex_buttons[i].image.fill(RED)
             pygame.draw.rect(self.dex_buttons[i].image,WHITE if i==self.selection else color,(0,0,self.dex_buttons[i].rect.width,self.dex_buttons[i].rect.height),3)
