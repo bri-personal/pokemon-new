@@ -1,5 +1,6 @@
 from settings import *
 from pokemon import Pokemon
+from pokedex import ALL_POKEMON_DATA
 
 class Player:
     MAX_PARTY_SIZE=6
@@ -14,9 +15,9 @@ class Player:
         self.boxes=[ [None]*Player.BOX_SIZE for _ in range(Player.NUM_BOXES)]
 
         #dex is dictionary of Pokemon (strings) and counts for number seen (0) and caught (1)
-        self.dex={'Bulbasaur':[0,0],
-                  'Charmander':[0,0],
-                  'Squirtle':[0,0]}
+        self.dex={}
+        for name in ALL_POKEMON_DATA:
+            self.dex[name]=[0,0]
 
         #bag is dictionary of items (strings) and counts of that item player owns
         self.bag={'Pokeball':0,

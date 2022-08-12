@@ -38,8 +38,18 @@ class Game:
         #create Sprite groups
         self.all_sprites=pygame.sprite.Group()
 
-        #create buttons
-        #pass
+        #create player and world from saved data, if it exists
+        self.load()
+       
+        #for testing catches
+        for _ in range(13):
+            self.player.catch(Pokemon('Bulbasaur',6))
+            self.player.catch(Pokemon('Charmander',6))
+            self.player.catch(Pokemon('Squirtle',6))
+#
+#        print(self.player.party)
+#        print(self.player.boxes)
+        ######################
 
         #create menu
         self.menu=MenuUI(self)
@@ -55,19 +65,6 @@ class Game:
 
         #create boxes ui
         self.boxes_ui=BoxesUI(self)
-
-        #create player and world from saved data, if it exists
-        self.load()
-       
-        #for testing catches
-        for _ in range(13):
-            self.player.catch(Pokemon('Bulbasaur',6))
-            self.player.catch(Pokemon('Charmander',6))
-            self.player.catch(Pokemon('Squirtle',6))
-#
-#        print(self.player.party)
-#        print(self.player.boxes)
-        ######################
         
         self.page=Pages.START
         self.prev_page=Pages.START
