@@ -22,7 +22,7 @@ class DexUI:
 
         #dex buttons
         self.dex_buttons=[]
-        for i in range(12): #replace 12 with length of dex
+        for i in range(len(ALL_POKEMON_DATA)):
             img=pygame.Surface((DexUI.DEX_BUTTON_WIDTH,DexUI.DEX_BUTTON_HEIGHT))
             self.dex_buttons.append(Button(self.game,WIDTH-WIDTH//20-DexUI.DEX_BUTTON_WIDTH//2,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+i*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS),img))
             self.recolor_dex_buttons()
@@ -37,17 +37,17 @@ class DexUI:
     def recolor_dex_buttons(self):
         for i in range(len(self.dex_buttons)): #when pokedex has enough items, change back
             #if pokemon at this index has been caught
-            if False: #self.game.player.dex[list(ALL_POKEMON_DATA)[i]][1]>0:
+            if self.game.player.dex[list(ALL_POKEMON_DATA)[i]][1]>0:
                 color=GREEN
             #if pokemon at this index has not been caught but has been seen
-            elif False: #self.game.player.dex[list(ALL_POKEMON_DATA)[i]][0]>0:
+            elif self.game.player.dex[list(ALL_POKEMON_DATA)[i]][0]>0:
                 color=YELLOW
             #pokemon has not been caught or seen
             else:
-                color=GRAY
+                color=BLACK
 
             self.dex_buttons[i].image.fill(RED)
-            pygame.draw.rect(self.dex_buttons[i].image,WHITE if i==self.selection else color,(0,0,self.dex_buttons[i].rect.width,self.dex_buttons[i].rect.height),3)
+            pygame.draw.rect(self.dex_buttons[i].image,WHITE if i==self.selection else BLACK,(0,0,self.dex_buttons[i].rect.width,self.dex_buttons[i].rect.height),3)
             draw_text(self.dex_buttons[i].image,str(i),DexUI.DEX_BUTTON_HEIGHT//2,color,self.dex_buttons[i].rect.width//2,self.dex_buttons[i].rect.height//2,'center')
 
     #change image shown in image box
@@ -60,7 +60,7 @@ class DexUI:
 
     #move dex buttons down
     def move_down(self):
-        if self.selection<12-1: #replace 12 with length of dex
+        if self.selection<len(ALL_POKEMON_DATA)-1:
             self.selection+=1
             if self.selection>=self.start+DexUI.DEX_NUM_BUTTONS:
                 self.start+=1
@@ -83,8 +83,8 @@ class DexUI:
                 for button in self.dex_buttons:
                     button.rect.y+=DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS
         else:
-            self.start=12-DexUI.DEX_NUM_BUTTONS #replace 12 with length of dex
-            self.selection=12-1 #replace 12 with length of dex
+            self.start=len(ALL_POKEMON_DATA)-DexUI.DEX_NUM_BUTTONS
+            self.selection=len(ALL_POKEMON_DATA)-1
             for i in range(len(self.dex_buttons)):
                 self.dex_buttons[i].rect.y=HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+(i-DexUI.DEX_NUM_BUTTONS)*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS)
         self.recolor_dex_buttons()
