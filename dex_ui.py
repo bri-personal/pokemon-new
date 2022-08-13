@@ -89,7 +89,7 @@ class DexUI:
             self.start=len(ALL_POKEMON_DATA)-DexUI.DEX_NUM_BUTTONS
             self.selection=len(ALL_POKEMON_DATA)-1
             for i in range(len(self.dex_buttons)):
-                self.dex_buttons[i].rect.y=HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+(i-DexUI.DEX_NUM_BUTTONS)*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS)
+                self.dex_buttons[i].rect.y=HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+(i-(len(self.dex_buttons)-DexUI.DEX_NUM_BUTTONS))*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS)
         self.recolor_dex_buttons()
         self.reset_image_box()
 
