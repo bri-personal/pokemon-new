@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from sprites import Button, draw_text
 from pokedex import ALL_POKEMON_DATA
+from poke_types import PokeTypes
 
 class DexUI:
     #dex menu data
@@ -55,7 +56,9 @@ class DexUI:
         self.image_box.image.fill(RED)
         pygame.draw.rect(self.image_box.image,WHITE,(0,0,self.image_box.rect.width,self.image_box.rect.height),3)
 
-        pygame.draw.rect(self.image_box.image,WHITE,(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2),3)
+        #image inside image box
+        pygame.draw.rect(self.image_box.image,PokeTypes.COLORS[ALL_POKEMON_DATA[list(ALL_POKEMON_DATA)[self.selection]].types[0]],(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2))
+        pygame.draw.rect(self.image_box.image,BLACK,(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2),3)
         draw_text(self.image_box.image,str(self.selection),DexUI.IMAGE_BOX_WIDTH//5,WHITE,self.image_box.rect.width//2,self.image_box.rect.height//2,'center')
 
     #move dex buttons down
