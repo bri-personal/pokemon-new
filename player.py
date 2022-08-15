@@ -1,6 +1,6 @@
 from settings import *
 from pokemon import Pokemon
-from pokedex import ALL_POKEMON_DATA
+from pokedex import ALL_POKEMON
 
 class Player:
     MAX_PARTY_SIZE=6
@@ -16,7 +16,7 @@ class Player:
 
         #dex is dictionary of Pokemon (strings) and counts for number seen (0) and caught (1)
         self.dex={}
-        for name in ALL_POKEMON_DATA:
+        for name in ALL_POKEMON:
             self.dex[name]=[0,0]
 
         #bag is dictionary of items (strings) and counts of that item player owns

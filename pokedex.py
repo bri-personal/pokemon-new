@@ -61,6 +61,8 @@ ALL_POKEMON_DATA={'Bulbasaur':Bulbasaur_Data(),
                   'Blastoise':Blastoise_Data()
                  }
 
+ALL_POKEMON=list(ALL_POKEMON_DATA)
+
 #Nature:[multiplier for each stat, 1 for no change, 1.1 for increase, 0.9 for decrease]
 NATURES={"Hardy":[1,1,1,1,1,1], #none
             "Lonely":[1,1.1,0.9,1,1,1],
