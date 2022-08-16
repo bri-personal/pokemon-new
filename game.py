@@ -12,6 +12,7 @@ from boxes_ui import BoxesUI
 from player import Player
 from pokemon import Pokemon
 from poke_types import PokeTypes
+from pokedex import ALL_POKEMON_DATA, ALL_POKEMON
      
 class Game:
     def __init__(self):
@@ -297,7 +298,7 @@ class Game:
 
         if self.player.party[self.party_ui.selection] is not None:
             pygame.draw.rect(self.screen,PokeTypes.COLORS[self.player.party[self.party_ui.selection].types[0]],(WIDTH*5//8,(HEIGHT-WIDTH*3//10)//2,WIDTH*3//10,WIDTH*3//10))
-            pygame.draw.rect(self.screen,BLACK,(WIDTH*5//8,(HEIGHT-WIDTH*3//10)//2,WIDTH*3//10,WIDTH*3//10),3)
+            pygame.draw.rect(self.screen,BLACK if ALL_POKEMON_DATA[self.player.party[self.party_ui.selection].species].types[1] is None else PokeTypes.COLORS[ALL_POKEMON_DATA[self.player.party[self.party_ui.selection].species].types[1]],(WIDTH*5//8,(HEIGHT-WIDTH*3//10)//2,WIDTH*3//10,WIDTH*3//10),3)
 
         self.party_ui.boxes_button.draw()
 
@@ -575,9 +576,10 @@ class Game:
             else:
                 if self.boxes_ui.party_selected:
                     pygame.draw.rect(self.screen,PokeTypes.COLORS[self.player.party[self.boxes_ui.selection].types[0]],(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4))
+                    pygame.draw.rect(self.screen,BLACK if ALL_POKEMON_DATA[self.player.party[self.boxes_ui.selection].species].types[1] is None else PokeTypes.COLORS[ALL_POKEMON_DATA[self.player.party[self.boxes_ui.selection].species].types[1]],(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4),3)
                 else:
                     pygame.draw.rect(self.screen,PokeTypes.COLORS[self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection%BoxesUI.NUM_BOX_BUTTONS].types[0]],(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4))
-                pygame.draw.rect(self.screen,BLACK,(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4),3)
+                    pygame.draw.rect(self.screen,BLACK if ALL_POKEMON_DATA[self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection].species].types[1] is None else PokeTypes.COLORS[ALL_POKEMON_DATA[self.player.boxes[self.boxes_ui.page_index][self.boxes_ui.selection].species].types[1]],(WIDTH-HEIGHT*5//16,HEIGHT*3//8,HEIGHT//4,HEIGHT//4),3)
 
         #show menu tab
         if self.boxes_ui.show_menu_tab:
