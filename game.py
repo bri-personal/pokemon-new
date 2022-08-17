@@ -14,6 +14,8 @@ from pokemon import Pokemon
 from poke_types import PokeTypes
 from pokedex import ALL_POKEMON_DATA, ALL_POKEMON
      
+#Use keys A, B, Q, R, X, arrows
+
 class Game:
     def __init__(self):
         #initialize pygame and create window
