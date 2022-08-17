@@ -9,6 +9,7 @@ from dex_ui import DexUI
 from save_ui import SaveUI
 from party_ui import PartyUI
 from boxes_ui import BoxesUI
+from dex_info_ui import DexInfoUI
 from player import Player
 from pokemon import Pokemon
 from poke_types import PokeTypes
@@ -57,8 +58,9 @@ class Game:
         #create menu
         self.menu=MenuUI(self)
 
-        #create dex
+        #create dex ui
         self.dex_ui=DexUI(self)
+        self.dex_info_ui=DexInfoUI(self)
 
         #create save ui
         self.save_ui=SaveUI(self)
@@ -630,7 +632,8 @@ class Game:
                     self.page=Pages.DEX
 
         self.screen.fill(RED)
-        draw_text(self.screen,'DEX INFO: '+ALL_POKEMON[self.dex_ui.selection],HEIGHT//10,BLACK,WIDTH//2,HEIGHT//2,'center')
+        draw_text(self.screen,ALL_POKEMON[self.dex_ui.selection],HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
+        self.dex_info_ui.image_box.draw()
 
         pygame.display.flip()
 
