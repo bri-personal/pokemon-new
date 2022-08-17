@@ -16,6 +16,7 @@ class Pages(Enum):
     GIFT=11
     VS=12
     SETTINGS=13
-    BOXES=14 #screen not implemented
+    BOXES=14
     STATS=15 #screen not implemented
+    DEX_INFO=16
     END=-1

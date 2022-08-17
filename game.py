@@ -112,6 +112,8 @@ class Game:
                 self.boxes_screen()
             elif self.page==Pages.STATS:
                 self.stats_screen()
+            elif self.page==Pages.DEX_INFO:
+                self.dex_info_screen()
             elif self.page==Pages.END:
                 self.end_screen()
             else:
@@ -247,6 +249,10 @@ class Game:
                 if event.key==pygame.K_q:
                     self.playing=False
                     self.running=False
+                if event.key==pygame.K_a:
+                    if self.player.dex[ALL_POKEMON[self.dex_ui.selection]][0]>0:
+                        self.prev_page=self.page
+                        self.page=Pages.DEX_INFO
                 if event.key==pygame.K_b: #B to go back to menu
                     self.prev_page=self.page
                     self.page=Pages.MENU
@@ -606,6 +612,25 @@ class Game:
 
         self.screen.fill(WHITE)
         draw_text(self.screen,'Pokemon',HEIGHT//10,BLACK,WIDTH//2,HEIGHT//2,'center')
+
+        pygame.display.flip()
+
+    #screen to show info of certain pokemon in dex
+    def dex_info_screen(self):
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                self.playing=False
+                self.running=False
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_q:
+                    self.playing=False
+                    self.running=False
+                if event.key==pygame.K_b: #B to go back to dex screen
+                    self.prev_page=self.page
+                    self.page=Pages.DEX
+
+        self.screen.fill(RED)
+        draw_text(self.screen,'DEX INFO: '+ALL_POKEMON[self.dex_ui.selection],HEIGHT//10,BLACK,WIDTH//2,HEIGHT//2,'center')
 
         pygame.display.flip()
 
