@@ -19,11 +19,10 @@ class DexUI:
 
         #indices for which Pokemon are shown on the dex page and which is selected
         self.start=0
-        self.selection=0
-        while self.selection<len(ALL_POKEMON) and self.game.player.dex[ALL_POKEMON[self.selection]][0]==0:
-            self.selection+=1
-        if self.selection>=len(ALL_POKEMON):
-            self.selection=0
+        while self.game.dex_selection<len(ALL_POKEMON) and self.game.player.dex[ALL_POKEMON[self.game.dex_selection]][0]==0:
+            self.game.dex_selection+=1
+        if self.game.dex_selection>=len(ALL_POKEMON):
+            self.game.dex_selection=0
 
         #dex buttons
         self.dex_buttons=[]
@@ -52,7 +51,7 @@ class DexUI:
                 color=BLACK
 
             self.dex_buttons[i].image.fill(RED)
-            pygame.draw.rect(self.dex_buttons[i].image,WHITE if i==self.selection else BLACK,(0,0,self.dex_buttons[i].rect.width,self.dex_buttons[i].rect.height),3)
+            pygame.draw.rect(self.dex_buttons[i].image,WHITE if i==self.game.dex_selection else BLACK,(0,0,self.dex_buttons[i].rect.width,self.dex_buttons[i].rect.height),3)
             draw_text(self.dex_buttons[i].image,str(i+1)+' - '+(ALL_POKEMON[i] if self.game.player.dex[ALL_POKEMON[i]][0]>0 else '???'),DexUI.DEX_BUTTON_HEIGHT//2,color,self.dex_buttons[i].rect.width//2,self.dex_buttons[i].rect.height//2,'center')
 
     #change image shown in image box
@@ -61,24 +60,24 @@ class DexUI:
         pygame.draw.rect(self.image_box.image,WHITE,(0,0,self.image_box.rect.width,self.image_box.rect.height),3)
 
         #image inside image box
-        if self.game.player.dex[ALL_POKEMON[self.selection]][0]>0:
-            pygame.draw.rect(self.image_box.image,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.selection]].types[0]],(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2))
-            pygame.draw.rect(self.image_box.image,BLACK if ALL_POKEMON_DATA[ALL_POKEMON[self.selection]].types[1] is None else PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.selection]].types[1]],(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2),3)
-            draw_text(self.image_box.image,str(self.selection+1),DexUI.IMAGE_BOX_WIDTH//5,WHITE,self.image_box.rect.width//2,self.image_box.rect.height//2,'center')
+        if self.game.player.dex[ALL_POKEMON[self.game.dex_selection]][0]>0:
+            pygame.draw.rect(self.image_box.image,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_selection]].types[0]],(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2))
+            pygame.draw.rect(self.image_box.image,BLACK if ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_selection]].types[1] is None else PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_selection]].types[1]],(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2),3)
+            draw_text(self.image_box.image,str(self.game.dex_selection+1),DexUI.IMAGE_BOX_WIDTH//5,WHITE,self.image_box.rect.width//2,self.image_box.rect.height//2,'center')
         else:
             draw_text(self.image_box.image,'???',DexUI.IMAGE_BOX_WIDTH//5,WHITE,self.image_box.rect.width//2,self.image_box.rect.height//2,'center')
 
     #move dex buttons down
     def move_down(self):
-        if self.selection<len(ALL_POKEMON)-1:
-            self.selection+=1
-            if self.selection>=self.start+DexUI.DEX_NUM_BUTTONS:
+        if self.game.dex_selection<len(ALL_POKEMON)-1:
+            self.game.dex_selection+=1
+            if self.game.dex_selection>=self.start+DexUI.DEX_NUM_BUTTONS:
                 self.start+=1
                 for button in self.dex_buttons:
                     button.rect.y-=DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS
         else:
             self.start=0
-            self.selection=0
+            self.game.dex_selection=0
             for i in range(len(self.dex_buttons)):
                 self.dex_buttons[i].rect.y=HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+i*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS)    
         self.recolor_dex_buttons()
@@ -86,15 +85,15 @@ class DexUI:
 
     #move dex buttons up
     def move_up(self):
-        if self.selection>0:
-            self.selection-=1
-            if self.selection<self.start:
+        if self.game.dex_selection>0:
+            self.game.dex_selection-=1
+            if self.game.dex_selection<self.start:
                 self.start-=1
                 for button in self.dex_buttons:
                     button.rect.y+=DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS
         else:
             self.start=len(ALL_POKEMON)-DexUI.DEX_NUM_BUTTONS
-            self.selection=len(ALL_POKEMON)-1
+            self.game.dex_selection=len(ALL_POKEMON)-1
             for i in range(len(self.dex_buttons)):
                 self.dex_buttons[i].rect.y=HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+(i-(len(self.dex_buttons)-DexUI.DEX_NUM_BUTTONS))*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS)
         self.recolor_dex_buttons()

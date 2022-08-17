@@ -59,6 +59,7 @@ class Game:
         self.menu=MenuUI(self)
 
         #create dex ui
+        self.dex_selection=0 #selected index on pokedex for dex ui and dex info ui
         self.dex_ui=DexUI(self)
         self.dex_info_ui=DexInfoUI(self)
 
@@ -252,7 +253,7 @@ class Game:
                     self.playing=False
                     self.running=False
                 if event.key==pygame.K_a:
-                    if self.player.dex[ALL_POKEMON[self.dex_ui.selection]][0]>0:
+                    if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0:
                         self.prev_page=self.page
                         self.page=Pages.DEX_INFO
                 if event.key==pygame.K_b: #B to go back to menu
@@ -632,7 +633,7 @@ class Game:
                     self.page=Pages.DEX
 
         self.screen.fill(RED)
-        draw_text(self.screen,ALL_POKEMON[self.dex_ui.selection],HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
+        draw_text(self.screen,ALL_POKEMON[self.dex_selection],HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
         self.dex_info_ui.image_box.draw()
 
         pygame.display.flip()

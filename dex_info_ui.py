@@ -23,9 +23,9 @@ class DexInfoUI:
         pygame.draw.rect(self.image_box.image,WHITE,(0,0,self.image_box.rect.width,self.image_box.rect.height),3)
 
         #image inside image box
-        if self.game.player.dex[ALL_POKEMON[self.game.dex_ui.selection]][0]>0:
-            pygame.draw.rect(self.image_box.image,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_ui.selection]].types[0]],(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2))
-            pygame.draw.rect(self.image_box.image,BLACK if ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_ui.selection]].types[1] is None else PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_ui.selection]].types[1]],(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2),3)
-            draw_text(self.image_box.image,str(self.game.dex_ui.selection+1),DexInfoUI.IMAGE_BOX_WIDTH//5,WHITE,self.image_box.rect.width//2,self.image_box.rect.height//2,'center')
+        if self.game.player.dex[ALL_POKEMON[self.game.dex_selection]][0]>0:
+            pygame.draw.rect(self.image_box.image,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_selection]].types[0]],(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2))
+            pygame.draw.rect(self.image_box.image,BLACK if ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_selection]].types[1] is None else PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_selection]].types[1]],(self.image_box.rect.width//4,self.image_box.rect.height//2-self.image_box.rect.width//4,self.image_box.rect.width//2,self.image_box.rect.width//2),3)
+            draw_text(self.image_box.image,str(self.game.dex_selection+1),DexInfoUI.IMAGE_BOX_WIDTH//5,WHITE,self.image_box.rect.width//2,self.image_box.rect.height//2,'center')
         else:
             draw_text(self.image_box.image,'???',DexInfoUI.IMAGE_BOX_WIDTH//5,WHITE,self.image_box.rect.width//2,self.image_box.rect.height//2,'center')
