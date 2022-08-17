@@ -698,6 +698,7 @@ class Game:
             if not self.world:
                 self.world=World(self,TEST_WORLD,0,World.TILE_SIZE) #tiles start with bottomleft at 0,TILE_SIZE
 
+    #opens boxes screen from whichever screen was previous (party, bag, etc) and resets state so it looks correct on opening
     def go_to_boxes(self):
         self.prev_page=self.page
         self.page=Pages.BOXES
