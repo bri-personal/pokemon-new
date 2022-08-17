@@ -54,7 +54,6 @@ class Player:
             self.party[index]=self.party[index+1]
             index+=1
         self.party[-1]=None
-        print(self.party)
 
     #remove pokemon from boxes at specified indices
     def release_boxes(self,page,index):
