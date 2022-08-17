@@ -196,3 +196,13 @@ class BoxesUI:
                 
         self.page_button.image.fill(WHITE if active else LIGHT_GRAY)
         draw_text(self.page_button.image,"Box "+str(self.page_index+1),BoxesUI.BOX_BUTTON_SIZE//3,BLACK,(BoxesUI.BOX_BUTTON_SIZE+BoxesUI.BORDER_BTW_BUTTONS)*3//2,BoxesUI.BOX_BUTTON_SIZE//4,'center')
+
+    #resets state, called by Game when going from another screen to boxes screen
+    def setup(self):
+        self.reset_party_buttons(True)
+        self.reset_box_buttons(False)
+        self.selection=0
+        self.party_selected=True
+        if self.game.player.party[self.selection] is not None:
+            self.stats_tab.set_pokemon(self.game.player.party[self.selection])
+        self.show_menu_tab=False
