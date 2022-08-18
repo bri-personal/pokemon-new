@@ -41,13 +41,15 @@ class DexInfoUI:
     #change text shown in text box to reflect current selection
     def reset_text_box(self):
         self.text_box.image.fill(RED)
-
-        #draw lines of text
         y=self.text_box.rect.height//20
-        lines=self.get_text_lines(ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_selection]].pokedex_entry,50)
-        for line in lines:
-            draw_text(self.text_box.image,line,self.text_box.rect.width//20,WHITE,self.text_box.rect.width//2,y,'midtop')
-            y+=self.text_box.rect.width//20
+        if self.game.player.dex[ALL_POKEMON[self.game.dex_selection]][0]>0:
+            #draw lines of text
+            lines=self.get_text_lines(ALL_POKEMON_DATA[ALL_POKEMON[self.game.dex_selection]].pokedex_entry,50)
+            for line in lines:
+                draw_text(self.text_box.image,line,self.text_box.rect.width//20,WHITE,self.text_box.rect.width//2,y,'midtop')
+                y+=self.text_box.rect.width//20
+        else:
+            draw_text(self.text_box.image,'???',self.text_box.rect.width//20,WHITE,self.text_box.rect.width//2,y,'midtop')
 
         pygame.draw.rect(self.text_box.image,WHITE,(0,0,self.text_box.rect.width,self.text_box.rect.height),3)
 

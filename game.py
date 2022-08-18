@@ -640,7 +640,7 @@ class Game:
                     self.dex_info_ui.setup()
 
         self.screen.fill(RED)
-        draw_text(self.screen,ALL_POKEMON[self.dex_selection],HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
+        draw_text(self.screen,ALL_POKEMON[self.dex_selection] if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???',HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
         draw_text(self.screen,"Seen: "+str(self.player.dex[ALL_POKEMON[self.dex_selection]][0])+" - Caught: "+str(self.player.dex[ALL_POKEMON[self.dex_selection]][1]),HEIGHT//30,WHITE,WIDTH*7//10,HEIGHT//2-HEIGHT//20,'midtop')
         self.dex_info_ui.image_box.draw()
         self.dex_info_ui.text_box.draw()
