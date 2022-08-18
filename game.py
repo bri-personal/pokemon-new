@@ -632,10 +632,12 @@ class Game:
                 if event.key==pygame.K_b: #B to go back to dex screen
                     self.prev_page=self.page
                     self.page=Pages.DEX
-                if event.key==pygame.K_DOWN: #arrows to move selection - fix dex info ui doesn't change image and shows images for unseen pokemon
+                if event.key==pygame.K_DOWN: #arrows to move selection - fix dex info ui shows name for unseen pokemon
                     self.dex_ui.move_down()
+                    self.dex_info_ui.setup()
                 if event.key==pygame.K_UP:
                     self.dex_ui.move_up()
+                    self.dex_info_ui.setup()
 
         self.screen.fill(RED)
         draw_text(self.screen,ALL_POKEMON[self.dex_selection],HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
