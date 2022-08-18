@@ -1,3 +1,4 @@
+from xml.etree.ElementInclude import include
 import pygame
 from settings import *
 from sprites import Button, draw_text
@@ -96,6 +97,16 @@ class DexUI:
             self.game.dex_selection=len(ALL_POKEMON)-1
             for i in range(len(self.dex_buttons)):
                 self.dex_buttons[i].rect.y=HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT+(i-(len(self.dex_buttons)-DexUI.DEX_NUM_BUTTONS))*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS)
+        self.recolor_dex_buttons()
+        self.reset_image_box()
+
+    #move dex buttons down, jumping so new start is one after current last button
+    def jump_down(self):
+        inc=min(DexUI.DEX_NUM_BUTTONS,len(self.dex_buttons)-DexUI.DEX_NUM_BUTTONS-self.start)
+        self.start+=inc
+        self.game.dex_selection=min(self.game.dex_selection+inc,len(self.dex_buttons)-1)
+        for button in self.dex_buttons:
+             button.rect.y-=inc*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS)
         self.recolor_dex_buttons()
         self.reset_image_box()
 
