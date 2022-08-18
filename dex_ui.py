@@ -34,7 +34,7 @@ class DexUI:
 
         #box to show selected pokemon in dex from button
         img=pygame.Surface((DexUI.IMAGE_BOX_WIDTH,DexUI.IMAGE_BOX_HEIGHT))
-        self.image_box=Button(self.game,WIDTH-(WIDTH//20+WIDTH//2+WIDTH//20)-WIDTH*7//20//2,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT,img)
+        self.image_box=Button(self.game,WIDTH-(WIDTH//20+WIDTH//2+WIDTH//20)-DexUI.IMAGE_BOX_WIDTH//2,HEIGHT//2-DexUI.BORDER_BTW_BUTTONS*5//2-3*DexUI.DEX_BUTTON_HEIGHT,img)
         self.reset_image_box()
 
     #highlight selected button

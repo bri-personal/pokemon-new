@@ -636,6 +636,7 @@ class Game:
         self.screen.fill(RED)
         draw_text(self.screen,ALL_POKEMON[self.dex_selection],HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
         self.dex_info_ui.image_box.draw()
+        self.dex_info_ui.text_box.draw()
 
         pygame.display.flip()
 

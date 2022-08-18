@@ -14,7 +14,7 @@ class Pokemon_Data:
 #child classes of Pokemon_Data
 class Bulbasaur_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Bulbasaur',1,['grass','poison'],0.875,['Ability 1','Ability 2', 'ha_Ability 3'],{'Tackle':1,'Vine Whip':3},[1,2,3,4,5,6],'This is Bulbasaur')
+        Pokemon_Data.__init__(self,'Bulbasaur',1,['grass','poison'],0.875,['Ability 1','Ability 2', 'ha_Ability 3'],{'Tackle':1,'Vine Whip':3},[1,2,3,4,5,6],'This is Bulbasaur. It is the seed pokemon. Not everyone knows this, but this text now takes up multiple lines. That is cool, right.')
 
 class Ivysaur_Data(Pokemon_Data):
     def __init__(self):
