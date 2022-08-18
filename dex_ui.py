@@ -113,6 +113,19 @@ class DexUI:
         self.recolor_dex_buttons()
         self.reset_image_box()
 
+    #move dex buttons up, jumping so new start is one after current last button
+    def jump_up(self):
+        dec=min(DexUI.DEX_NUM_BUTTONS,self.start)
+        self.start-=dec
+        if dec>0:
+            self.game.dex_selection=max(self.game.dex_selection-dec,0)
+        else:
+            self.game.dex_selection=0
+        for button in self.dex_buttons:
+             button.rect.y+=dec*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS)
+        self.recolor_dex_buttons()
+        self.reset_image_box()
+
 
 
 

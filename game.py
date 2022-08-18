@@ -266,6 +266,8 @@ class Game:
                     self.dex_ui.move_up()
                 if event.key==pygame.K_RIGHT:
                     self.dex_ui.jump_down()
+                if event.key==pygame.K_LEFT:
+                    self.dex_ui.jump_up()
 
         self.screen.fill(MenuUI.MENU_COLORS[MenuUI.MENU_TEXT.index('Pokedex')])
 
