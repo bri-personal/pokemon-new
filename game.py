@@ -632,12 +632,12 @@ class Game:
                 if event.key==pygame.K_b: #B to go back to dex screen
                     self.prev_page=self.page
                     self.page=Pages.DEX
-                if event.key==pygame.K_DOWN: #arrows to move selection - fix dex info ui shows name for unseen pokemon
-                    self.dex_ui.move_down()
-                    self.dex_info_ui.setup()
+                if event.key==pygame.K_DOWN: #arrows to move selection
+                    self.dex_ui.move_down() #change selection and move dex ui buttons in background
+                    self.dex_info_ui.setup() #reset dex info ui for current selection
                 if event.key==pygame.K_UP:
-                    self.dex_ui.move_up()
-                    self.dex_info_ui.setup()
+                    self.dex_ui.move_up() #change selection and move dex ui buttons in background
+                    self.dex_info_ui.setup() #reset dex info ui for current selection
 
         self.screen.fill(RED)
         draw_text(self.screen,ALL_POKEMON[self.dex_selection] if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???',HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
