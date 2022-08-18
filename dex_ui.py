@@ -104,7 +104,10 @@ class DexUI:
     def jump_down(self):
         inc=min(DexUI.DEX_NUM_BUTTONS,len(self.dex_buttons)-DexUI.DEX_NUM_BUTTONS-self.start)
         self.start+=inc
-        self.game.dex_selection=min(self.game.dex_selection+inc,len(self.dex_buttons)-1)
+        if inc>0:
+            self.game.dex_selection=min(self.game.dex_selection+inc,len(self.dex_buttons)-1)
+        else:
+            self.game.dex_selection=len(self.dex_buttons)-1
         for button in self.dex_buttons:
              button.rect.y-=inc*(DexUI.DEX_BUTTON_HEIGHT+DexUI.BORDER_BTW_BUTTONS)
         self.recolor_dex_buttons()
