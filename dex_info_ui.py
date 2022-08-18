@@ -29,3 +29,7 @@ class DexInfoUI:
             draw_text(self.image_box.image,str(self.game.dex_selection+1),DexInfoUI.IMAGE_BOX_WIDTH//5,WHITE,self.image_box.rect.width//2,self.image_box.rect.height//2,'center')
         else:
             draw_text(self.image_box.image,'???',DexInfoUI.IMAGE_BOX_WIDTH//5,WHITE,self.image_box.rect.width//2,self.image_box.rect.height//2,'center')
+
+    #resets state when going from dex screen to dex info screen to reflect currently selected pokemon in pokedex
+    def setup(self):
+        self.reset_image_box()

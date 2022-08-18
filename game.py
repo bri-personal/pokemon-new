@@ -256,6 +256,7 @@ class Game:
                     if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0:
                         self.prev_page=self.page
                         self.page=Pages.DEX_INFO
+                        self.dex_info_ui.setup()
                 if event.key==pygame.K_b: #B to go back to menu
                     self.prev_page=self.page
                     self.page=Pages.MENU
