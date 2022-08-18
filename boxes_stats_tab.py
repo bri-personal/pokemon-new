@@ -2,7 +2,7 @@
 from settings import *
 from sprites import draw_text
 from poke_types import PokeTypes
-from pokedex import NATURES
+from pokedex import NATURES, ALL_POKEMON_DATA
 
 #tab that shows pokemon data on sidebar in boxes screen
 class BoxesStatsTab:
@@ -48,17 +48,17 @@ class BoxesStatsTab:
 
         #middle part of tab
         #species/number
-        draw_text(self.image,pokemon.species+" - No. "+"0",BoxesStatsTab.TAB_WIDTH*5//80,BLACK,BoxesStatsTab.TAB_WIDTH//40,y,'topleft')
+        draw_text(self.image,pokemon.species+" - No. "+str(ALL_POKEMON_DATA[self.pokemon.species].number),BoxesStatsTab.TAB_WIDTH*5//80,BLACK,BoxesStatsTab.TAB_WIDTH//40,y,'topleft')
 
         y+=BoxesStatsTab.TAB_WIDTH//10
 
         #types
-        pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.types[0]],(BoxesStatsTab.TAB_WIDTH//40,y,BoxesStatsTab.TAB_WIDTH//2-BoxesStatsTab.TAB_WIDTH//20,BoxesStatsTab.TAB_WIDTH*3//20))
-        pygame.draw.rect(self.image,WHITE,(BoxesStatsTab.TAB_WIDTH//20,y+BoxesStatsTab.TAB_WIDTH//40,BoxesStatsTab.TAB_WIDTH//10,BoxesStatsTab.TAB_WIDTH//10),3)
+        pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.types[0]],(BoxesStatsTab.TAB_WIDTH//40,y,BoxesStatsTab.TAB_WIDTH//2-BoxesStatsTab.TAB_WIDTH//30,BoxesStatsTab.TAB_WIDTH*3//20))
+        pygame.draw.rect(self.image,WHITE,(BoxesStatsTab.TAB_WIDTH//20,y+BoxesStatsTab.TAB_WIDTH//40,BoxesStatsTab.TAB_WIDTH//10,BoxesStatsTab.TAB_WIDTH//10),2)
         draw_text(self.image,self.pokemon.types[0].upper(),BoxesStatsTab.TAB_WIDTH*3//40,WHITE,BoxesStatsTab.TAB_WIDTH//20+BoxesStatsTab.TAB_WIDTH//10+BoxesStatsTab.TAB_WIDTH//40,y+BoxesStatsTab.TAB_WIDTH*3//40,'midleft')
         if self.pokemon.types[1] is not None: #show second type if applicable
-            pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.types[1]],(BoxesStatsTab.TAB_WIDTH//40+BoxesStatsTab.TAB_WIDTH//2,y,BoxesStatsTab.TAB_WIDTH//2-BoxesStatsTab.TAB_WIDTH//20,BoxesStatsTab.TAB_WIDTH*3//20))
-            pygame.draw.rect(self.image,WHITE,(BoxesStatsTab.TAB_WIDTH//20+BoxesStatsTab.TAB_WIDTH//2,y+BoxesStatsTab.TAB_WIDTH//40,BoxesStatsTab.TAB_WIDTH//10,BoxesStatsTab.TAB_WIDTH//10),3)
+            pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.types[1]],(BoxesStatsTab.TAB_WIDTH//50+BoxesStatsTab.TAB_WIDTH//2,y,BoxesStatsTab.TAB_WIDTH//2-BoxesStatsTab.TAB_WIDTH//30,BoxesStatsTab.TAB_WIDTH*3//20))
+            pygame.draw.rect(self.image,WHITE,(BoxesStatsTab.TAB_WIDTH//20+BoxesStatsTab.TAB_WIDTH//2,y+BoxesStatsTab.TAB_WIDTH//40,BoxesStatsTab.TAB_WIDTH//10,BoxesStatsTab.TAB_WIDTH//10),2)
             draw_text(self.image,self.pokemon.types[1].upper(),BoxesStatsTab.TAB_WIDTH*3//40,WHITE,BoxesStatsTab.TAB_WIDTH//20+BoxesStatsTab.TAB_WIDTH//10+BoxesStatsTab.TAB_WIDTH//40+BoxesStatsTab.TAB_WIDTH//2,y+BoxesStatsTab.TAB_WIDTH*3//40,'midleft')
 
         y+=BoxesStatsTab.TAB_WIDTH*3//20+BoxesStatsTab.TAB_WIDTH//20
@@ -109,7 +109,7 @@ class BoxesStatsTab:
         for i in range(4):
             if i<len(self.pokemon.moves):
                 pygame.draw.rect(self.image,PokeTypes.COLORS[self.pokemon.moves[i].type],(BoxesStatsTab.TAB_WIDTH//40,y,BoxesStatsTab.TAB_WIDTH-BoxesStatsTab.TAB_WIDTH//20,BoxesStatsTab.TAB_WIDTH*3//20))
-                pygame.draw.rect(self.image,WHITE,(BoxesStatsTab.TAB_WIDTH//20,y+BoxesStatsTab.TAB_WIDTH//40,BoxesStatsTab.TAB_WIDTH//10,BoxesStatsTab.TAB_WIDTH//10),3)
+                pygame.draw.rect(self.image,WHITE,(BoxesStatsTab.TAB_WIDTH//20,y+BoxesStatsTab.TAB_WIDTH//40,BoxesStatsTab.TAB_WIDTH//10,BoxesStatsTab.TAB_WIDTH//10),2)
                 draw_text(self.image,self.pokemon.moves[i].name,BoxesStatsTab.TAB_WIDTH*3//40,WHITE,BoxesStatsTab.TAB_WIDTH//20+BoxesStatsTab.TAB_WIDTH//10+BoxesStatsTab.TAB_WIDTH//40,y+BoxesStatsTab.TAB_WIDTH*3//40,'midleft')
             y+=BoxesStatsTab.TAB_WIDTH//20+BoxesStatsTab.TAB_WIDTH//10+BoxesStatsTab.TAB_WIDTH//40
 
