@@ -50,9 +50,10 @@ class Blastoise_Data(Pokemon_Data):
 
 class Pikachu_Data(Pokemon_Data):
     def  __init__(self):
-        Pokemon_Data.__init__(self,'Pikachu',10,['electric',None],0.875,['Ability 10','Ability 11','ha_Ability 12'],{'Tackle':1,'Nuzzle':3},[1,2,3,4,5,6],'This is Pikachu, the Pokemon mascot. It is loved by fans across the world.')
+        Pokemon_Data.__init__(self,'Pikachu',10,['electric',None],0.875,['Ability 10','Ability 11','ha_Ability 12'],{'Quick Attack':1,'Thunder Shock':1},[1,2,3,4,5,6],'This is Pikachu, the Pokemon mascot. It is loved by fans across the world.')
 
 #dictionary matching species strings to respective pokemon_data child class
+#to add pokemon, create new #_Data class inheriting Pokemon_Data, add it to ALL_POKEMON_DATA dict, add any new moves to ALL_MOVES in move.py
 ALL_POKEMON_DATA={'Bulbasaur':Bulbasaur_Data(),
                   'Ivysaur':Ivysaur_Data(),
                   'Venusaur':Venusaur_Data(),

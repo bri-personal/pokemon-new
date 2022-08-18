@@ -10,11 +10,12 @@ class Move:
 
 #dictionary of all move names matched to respective move objects
 #for now, priority=0 for all of them but change later
-ALL_MOVES={'Tackle':   Move('Tackle',  'normal',40,1,35,56,0),
-           'Vine Whip':Move('Vine Whip','grass',45,1,25,40,0),
-           'Ember':    Move('Ember',     'fire',40,1,25,40,0),
-           'Water Gun':Move('Water Gun','water',40,1,25,40,0),
-           'Nuzzle':   Move('Nuzzle','electric',30,1,25,40,0) #???
+ALL_MOVES={'Tackle':        Move('Tackle',  'normal',40,1,35,56,0),
+           'Quick Attack':  Move('Quick Attack',  'normal',40,1,35,56,0),
+           'Vine Whip':     Move('Vine Whip','grass',45,1,25,40,0),
+           'Ember':         Move('Ember',     'fire',40,1,25,40,0),
+           'Water Gun':     Move('Water Gun','water',40,1,25,40,0),
+           'Thunder Shock': Move('Thunder Shock','electric',40,1,40,48,0)
           }
 
 
