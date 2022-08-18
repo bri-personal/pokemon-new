@@ -50,6 +50,7 @@ class Game:
             self.player.catch(Pokemon('Bulbasaur',6))
             self.player.catch(Pokemon('Charmander',6))
             self.player.catch(Pokemon('Squirtle',6))
+            self.player.catch(Pokemon('Pikachu',6))
 #
 #        print(self.player.party)
 #        print(self.player.boxes)
@@ -650,8 +651,28 @@ class Game:
                     self.dex_info_ui.setup() #reset dex info ui for current selection
 
         self.screen.fill(RED)
+        
+        #write name
         draw_text(self.screen,ALL_POKEMON[self.dex_selection] if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???',HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
+        
+        #draw type(s)
+        if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0:
+            if ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[1] is None:
+                pygame.draw.rect(self.screen,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0]],(WIDTH*7//10-WIDTH//16,HEIGHT//6+HEIGHT//10+HEIGHT//40,WIDTH//8,HEIGHT//20))
+                pygame.draw.rect(self.screen,WHITE,(WIDTH*7//10-WIDTH//16+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+WIDTH//200,WIDTH//40,WIDTH//40),2)
+                draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0].upper(),HEIGHT//30,WHITE,WIDTH*7//10-WIDTH//16+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40,'midleft')
+            else:
+                pygame.draw.rect(self.screen,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0]],(WIDTH*7//10-WIDTH//8-WIDTH//100,HEIGHT//6+HEIGHT//10+HEIGHT//40,WIDTH//8,HEIGHT//20))
+                pygame.draw.rect(self.screen,WHITE,(WIDTH*7//10-WIDTH//8-WIDTH//100+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+WIDTH//200,WIDTH//40,WIDTH//40),2)
+                draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0].upper(),HEIGHT//30,WHITE,WIDTH*7//10-WIDTH//8-WIDTH//100+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40,'midleft')
+                pygame.draw.rect(self.screen,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[1]],(WIDTH*7//10+WIDTH//100,HEIGHT//6+HEIGHT//10+HEIGHT//40,WIDTH//8,HEIGHT//20))
+                pygame.draw.rect(self.screen,WHITE,(WIDTH*7//10+WIDTH//100+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+WIDTH//200,WIDTH//40,WIDTH//40),2)
+                draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[1].upper(),HEIGHT//30,WHITE,WIDTH*7//10+WIDTH//100+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40,'midleft')
+        
+         #draw num seen/caught
         draw_text(self.screen,"Seen: "+str(self.player.dex[ALL_POKEMON[self.dex_selection]][0])+" - Caught: "+str(self.player.dex[ALL_POKEMON[self.dex_selection]][1]),HEIGHT//30,WHITE,WIDTH*7//10,HEIGHT//2-HEIGHT//20,'midtop')
+        
+        #draw boxes
         self.dex_info_ui.image_box.draw()
         self.dex_info_ui.text_box.draw()
 

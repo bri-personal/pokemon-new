@@ -13,7 +13,8 @@ class Move:
 ALL_MOVES={'Tackle':   Move('Tackle',  'normal',40,1,35,56,0),
            'Vine Whip':Move('Vine Whip','grass',45,1,25,40,0),
            'Ember':    Move('Ember',     'fire',40,1,25,40,0),
-           'Water Gun':Move('Water Gun','water',40,1,25,40,0)
+           'Water Gun':Move('Water Gun','water',40,1,25,40,0),
+           'Nuzzle':   Move('Nuzzle','electric',30,1,25,40,0) #???
           }
 
 

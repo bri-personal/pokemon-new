@@ -48,6 +48,9 @@ class Blastoise_Data(Pokemon_Data):
     def __init__(self):
         Pokemon_Data.__init__(self,'Blastoise',9,['water',None],0.875,['Ability 7','Ability 8', 'ha_Ability 9'],{'Tackle':1,'Water Gun':3},[1,2,3,4,5,6],'This is Blastoise')
 
+class Pikachu_Data(Pokemon_Data):
+    def  __init__(self):
+        Pokemon_Data.__init__(self,'Pikachu',10,['electric',None],0.875,['Ability 10','Ability 11','ha_Ability 12'],{'Tackle':1,'Nuzzle':3},[1,2,3,4,5,6],'This is Pikachu, the Pokemon mascot. It is loved by fans across the world.')
 
 #dictionary matching species strings to respective pokemon_data child class
 ALL_POKEMON_DATA={'Bulbasaur':Bulbasaur_Data(),
@@ -58,7 +61,8 @@ ALL_POKEMON_DATA={'Bulbasaur':Bulbasaur_Data(),
                   'Charizard':Charizard_Data(),
                   'Squirtle':Squirtle_Data(),
                   'Wartortle':Wartortle_Data(),
-                  'Blastoise':Blastoise_Data()
+                  'Blastoise':Blastoise_Data(),
+                  'Pikachu':Pikachu_Data()
                  }
 
 ALL_POKEMON=list(ALL_POKEMON_DATA)
