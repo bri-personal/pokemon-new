@@ -56,8 +56,10 @@ class DexInfoUI:
         text_lines=[]
         line=''
         word=''
-        while len(text)>0:
-            if text[0]==' ':
+        while len(text)>0: #while there is still text to be parsed
+            #for spaces, check if word fits with space. if so, add it. if it fits but only without space, add word and move to next line
+            # if word doesn't fit with or without space, go to next line and add current word
+            if text[0]==' ': 
                 if len(line)+len(word)+1<limit:
                     word+=text[0]
                     text=text[1:]
@@ -75,6 +77,8 @@ class DexInfoUI:
                     text=text[1:]
                     line=word
                     word=''
+            #for punctuation, check if word fits with punctuation. if so, add it.
+            # if word doesn't fit, go to next line and add current word
             elif text[0]=='.' or text[0]==',':
                 if len(line)+len(word)+1<limit:
                     word+=text[0]
@@ -87,9 +91,11 @@ class DexInfoUI:
                     text=text[1:]
                     line=word
                     word=''
-            else:
+            else: #add letter to current word
                 word+=text[0]
                 text=text[1:]
+
+        #add any extra word/line
         if word!='':
             line+=word
         if line!='':
