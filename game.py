@@ -642,6 +642,12 @@ class Game:
                 if event.key==pygame.K_UP:
                     self.dex_ui.move_up() #change selection and move dex ui buttons in background
                     self.dex_info_ui.setup() #reset dex info ui for current selection
+                if event.key==pygame.K_RIGHT:
+                    self.dex_ui.jump_down() #change selection and move dex ui buttons in background
+                    self.dex_info_ui.setup() #reset dex info ui for current selection
+                if event.key==pygame.K_LEFT:
+                    self.dex_ui.jump_up() #change selection and move dex ui buttons in background
+                    self.dex_info_ui.setup() #reset dex info ui for current selection
 
         self.screen.fill(RED)
         draw_text(self.screen,ALL_POKEMON[self.dex_selection] if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???',HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
