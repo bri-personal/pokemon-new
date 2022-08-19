@@ -79,6 +79,7 @@ class BoxesStatsTab:
                 text+=' ↓'
             else:
                 color=BLACK
+            text+=' ('+self.get_IV_level(self.pokemon.ivs[i])+')'
             draw_text(self.image,text,BoxesStatsTab.TAB_WIDTH*5//80,color,BoxesStatsTab.TAB_WIDTH//40,y,'topleft')
             y+=BoxesStatsTab.TAB_WIDTH*5//80+BoxesStatsTab.TAB_WIDTH//40
 
@@ -117,4 +118,17 @@ class BoxesStatsTab:
         for i in range(6):
             pygame.draw.rect(self.image,LIGHT_GRAY,(BoxesStatsTab.TAB_WIDTH//2-3*BoxesStatsTab.TAB_WIDTH//20-5*BoxesStatsTab.TAB_WIDTH//40//2+i*(BoxesStatsTab.TAB_WIDTH//20+BoxesStatsTab.TAB_WIDTH//40),y,BoxesStatsTab.TAB_WIDTH//20,BoxesStatsTab.TAB_WIDTH//20))
 
-        
+    #return string for IV level of stat
+    def get_IV_level(self,iv: int):
+        if iv==0:
+            return 'No Good'
+        elif iv<=10:
+            return 'Decent'
+        elif iv<=20:
+            return 'Pretty Good'
+        elif iv<=29:
+            return 'Very Good'
+        elif iv==30:
+            return 'Fantastic'
+        else:
+            return 'Best'
