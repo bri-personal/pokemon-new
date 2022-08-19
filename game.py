@@ -654,20 +654,21 @@ class Game:
         
         #write name
         draw_text(self.screen,ALL_POKEMON[self.dex_selection] if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???',HEIGHT//10,WHITE,WIDTH*7//10,HEIGHT//6,'midtop')
-        
+        draw_text(self.screen, "The "+(ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].category if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???')+" Pokemon",HEIGHT//30,WHITE,WIDTH*7//10,HEIGHT//6+HEIGHT//10,'midtop')
+
         #draw type(s)
         if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0:
             if ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[1] is None:
-                pygame.draw.rect(self.screen,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0]],(WIDTH*7//10-WIDTH//16,HEIGHT//6+HEIGHT//10+HEIGHT//40,WIDTH//8,HEIGHT//20))
-                pygame.draw.rect(self.screen,WHITE,(WIDTH*7//10-WIDTH//16+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+WIDTH//200,WIDTH//40,WIDTH//40),2)
-                draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0].upper(),HEIGHT//30,WHITE,WIDTH*7//10-WIDTH//16+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40,'midleft')
+                pygame.draw.rect(self.screen,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0]],(WIDTH*7//10-WIDTH//16,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//30,WIDTH//8,HEIGHT//20))
+                pygame.draw.rect(self.screen,WHITE,(WIDTH*7//10-WIDTH//16+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+WIDTH//200+HEIGHT//30,WIDTH//40,WIDTH//40),2)
+                draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0].upper(),HEIGHT//30,WHITE,WIDTH*7//10-WIDTH//16+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40+HEIGHT//30,'midleft')
             else:
-                pygame.draw.rect(self.screen,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0]],(WIDTH*7//10-WIDTH//8-WIDTH//100,HEIGHT//6+HEIGHT//10+HEIGHT//40,WIDTH//8,HEIGHT//20))
-                pygame.draw.rect(self.screen,WHITE,(WIDTH*7//10-WIDTH//8-WIDTH//100+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+WIDTH//200,WIDTH//40,WIDTH//40),2)
-                draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0].upper(),HEIGHT//30,WHITE,WIDTH*7//10-WIDTH//8-WIDTH//100+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40,'midleft')
-                pygame.draw.rect(self.screen,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[1]],(WIDTH*7//10+WIDTH//100,HEIGHT//6+HEIGHT//10+HEIGHT//40,WIDTH//8,HEIGHT//20))
-                pygame.draw.rect(self.screen,WHITE,(WIDTH*7//10+WIDTH//100+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+WIDTH//200,WIDTH//40,WIDTH//40),2)
-                draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[1].upper(),HEIGHT//30,WHITE,WIDTH*7//10+WIDTH//100+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40,'midleft')
+                pygame.draw.rect(self.screen,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0]],(WIDTH*7//10-WIDTH//8-WIDTH//100,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//30,WIDTH//8,HEIGHT//20))
+                pygame.draw.rect(self.screen,WHITE,(WIDTH*7//10-WIDTH//8-WIDTH//100+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+WIDTH//200+HEIGHT//30,WIDTH//40,WIDTH//40),2)
+                draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[0].upper(),HEIGHT//30,WHITE,WIDTH*7//10-WIDTH//8-WIDTH//100+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40+HEIGHT//30,'midleft')
+                pygame.draw.rect(self.screen,PokeTypes.COLORS[ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[1]],(WIDTH*7//10+WIDTH//100,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//30,WIDTH//8,HEIGHT//20))
+                pygame.draw.rect(self.screen,WHITE,(WIDTH*7//10+WIDTH//100+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+WIDTH//200+HEIGHT//30,WIDTH//40,WIDTH//40),2)
+                draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[1].upper(),HEIGHT//30,WHITE,WIDTH*7//10+WIDTH//100+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40+HEIGHT//30,'midleft')
         
         #write height/weight
         draw_text(self.screen,"Height: "+(str(ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].height)+" m" if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???'),HEIGHT//30,WHITE,WIDTH*7//10,HEIGHT//6+HEIGHT//4-HEIGHT//30,'midtop')
