@@ -671,8 +671,8 @@ class Game:
                 draw_text(self.screen,ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].types[1].upper(),HEIGHT//30,WHITE,WIDTH*7//10+WIDTH//100+WIDTH//200+WIDTH//40+WIDTH//200,HEIGHT//6+HEIGHT//10+HEIGHT//40+HEIGHT//40+HEIGHT//30,'midleft')
         
         #write height/weight
-        draw_text(self.screen,"Height: "+(str(ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].height)+" m" if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???'),HEIGHT//30,WHITE,WIDTH*7//10,HEIGHT//6+HEIGHT//4-HEIGHT//30,'midtop')
-        draw_text(self.screen,"Weight: "+(str(ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].weight)+" kg" if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???'),HEIGHT//30,WHITE,WIDTH*7//10,HEIGHT//6+HEIGHT//4,'midtop')
+        draw_text(self.screen,"Height: "+(str(ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].height) if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???')+" m",HEIGHT//30,WHITE,WIDTH*7//10,HEIGHT//6+HEIGHT//4-HEIGHT//30,'midtop')
+        draw_text(self.screen,"Weight: "+(str(ALL_POKEMON_DATA[ALL_POKEMON[self.dex_selection]].weight) if self.player.dex[ALL_POKEMON[self.dex_selection]][0]>0 else '???')+" kg",HEIGHT//30,WHITE,WIDTH*7//10,HEIGHT//6+HEIGHT//4,'midtop')
 
         #draw num seen/caught
         draw_text(self.screen,"Seen: "+str(self.player.dex[ALL_POKEMON[self.dex_selection]][0])+" - Caught: "+str(self.player.dex[ALL_POKEMON[self.dex_selection]][1]),HEIGHT//30,WHITE,WIDTH*7//10,HEIGHT//2-HEIGHT//20,'midtop')
