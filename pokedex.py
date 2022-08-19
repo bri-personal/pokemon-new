@@ -1,7 +1,7 @@
 #Parent class to store game data for all pokemon
 ##child classes inherit this and fill attributes, which can be called through Pokedex class's DEX attribute
 class Pokemon_Data:
-    def __init__(self,species: str,number: int,types: list[str],gender_ratio:float,abilities:list[str],moveset:dict[int,str],base_stats:list[int],entry:str):
+    def __init__(self,species: str,number: int,types: list[str],gender_ratio:float,abilities:list[str],moveset:dict[int,str],base_stats:list[int],height:float,weight:float,entry:str):
         self.species=species #species string, same as name of child class
         self.number=number #pokedex number, determined by index of child class in ALL_POKEMON_DATA
         self.types=types #types, list of strings
@@ -10,47 +10,49 @@ class Pokemon_Data:
         self.moveset=moveset #dictionary matching move strings to level they are learned at, retrieved from moves dictionary
         self.base_stats=base_stats #list of ints for base stats
         self.pokedex_entry=entry #string of pokedex entry
+        self.height=height #float, height in meters
+        self.weight=weight #float, weight in kg
 
 #child classes of Pokemon_Data
 class Bulbasaur_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Bulbasaur',1,['grass','poison'],0.875,['Ability 1','Ability 2', 'ha_Ability 3'],{'Tackle':1,'Vine Whip':3},[1,2,3,4,5,6],'This is Bulbasaur. It is the seed pokemon. Not everyone knows this, but this text now takes up multiple lines. That is cool, right.')
+        Pokemon_Data.__init__(self,'Bulbasaur',1,['grass','poison'],0.875,['Ability 1','Ability 2', 'ha_Ability 3'],{'Tackle':1,'Vine Whip':3},[1,2,3,4,5,6],0.7,6.9,'This is Bulbasaur. It is the seed pokemon. Not everyone knows this, but this text now takes up multiple lines. That is cool, right.')
 
 class Ivysaur_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Ivysaur',2,['grass','poison'],0.875,['Ability 1','Ability 2', 'ha_Ability 3'],{'Tackle':1,'Vine Whip':3},[1,2,3,4,5,6],'This is Ivysaur')
+        Pokemon_Data.__init__(self,'Ivysaur',2,['grass','poison'],0.875,['Ability 1','Ability 2', 'ha_Ability 3'],{'Tackle':1,'Vine Whip':3},[1,2,3,4,5,6],1.0,13.0,'This is Ivysaur')
 
 class Venusaur_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Venusaur',3,['grass','poison'],0.875,['Ability 1','Ability 2', 'ha_Ability 3'],{'Tackle':1,'Vine Whip':3},[1,2,3,4,5,6],'This is Venusaur')
+        Pokemon_Data.__init__(self,'Venusaur',3,['grass','poison'],0.875,['Ability 1','Ability 2', 'ha_Ability 3'],{'Tackle':1,'Vine Whip':3},[1,2,3,4,5,6],2.0,100.0,'This is Venusaur')
 
 class Charmander_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Charmander',4,['fire',None],0.875,['Ability 4','Ability 5', 'ha_Ability 6'],{'Tackle':1,'Ember':3},[1,2,3,4,5,6],'This is Charmander')
+        Pokemon_Data.__init__(self,'Charmander',4,['fire',None],0.875,['Ability 4','Ability 5', 'ha_Ability 6'],{'Tackle':1,'Ember':3},[1,2,3,4,5,6],0.6,8.5,'This is Charmander')
 
 class Charmeleon_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Charmeleon',5,['fire',None],0.875,['Ability 4','Ability 5', 'ha_Ability 6'],{'Tackle':1,'Ember':3},[1,2,3,4,5,6],'This is Charmeleon')
+        Pokemon_Data.__init__(self,'Charmeleon',5,['fire',None],0.875,['Ability 4','Ability 5', 'ha_Ability 6'],{'Tackle':1,'Ember':3},[1,2,3,4,5,6],1.1,19.0,'This is Charmeleon')
 
 class Charizard_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Charizard',6,['fire','flying'],0.875,['Ability 4','Ability 5', 'ha_Ability 6'],{'Tackle':1,'Ember':3},[1,2,3,4,5,6],'This is Charizard')
+        Pokemon_Data.__init__(self,'Charizard',6,['fire','flying'],0.875,['Ability 4','Ability 5', 'ha_Ability 6'],{'Tackle':1,'Ember':3},[1,2,3,4,5,6],1.7,90.5,'This is Charizard')
 
 class Squirtle_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Squirtle',7,['water',None],0.875,['Ability 7','Ability 8', 'ha_Ability 9'],{'Tackle':1,'Water Gun':3},[1,2,3,4,5,6],'This is Squirtle')
+        Pokemon_Data.__init__(self,'Squirtle',7,['water',None],0.875,['Ability 7','Ability 8', 'ha_Ability 9'],{'Tackle':1,'Water Gun':3},[1,2,3,4,5,6],0.5,9.0,'This is Squirtle')
 
 class Wartortle_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Wartortle',8,['water',None],0.875,['Ability 7','Ability 8', 'ha_Ability 9'],{'Tackle':1,'Water Gun':3},[1,2,3,4,5,6],'This is Wartortle')
+        Pokemon_Data.__init__(self,'Wartortle',8,['water',None],0.875,['Ability 7','Ability 8', 'ha_Ability 9'],{'Tackle':1,'Water Gun':3},[1,2,3,4,5,6],1.0,22.5,'This is Wartortle')
 
 class Blastoise_Data(Pokemon_Data):
     def __init__(self):
-        Pokemon_Data.__init__(self,'Blastoise',9,['water',None],0.875,['Ability 7','Ability 8', 'ha_Ability 9'],{'Tackle':1,'Water Gun':3},[1,2,3,4,5,6],'This is Blastoise')
+        Pokemon_Data.__init__(self,'Blastoise',9,['water',None],0.875,['Ability 7','Ability 8', 'ha_Ability 9'],{'Tackle':1,'Water Gun':3},[1,2,3,4,5,6],1.6,85.5,'This is Blastoise')
 
 class Pikachu_Data(Pokemon_Data):
     def  __init__(self):
-        Pokemon_Data.__init__(self,'Pikachu',10,['electric',None],0.875,['Ability 10','Ability 11','ha_Ability 12'],{'Quick Attack':1,'Thunder Shock':1},[1,2,3,4,5,6],'This is Pikachu, the Pokemon mascot. It is loved by fans across the world.')
+        Pokemon_Data.__init__(self,'Pikachu',10,['electric',None],0.875,['Ability 10','Ability 11','ha_Ability 12'],{'Quick Attack':1,'Thunder Shock':1},[1,2,3,4,5,6],0.4,6.0,'This is Pikachu, the Pokemon mascot. It is loved by fans across the world.')
 
 #dictionary matching species strings to respective pokemon_data child class
 #to add pokemon, create new #_Data class inheriting Pokemon_Data, add it to ALL_POKEMON_DATA dict, add any new moves to ALL_MOVES in move.py
